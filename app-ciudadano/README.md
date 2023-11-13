@@ -1,4 +1,4 @@
-# Construtrack - Aplicación Backend
+# App ciudadano - Aplicación Backend
 
 ## Ejecutar servidor en modo desarrollo
 
