@@ -764,9 +764,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"app-seguridad-back@workspace:.":
+"app-agente-back@workspace:.":
   version: 0.0.0-use.local
-  resolution: "app-seguridad-back@workspace:."
+  resolution: "app-agente-back@workspace:."
   dependencies:
     "@prisma/client": "npm:latest"
     "@types/bcryptjs": "npm:^2.4.5"
