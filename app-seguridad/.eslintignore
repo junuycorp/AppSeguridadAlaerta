@@ -1,0 +1,14 @@
+# Distribution file
+dist
+
+# Generated files
+node_modules
+.yarn
+
+# Other files
+.vscode
+public
+temp
+
+# File configs
+*.config.js

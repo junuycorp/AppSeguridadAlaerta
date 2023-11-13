@@ -1,0 +1,55 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+components:
+  schemas:
+    RegistrarInput:
+      type: object
+      properties:
+        numeroDocumento: 
+          type: string
+          example: 76543210
+        correo: 
+          type: string
+          example: tester@test.com
+        contrasenia: 
+          type: string
+          example: Strong$Password
+        numeroCelular: 
+          type: string
+          example: 987654321
+    RegistrarOutput:
+      type: object
+      properties:
+        mensaje:
+          type: string
+          example: 'Cuenta creada correctamente'
+paths:
+  /autenticacion/registrar:
+    post:
+      tags:
+        - Autenticación
+      summary: Registrar usuario
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/RegistrarInput'
+      responses:
+        200:
+          description: Creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrarOutput'
+        400:
+          description: Solicitud incorrecta
+        404:
+          description: Persona no se encontraba en Base de Datos
+        409:
+          description: Conflicto con valores únicos

@@ -1,0 +1,53 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+components:  
+  schemas:
+    EnviarCodigoInput:
+      type: object
+      properties:
+        opcion: 
+          type: string
+        destino: 
+          type: string
+    EnviarCodigoOutput:
+      type: object
+      properties:
+        mensaje: 
+          type: string
+          example: El código fue enviado correctamente
+
+paths:
+  /autenticacion/enviar-codigo:
+    post:
+      tags:
+        - Autenticación
+      summary: Enviar código de verificación
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/EnviarCodigoInput'          
+            examples:
+              Enviar por correo:
+                value:
+                  opcion: correo
+                  destino: test@test.com
+              Enviar por sms:
+                value:
+                  opcion: sms
+                  destino: 987654321
+      responses:
+        200:
+          description: Creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnviarCodigoOutput'
+        400:
+          description: Solicitud incorrecta

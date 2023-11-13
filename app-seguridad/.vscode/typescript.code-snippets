@@ -1,0 +1,87 @@
+{
+  "Import express": {
+    "prefix": "qimpexp",
+    "description": "Import express types",
+    "scope": "typescript",
+    "body": "import type { Request, Response, NextFunction } from 'express'"
+  },
+  "DTO template": {
+    "prefix": "qdto",
+    "description": "DTO template",
+    "scope": "typescript",
+    "body": [
+      "import type { Flexible } from '@shared/types'\n",
+      "export class ${TM_FILENAME/([^.]+).*/${1:/pascalcase}/}Dto {",
+      "\tprivate constructor(public ${2:value}: string) {}\n",
+      "\tstatic crear(object: Record<string, unknown>): [string?, ${TM_FILENAME/([^.]+).*/${1:/pascalcase}/}Dto?] {",
+      "\t\tconst { ${2:value} } = object as Flexible<${TM_FILENAME/([^.]+).*/${1:/pascalcase}/}Dto>\n",
+      "\t\tif (${2:value} == null) return ['Falta proporcionar ${2:value}']\n",
+      "\t\treturn [undefined, new ${TM_FILENAME/([^.]+).*/${1:/pascalcase}/}Dto(${2:value})]",
+      "\t}",
+      "}"
+    ]
+  },
+  "DTO CRUD template": {
+    "prefix": "qdtocrud",
+    "description": "DTO template for CRUD",
+    "scope": "typescript",
+    "body": [
+      "import type { Flexible } from '@shared/types'",
+      "import { toNumber } from '@shared/helpers'\n",
+      "export interface Estado${TM_FILENAME/(crud-)?([^.]+).*/${2:/pascalcase}/}Dto {",
+      "\t${2:id}: number",
+      "\testadoRegistro: boolean",
+      "}\n",
+      "export class ${TM_FILENAME/([^.]+).*/${1:/pascalcase}/}Dto {",
+      "\tprivate constructor(public ${1:value}: string) {}\n",
+      "\tstatic crear(object: Record<string, unknown>): [string?, ${TM_FILENAME/([^.]+).*/${1:/pascalcase}/}Dto?] {",
+      "\t\tconst { ${1:value} } = object as Flexible<${TM_FILENAME/([^.]+).*/${1:/pascalcase}/}Dto>\n",
+      "\t\tif (${1:value} == null) return ['Falta proporcionar ${1:value}']\n",
+      "\t\treturn [undefined, new ${TM_FILENAME/([^.]+).*/${1:/pascalcase}/}Dto(${1:value})]",
+      "\t}\n",
+      "\tstatic obtenerId(object: Record<string, string | number | undefined >): [string?, number?] {",
+      "\t\tconst ${2:id} = object.${2:id}\n",
+      "\t\tif (${2:id} == null) return ['Falta proporcionar ID']\n",
+      "\t\treturn [undefined, toNumber(${2:id}, 'ID')]",
+      "\t}\n",
+      "\tstatic obtenerEstado(object: Record<string, unknown>): [string?, Estado${TM_FILENAME/(crud-)?([^.]+).*/${2:/pascalcase}/}Dto?] {",
+      "\t\tconst { ${2:id}, estadoRegistro } = object as Flexible<Estado${TM_FILENAME/(crud-)?([^.]+).*/${2:/pascalcase}/}Dto>\n",
+      "\t\tif (estadoRegistro == null) return ['Falta proporcionar estado']",
+      "\t\tif (${2:id} == null) return ['Falta proporcionar ${2:id}']\n",
+      "\t\treturn [undefined, { ${2:id}: toNumber(${2:id}, 'ID'), estadoRegistro }]",
+      "\t}",
+      "}\n"
+    ]
+  },
+  "Controller template": {
+    "prefix": "qcont",
+    "description": "Template controller",
+    "scope": "typescript",
+    "body": [
+      "export const $1 = (req: Request, res: Response, next: NextFunction): void => {",
+      "\tconst [error, dto] = ${1/(.*)/${1:/pascalcase}/}Dto.crear(req.body)",
+      "\tif (error != null) {",
+      "\t\tres.status(400).json({ mensaje: error })",
+      "\t\treturn",
+      "\t}",
+      "\t$1UseCase(dto!)",
+      "\t\t.then((resp) => res.json(resp))",
+      "\t\t.catch((error) => {",
+      "\t\t\tnext(error)",
+      "\t\t})",
+      "}"
+    ]
+  },
+  "Routes template": {
+    "prefix": "qroute",
+    "description": "Template routes",
+    "scope": "typescript",
+    "body": [
+      "import { Router } from 'express'",
+      "import { ${1:controller} } from './${TM_FILENAME/([^.]+).*$/$1/}.controller'\n",
+      "const router = Router()\n",
+      "router.get('/${2:endpoint}', ${1:controller})\n",
+      "export default router"
+    ]
+  }
+}
