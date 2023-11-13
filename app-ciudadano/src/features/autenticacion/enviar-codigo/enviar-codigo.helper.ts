@@ -4,7 +4,7 @@ export const enviarCodigoPorCorreo = async (
   emailDestino: string,
   codigoVerificacion: string,
 ): Promise<void> => {
-  const asunto = 'ConstruTrack - Código de verificación'
+  const asunto = 'App Alerta - Código de verificación'
   const html = `<p>Su código de verificación es ${codigoVerificacion}. No comparta este código con nadie</p>`
   await emailSenderAdapter.sendEmail(emailDestino, asunto, html)
 }

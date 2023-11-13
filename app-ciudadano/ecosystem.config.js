@@ -3,7 +3,7 @@ require('dotenv').config()
 
 module.exports = {
   apps : [{
-    name   : `construtrack-back-${process.env.PORT}`,
+    name   : `alerta-ciudadano-back-${process.env.PORT}`,
     script : "yarn",
     args: "deploy"
   }]

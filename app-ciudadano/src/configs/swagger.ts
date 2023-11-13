@@ -7,9 +7,9 @@ const options: swaggerJSDoc.Options = {
   definition: {
     openapi: '3.0.2',
     info: {
-      title: 'REST API - ConstruTrack',
+      title: 'REST API - AppCiudadano',
       version: '1.0.0',
-      description: 'Documentación de los endpoints de ConstruTrack',
+      description: 'Documentación de los endpoints de AppCiudadano',
     },
     components: {
       securitySchemes: {
