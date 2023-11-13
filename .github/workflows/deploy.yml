@@ -24,11 +24,19 @@ jobs:
           script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            cd ~/Desktop/construtrack/back
+            cd ~/Desktop/alerta-seguridad/back
             git fetch
             git checkout main
             git pull
+
+            cd app-agente
             yarn install
             yarn db:migrate
             pm2 reload ecosystem.config.js
+            cd ..
+            cd app-ciudadano
+            yarn install
+            yarn db:migrate
+            pm2 reload ecosystem.config.js
+
             exit

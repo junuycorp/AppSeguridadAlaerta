@@ -4,7 +4,7 @@ require('dotenv').config()
 module.exports = {
   apps: [
     {
-      name: `alerta-ciudadano-back-${process.env.PORT}`,
+      name: `alerta-agente-back-${process.env.PORT}`,
       script: 'yarn',
       args: 'deploy',
       interpreter: 'node@20.9.0',

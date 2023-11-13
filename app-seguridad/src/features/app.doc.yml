@@ -1,6 +1,0 @@
-# Ordenamiento de funcionalidades de la documentación
-tags:
-  - name: Autenticación
-    description: Registro y acceso al sistema
-  - name: Servicios
-    description: Consultas de información a servicios externos
