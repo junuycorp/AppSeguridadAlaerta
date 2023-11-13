@@ -1,5 +1,5 @@
 {
-  "name": "app-ciudadano-back",
+  "name": "app-agente-back",
   "packageManager": "yarn@4.0.1",
   "version": "1.0.0",
   "scripts": {
@@ -11,7 +11,7 @@
     "db:client": "prisma generate",
     "db:migrate": "prisma migrate deploy && yarn db:client",
     "db:migrate:dev": "prisma migrate dev",
-    "postinstall": "cd .. && husky install app-ciudadano/.husky",
+    "postinstall": "cd .. && husky install app-seguridad/.husky",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable"
   },

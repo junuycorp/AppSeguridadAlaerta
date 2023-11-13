@@ -7,9 +7,9 @@ const options: swaggerJSDoc.Options = {
   definition: {
     openapi: '3.0.2',
     info: {
-      title: 'REST API - AppCiudadano',
+      title: 'REST API - AppAgente',
       version: '1.0.0',
-      description: 'Documentación de los endpoints de AppCiudadano',
+      description: 'Documentación de los endpoints de AppAgente',
     },
     components: {
       securitySchemes: {
