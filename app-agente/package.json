@@ -1,6 +1,6 @@
 {
   "name": "app-agente-back",
-  "packageManager": "yarn@4.0.1",
+  "packageManager": "yarn@4.0.2",
   "version": "1.0.0",
   "scripts": {
     "dev": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register --respawn --clear ./src/main.ts",
