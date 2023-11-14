@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# Go to project
+cd ./app-agente
+
 # Get local branch name
 local_branch_name="$(git rev-parse --abbrev-ref HEAD)"
 echo $branch
