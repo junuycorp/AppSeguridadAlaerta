@@ -11,6 +11,7 @@ async function main(): Promise<void> {
     routes: appRouter,
     environment: envs.NODE_ENV as Environment,
   }
+
   void new Server(configServer).start()
 }
 
