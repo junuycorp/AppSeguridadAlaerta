@@ -14,6 +14,7 @@ async function main(): Promise<void> {
 
   void new Server(configServer).start()
 }
+
 // Iniciar
 ;(() => {
   void main()
