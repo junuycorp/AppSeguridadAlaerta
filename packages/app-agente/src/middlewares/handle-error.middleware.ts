@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express'
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@/database'
 import { logger } from '@/configs'
 import { CustomError } from '@/errors'
 import { AxiosError } from 'axios'

@@ -6,6 +6,7 @@
     "packages/*"
   ],
   "scripts": {
+    "lint": "eslint . --ext ts --fix",
     "postinstall": "husky install"
   },
   "devDependencies": {
@@ -23,6 +24,6 @@
     "typescript": "*"
   },
   "lint-staged": {
-    "**/*.{js,ts}": "eslint"
+    "**/*.{js,ts}": "eslint --fix"
   }
 }

@@ -19,7 +19,12 @@ if ! echo "$local_branch_name" | grep -qE "$valid_branch_regex"; then
 fi
 
 # Run linting verification
-# yarn lint-staged --config package.json --no-stash
+if yarn lint-staged --config package.json --quiet; then
+  echo "Linting passed successfully."
+else
+  echo "Linting failed. There are issues in your code. Check the Git log to identify and fix any issues before committing."
+  exit 1
+fi
 
 # Correct
 exit 0

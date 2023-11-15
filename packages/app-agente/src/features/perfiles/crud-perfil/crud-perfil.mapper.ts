@@ -1,4 +1,4 @@
-import type { Perfil } from '@prisma/client'
+import type { Perfil } from '@/database'
 
 type PerfilMapper = Omit<Perfil, 'fechaCreacion' | 'fechaModificacion'>
 

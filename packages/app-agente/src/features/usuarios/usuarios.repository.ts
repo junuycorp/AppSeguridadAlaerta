@@ -1,5 +1,5 @@
 import { prisma } from '@/database'
-import type { CuentaUsuario, Prisma } from '@prisma/client'
+import type { CuentaUsuario, Prisma } from '@/database'
 
 type CrearUsuario = Prisma.CuentaUsuarioUncheckedCreateInput
 type ActualizarUsuario = Prisma.CuentaUsuarioUncheckedUpdateInput
