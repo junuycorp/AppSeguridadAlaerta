@@ -19,8 +19,8 @@ model Configuracion {
 model CuentaUsuario {
   nroDocumento       String   @id @map("nro_documento") @db.VarChar(20)
   contrasena         String   @db.VarChar(128)
-  correo             String   @unique @db.VarChar(35)
-  numeroCelular      String   @unique @map("numero_celular") @db.VarChar(11)
+  correo             String?  @unique @db.VarChar(35)
+  numeroCelular      String?  @unique @map("numero_celular") @db.VarChar(11)
   correoVerificado   Boolean  @default(false) @map("correo_verificado")
   celularVerificado  Boolean  @default(false) @map("celular_verificado")
   preguntaSecreta    String?  @map("pregunta_secreta") @db.VarChar(60)
@@ -60,6 +60,7 @@ model MenuAcceso {
   icono             String?     @db.VarChar(60)
   ambitoAcceso      String?     @map("ambito_acceso") @db.VarChar(15)
   mostrarEnMenu     Boolean?    @default(true) @map("mostrar_en_menu")
+  estadoRegistro    Boolean     @default(true) @map("estado_registro")
   fechaCreacion     DateTime    @default(now()) @map("fecha_creacion")
   fechaModificacion DateTime    @updatedAt @map("fecha_modificacion")
   listaMenu         ListaMenu[]

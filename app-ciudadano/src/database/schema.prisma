@@ -60,6 +60,7 @@ model MenuAcceso {
   icono             String?     @db.VarChar(60)
   ambitoAcceso      String?     @map("ambito_acceso") @db.VarChar(15)
   mostrarEnMenu     Boolean?    @default(true) @map("mostrar_en_menu")
+  estadoRegistro    Boolean     @default(true) @map("estado_registro")
   fechaCreacion     DateTime    @default(now()) @map("fecha_creacion")
   fechaModificacion DateTime    @updatedAt @map("fecha_modificacion")
   listaMenu         ListaMenu[]
