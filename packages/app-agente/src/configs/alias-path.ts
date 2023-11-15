@@ -7,6 +7,6 @@ const srcPath = path.join(__dirname, '..') // proyect/src
 const sharedPath = path.join(__dirname, '..', 'features', '@shared') // proyect/src/features/@shared
 
 if (envs.NODE_ENV === 'production') {
-  moduleAlias.addAlias('@', srcPath)
-  moduleAlias.addAlias('@shared', sharedPath)
+  moduleAlias.addAlias('@agente', srcPath)
+  moduleAlias.addAlias('@agente/shared', sharedPath)
 }

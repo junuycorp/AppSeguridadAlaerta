@@ -4,30 +4,14 @@
     "target": "es2016",
 
     /* Modules */
-    // "module": "commonjs",
-    // "rootDir": "./src",
     "moduleResolution": "Node",
-    // "baseUrl": "src",
-    // "paths": {
-    // "@app/ciudadano/*": ["./packages/app-ciudadano/src/*"],
-    // "@app/agente/*": ["./packages/app-agente/src/*"]
-    // "@shared/*": ["./features/@shared/*"],
-    // "@/*": ["./*"]
-    // },
-
     "baseUrl": "packages",
     "paths": {
-      // "@/*": ["./app-agente/src/*"],
-      // "@shared/*": ["./app-agente/src/features/@shared/*"],
       "@agente/*": ["./app-agente/src/*"],
       "@agente/shared/*": ["./app-agente/src/features/@shared/*"],
-      "@ciudadano/*": ["./app-agente/src/*"],
-      "@ciudadano/shared/*": ["./app-agente/src/features/@shared/*"]
+      "@ciudadano/*": ["./app-ciudadano/src/*"],
+      "@ciudadano/shared/*": ["./app-ciudadano/src/features/@shared/*"]
     },
-
-    /* Emit */
-    // "sourceMap": true,
-    // "outDir": "./dist",
 
     /* Interop Constraints */
     "esModuleInterop": true,
@@ -41,9 +25,5 @@
 
     /* Completeness */
     "skipLibCheck": true
-  },
-  "include": [
-    "./packages/app-ciudadano/src/**/*.ts",
-    "./packages/app-agente/src/**/*.ts"
-  ]
+  }
 }
