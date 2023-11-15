@@ -7,7 +7,11 @@
   ],
   "scripts": {
     "lint": "eslint . --ext ts --fix",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "agente:db:deploy": "cd ./packages/app-agente && yarn db:migrate",
+    "agente:deploy": "cd ./packages/app-agente && yarn deploy",
+    "ciudadano:db:deploy": "cd ./packages/app-ciudadano && yarn db:migrate",
+    "ciudadano:deploy": "cd ./packages/app-ciudadano && yarn deploy"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.4.0",
