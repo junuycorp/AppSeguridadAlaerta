@@ -1,19 +1,25 @@
 import type { IniciarSesionDto } from './iniciar-sesion.dto'
 import { CustomError } from '@/errors'
-import { prisma } from '@/database'
 import { bcryptAdapter, jwtAdapter } from '@/adapters'
-import { PersonaRepository } from '@shared/repositories'
+import {
+  type Acceso,
+  PerfilRepository,
+  PersonaRepository,
+  UsuarioRepository,
+} from '@shared/repositories'
+
+interface InicioSesion {
+  token: string
+  accesos: Acceso[]
+}
 
 export const iniciarSesionUseCase = async (
   iniciarSesionDto: IniciarSesionDto,
-): Promise<string> => {
+): Promise<InicioSesion> => {
   const { numeroDocumento, contrasenia } = iniciarSesionDto
 
   // Verificar si usuario ya existe
-  // TODO: Implementacion con repositorio
-  const usuario = await prisma.cuentaUsuario.findUnique({
-    where: { nroDocumento: numeroDocumento },
-  })
+  const usuario = await UsuarioRepository.buscarPorId(numeroDocumento)
   if (!usuario) throw CustomError.badRequest('Usuario y/o contraseña no válidos')
 
   // Verificar contraseña
@@ -24,6 +30,11 @@ export const iniciarSesionUseCase = async (
   const persona = await PersonaRepository.buscarPorId(numeroDocumento)
   if (!persona)
     throw CustomError.internalServer('Error al cargar información del usuario')
+
+  // Obtener accesos
+  const accesos = await PerfilRepository.obtenerAccesosPorPerfil(
+    usuario.perfilCodigo,
+  )
 
   const payload = {
     numeroDocumento: persona.nroDocumento,
@@ -37,5 +48,8 @@ export const iniciarSesionUseCase = async (
   const token = await jwtAdapter.generateToken(payload, '1h')
   if (token == null) throw CustomError.internalServer('Error al generar token')
 
-  return token
+  return {
+    token,
+    accesos,
+  }
 }
