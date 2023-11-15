@@ -1,5 +1,5 @@
-import { validators } from '@/configs'
-import { validarContrasenia } from '@shared/helpers'
+import { validators } from '@ciudadano/configs'
+import { validarContrasenia } from '@ciudadano/shared/helpers'
 
 export class RegistrarDto {
   private constructor(

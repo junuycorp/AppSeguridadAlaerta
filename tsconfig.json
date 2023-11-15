@@ -4,7 +4,7 @@
     "target": "es2016",
 
     /* Modules */
-    "module": "commonjs",
+    // "module": "commonjs",
     // "rootDir": "./src",
     "moduleResolution": "Node",
     // "baseUrl": "src",
@@ -17,13 +17,17 @@
 
     "baseUrl": "packages",
     "paths": {
-      "@/*": ["./app-agente/src/*"],
-      "@shared/*": ["./app-agente/src/features/@shared/*"]
+      // "@/*": ["./app-agente/src/*"],
+      // "@shared/*": ["./app-agente/src/features/@shared/*"],
+      "@agente/*": ["./app-agente/src/*"],
+      "@agente/shared/*": ["./app-agente/src/features/@shared/*"],
+      "@ciudadano/*": ["./app-agente/src/*"],
+      "@ciudadano/shared/*": ["./app-agente/src/features/@shared/*"]
     },
 
     /* Emit */
-    "sourceMap": true,
-    "outDir": "./dist",
+    // "sourceMap": true,
+    // "outDir": "./dist",
 
     /* Interop Constraints */
     "esModuleInterop": true,

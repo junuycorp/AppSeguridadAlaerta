@@ -1,6 +1,6 @@
-import { jwtAdapter } from '@/adapters'
-import { logger } from '@/configs'
-import { prisma } from '@/database'
+import { jwtAdapter } from '@ciudadano/adapters'
+import { logger } from '@ciudadano/configs'
+import { prisma } from '@ciudadano/database'
 import type { NextFunction, Request, Response } from 'express'
 
 interface Payload {

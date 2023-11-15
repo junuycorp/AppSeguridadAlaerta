@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { envs } from '@/configs'
+import { envs } from '@ciudadano/configs'
 
 const JWT_SEED = envs.JWT_SEED
 

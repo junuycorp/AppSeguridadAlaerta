@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import type { Environment } from '@/configs'
+import type { Environment } from '@ciudadano/configs'
 import morgan from 'morgan'
 
 const logValues = {

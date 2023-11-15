@@ -1,4 +1,4 @@
-import { CustomError } from '@/errors'
+import { CustomError } from '@ciudadano/errors'
 
 // Convertir a numero o undefined o lanzar error
 export const toNumberOrUndefined = (

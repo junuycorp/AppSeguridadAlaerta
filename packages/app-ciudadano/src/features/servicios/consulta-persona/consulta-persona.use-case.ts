@@ -1,6 +1,6 @@
-import { CustomError } from '@/errors'
-import { consultaPersona } from '@/services'
-import { PersonaRepository, type Persona } from '@shared/repositories'
+import { CustomError } from '@ciudadano/errors'
+import { consultaPersona } from '@ciudadano/services'
+import { PersonaRepository, type Persona } from '@ciudadano/shared/repositories'
 import type { ConsultaPersonaDto } from './consulta-persona.dto'
 
 export const consultaPersonaUseCase = async (

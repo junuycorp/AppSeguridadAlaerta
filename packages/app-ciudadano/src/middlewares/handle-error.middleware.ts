@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express'
-import { Prisma } from '@prisma/client'
-import { logger } from '@/configs'
-import { CustomError } from '@/errors'
+import { Prisma } from '@ciudadano/database'
+import { logger } from '@ciudadano/configs'
+import { CustomError } from '@ciudadano/errors'
 import { AxiosError } from 'axios'
 
 export const handleError = (

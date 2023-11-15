@@ -39,14 +39,14 @@ __metadata:
     morgan: "npm:^1.10.0"
     node-cache: "npm:^5.1.2"
     nodemailer: "npm:^6.9.7"
-    prisma: "npm:^5.6.0"
+    prisma: "npm:latest"
     rimraf: "npm:^5.0.5"
     swagger-jsdoc: "npm:^6.2.8"
     swagger-ui-express: "npm:^5.0.0"
     ts-node: "npm:^10.9.1"
     ts-node-dev: "npm:^2.0.0"
     tsconfig-paths: "npm:^4.2.0"
-    typescript: "npm:*"
+    typescript: "npm:^5.2.2"
     winston: "npm:^3.11.0"
     winston-daily-rotate-file: "npm:^4.7.1"
   languageName: unknown
@@ -55,6 +55,40 @@ __metadata:
 "@alerta/ciudadano@workspace:packages/app-ciudadano":
   version: 0.0.0-use.local
   resolution: "@alerta/ciudadano@workspace:packages/app-ciudadano"
+  dependencies:
+    "@prisma/client": "npm:latest"
+    "@types/bcryptjs": "npm:^2.4.5"
+    "@types/cors": "npm:^2.8.15"
+    "@types/express": "npm:^4.17.20"
+    "@types/jsonwebtoken": "npm:^9.0.4"
+    "@types/module-alias": "npm:^2.0.3"
+    "@types/morgan": "npm:^1.9.8"
+    "@types/node": "npm:^20.8.10"
+    "@types/nodemailer": "npm:^6.4.13"
+    "@types/swagger-jsdoc": "npm:^6.0.2"
+    "@types/swagger-ui-express": "npm:^4.1.5"
+    axios: "npm:^1.6.0"
+    bcryptjs: "npm:^2.4.3"
+    cors: "npm:^2.8.5"
+    cross-env: "npm:^7.0.3"
+    dotenv: "npm:^16.3.1"
+    env-var: "npm:^7.4.1"
+    express: "npm:^4.18.2"
+    jsonwebtoken: "npm:^9.0.2"
+    module-alias: "npm:^2.2.3"
+    morgan: "npm:^1.10.0"
+    node-cache: "npm:^5.1.2"
+    nodemailer: "npm:^6.9.7"
+    prisma: "npm:latest"
+    rimraf: "npm:^5.0.5"
+    swagger-jsdoc: "npm:^6.2.8"
+    swagger-ui-express: "npm:^5.0.0"
+    ts-node: "npm:^10.9.1"
+    ts-node-dev: "npm:^2.0.0"
+    tsconfig-paths: "npm:^4.2.0"
+    typescript: "npm:^5.2.2"
+    winston: "npm:^3.11.0"
+    winston-daily-rotate-file: "npm:^4.7.1"
   languageName: unknown
   linkType: soft
 
@@ -63,6 +97,7 @@ __metadata:
   resolution: "@alerta/monorepo@workspace:."
   dependencies:
     "@typescript-eslint/eslint-plugin": "npm:^6.4.0"
+    "@typescript-eslint/parser": "npm:^6.11.0"
     eslint: "npm:^8.0.1"
     eslint-config-prettier: "npm:^9.0.0"
     eslint-config-standard-with-typescript: "npm:^39.1.1"
@@ -612,7 +647,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^6.4.0":
+"@typescript-eslint/parser@npm:^6.11.0, @typescript-eslint/parser@npm:^6.4.0":
   version: 6.11.0
   resolution: "@typescript-eslint/parser@npm:6.11.0"
   dependencies:
@@ -3814,7 +3849,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prisma@npm:^5.6.0":
+"prisma@npm:latest":
   version: 5.6.0
   resolution: "prisma@npm:5.6.0"
   dependencies:
@@ -4746,7 +4781,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:*":
+"typescript@npm:*, typescript@npm:^5.2.2":
   version: 5.2.2
   resolution: "typescript@npm:5.2.2"
   bin:
@@ -4756,7 +4791,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A*#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A*#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.2.2#optional!builtin<compat/typescript>":
   version: 5.2.2
   resolution: "typescript@patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>::version=5.2.2&hash=f3b441"
   bin:

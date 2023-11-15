@@ -1,6 +1,6 @@
 import express, { type Router } from 'express'
 import cors from 'cors'
-import { handleError, logRequest, emptyStringsToNull } from '@/middlewares'
+import { handleError, logRequest, emptyStringsToNull } from '@ciudadano/middlewares'
 import { logger } from './logger'
 import { swaggerDocs } from './swagger'
 

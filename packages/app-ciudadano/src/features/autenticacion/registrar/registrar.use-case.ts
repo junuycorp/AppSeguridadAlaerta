@@ -1,9 +1,9 @@
-import { prisma } from '@/database'
-import { CustomError } from '@/errors'
-import { bcryptAdapter } from '@/adapters'
+import { prisma } from '@ciudadano/database'
+import { CustomError } from '@ciudadano/errors'
+import { bcryptAdapter } from '@ciudadano/adapters'
 import type { RegistrarDto } from './registrar.dto'
-import { codigoId } from '@shared/constants'
-import { PersonaRepository } from '@shared/repositories'
+import { codigoId } from '@ciudadano/shared/constants'
+import { PersonaRepository } from '@ciudadano/shared/repositories'
 
 export const registrarUseCase = async (
   registrarDto: RegistrarDto,

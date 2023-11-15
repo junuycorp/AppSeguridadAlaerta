@@ -1,4 +1,4 @@
-import { envs } from '@/configs'
+import { envs } from '@ciudadano/configs'
 import { createTransport } from 'nodemailer'
 
 const MAILER_EMAIL = envs.MAILER_EMAIL

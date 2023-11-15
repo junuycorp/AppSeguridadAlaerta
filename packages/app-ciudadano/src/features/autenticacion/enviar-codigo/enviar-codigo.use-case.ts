@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import { cacheAdapter } from '@/adapters'
+import { cacheAdapter } from '@ciudadano/adapters'
 import type { EnviarCodigoDto } from './enviar-codigo.dto'
 import { enviarCodigoPorCorreo, enviarCodigoPorSms } from './enviar-codigo.helper'
 

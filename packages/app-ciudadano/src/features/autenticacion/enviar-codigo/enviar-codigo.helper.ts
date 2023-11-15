@@ -1,4 +1,4 @@
-import { emailSenderAdapter, smsSenderAdapter } from '@/adapters'
+import { emailSenderAdapter, smsSenderAdapter } from '@ciudadano/adapters'
 
 export const enviarCodigoPorCorreo = async (
   emailDestino: string,

@@ -1,4 +1,4 @@
-import { validators } from '@/configs'
+import { validators } from '@ciudadano/configs'
 
 export class ConsultaPersonaDto {
   private constructor(public numeroDocumento: string) {}

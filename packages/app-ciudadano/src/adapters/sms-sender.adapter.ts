@@ -1,4 +1,4 @@
-import { envs } from '@/configs'
+import { envs } from '@ciudadano/configs'
 import axios from 'axios'
 
 // Phone target format: 9xxxxxxxx

@@ -1,6 +1,6 @@
-import { cacheAdapter } from '@/adapters'
+import { cacheAdapter } from '@ciudadano/adapters'
 import type { VerificarCodigoDto } from './verificar-codigo.dto'
-// import { prisma } from '@/database'
+// import { prisma } from '@ciudadano/database'
 
 interface VerificarRespuesta {
   mensaje: string
