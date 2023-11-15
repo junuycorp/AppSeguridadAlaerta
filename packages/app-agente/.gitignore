@@ -1,0 +1,12 @@
+# Distribution file
+dist
+
+# Generated files
+temp
+logs
+
+# Dependencies
+node_modules
+
+# ENV file
+.env

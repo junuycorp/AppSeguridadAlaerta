@@ -7,12 +7,18 @@
     "module": "commonjs",
     // "rootDir": "./src",
     "moduleResolution": "Node",
-    "baseUrl": "src",
+    // "baseUrl": "src",
+    // "paths": {
+    // "@app/ciudadano/*": ["./packages/app-ciudadano/src/*"],
+    // "@app/agente/*": ["./packages/app-agente/src/*"]
+    // "@shared/*": ["./features/@shared/*"],
+    // "@/*": ["./*"]
+    // },
+
+    "baseUrl": "packages",
     "paths": {
-      "@app/ciudadano/*": ["./packages/app-ciudadano/src/*"],
-      "@app/agente/*": ["./packages/app-agente/src/*"]
-      // "@shared/*": ["./features/@shared/*"],
-      // "@/*": ["./*"]
+      "@/*": ["./app-agente/src/*"],
+      "@shared/*": ["./app-agente/src/features/@shared/*"]
     },
 
     /* Emit */

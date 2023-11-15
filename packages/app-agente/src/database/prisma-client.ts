@@ -12,6 +12,7 @@
 
 // export default prisma
 
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@agente/client'
 
+export * from '@agente/client'
 export const prisma = new PrismaClient()
