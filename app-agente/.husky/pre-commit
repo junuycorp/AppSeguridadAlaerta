@@ -18,9 +18,12 @@ if ! echo "$local_branch_name" | grep -qE "$valid_branch_regex"; then
   exit 1
 fi
 
+# Go to project
+cd ./app-agente
+
 # Run linting verification
 if yarn lint; then
-  echo "Linting passed successfully."
+  echo "Linting passed successfully in app-agente."
 else
   echo "Linting failed. There are issues in your code. Please run 'yarn lint' to identify and fix the problems before committing."
   exit 1

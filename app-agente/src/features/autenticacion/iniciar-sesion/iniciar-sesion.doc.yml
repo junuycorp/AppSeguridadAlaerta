@@ -59,7 +59,8 @@ components:
               type: boolean
             estadoRegistro: 
               type: boolean
-      
+
+
 
 paths:
   /autenticacion/iniciar-sesion:

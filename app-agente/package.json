@@ -1,6 +1,6 @@
 {
   "name": "app-agente-back",
-  "packageManager": "yarn@4.0.1",
+  "packageManager": "yarn@4.0.2",
   "version": "1.0.0",
   "scripts": {
     "dev": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register --respawn --clear ./src/main.ts",
@@ -11,7 +11,7 @@
     "db:client": "prisma generate",
     "db:migrate": "prisma migrate deploy && yarn db:client",
     "db:migrate:dev": "prisma migrate dev",
-    "postinstall": "cd .. && husky install app-seguridad/.husky",
+    "postinstall": "cd .. && husky install app-agente/.husky",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable"
   },

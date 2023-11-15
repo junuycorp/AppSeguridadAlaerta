@@ -28,7 +28,7 @@ export const iniciarSesion = (
     return
   }
   iniciarSesionUseCase(iniciarSesionDto!)
-    .then((token) => res.json({ token }))
+    .then((resp) => res.json(resp))
     .catch((error) => {
       next(error)
     })
