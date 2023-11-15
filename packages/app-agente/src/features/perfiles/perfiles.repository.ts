@@ -1,5 +1,5 @@
-import { prisma } from '@/database'
-import type { Perfil as PrismaPerfil, Prisma } from '@/database'
+import { prisma } from '@agente/database'
+import type { Perfil as PrismaPerfil, Prisma } from '@agente/database'
 
 type CrearPerfil = Prisma.PerfilUncheckedCreateInput
 type ActualizarPerfil = Prisma.PerfilUncheckedUpdateInput

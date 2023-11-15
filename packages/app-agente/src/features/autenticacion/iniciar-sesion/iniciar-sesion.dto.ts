@@ -1,5 +1,5 @@
-import { validators } from '@/configs'
-// import { validarContrasenia } from '@shared/helpers'
+import { validators } from '@agente/configs'
+// import { validarContrasenia } from '@agente/shared/helpers'
 
 export class IniciarSesionDto {
   private constructor(

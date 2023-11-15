@@ -1,3 +1,3 @@
-export * from '@/features/personas/personas.repository'
-export * from '@/features/usuarios/usuarios.repository'
-export * from '@/features/perfiles/perfiles.repository'
+export * from '@agente/features/personas/personas.repository'
+export * from '@agente/features/usuarios/usuarios.repository'
+export * from '@agente/features/perfiles/perfiles.repository'

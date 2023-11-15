@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { autenticarUsuario } from '@/middlewares'
+import { autenticarUsuario } from '@agente/middlewares'
 import servicios from './servicios/servicios.routes'
 import autenticacion from './autenticacion/autenticacion.routes'
 import perfiles from './perfiles/perfiles.routes'

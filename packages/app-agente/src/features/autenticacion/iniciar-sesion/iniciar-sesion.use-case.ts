@@ -1,12 +1,12 @@
 import type { IniciarSesionDto } from './iniciar-sesion.dto'
-import { CustomError } from '@/errors'
-import { bcryptAdapter, jwtAdapter } from '@/adapters'
+import { CustomError } from '@agente/errors'
+import { bcryptAdapter, jwtAdapter } from '@agente/adapters'
 import {
   type Acceso,
   PerfilRepository,
   PersonaRepository,
   UsuarioRepository,
-} from '@shared/repositories'
+} from '@agente/shared/repositories'
 
 interface InicioSesion {
   token: string

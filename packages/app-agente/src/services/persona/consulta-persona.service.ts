@@ -1,6 +1,6 @@
 import axios from 'axios'
 import type { PersonaAPI } from './persona-api.interface'
-import { envs } from '@/configs'
+import { envs } from '@agente/configs'
 
 export const consultaPersona = async (
   numeroDocumento: string,

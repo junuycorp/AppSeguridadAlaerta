@@ -1,7 +1,7 @@
 // Validar token para utilizar servicio
 
 import type { Request, Response, NextFunction } from 'express'
-import { envs } from '@/configs'
+import { envs } from '@agente/configs'
 
 export const validarTokenServicio = (
   req: Request,

@@ -4,7 +4,7 @@
   "main": "dist/main.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register --respawn --clear ./src/main.ts",
-    "build": "rimraf ./dist && tsc",
+    "build": "rimraf ./dist && tsc -b tsconfig.build.json",
     "deploy": "yarn build && cross-env NODE_ENV=production TZ=America/Lima node ./dist/main.js",
     "db:seed": "prisma db seed",
     "db:client": "prisma generate",

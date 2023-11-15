@@ -1,4 +1,4 @@
-import type { Perfil } from '@/database'
+import type { Perfil } from '@agente/database'
 
 type PerfilMapper = Omit<Perfil, 'fechaCreacion' | 'fechaModificacion'>
 

@@ -1,5 +1,5 @@
-import { toNumber } from '@shared/helpers'
-import type { Flexible } from '@shared/types'
+import { toNumber } from '@agente/shared/helpers'
+import type { Flexible } from '@agente/shared/types'
 
 export interface EstadoUsuarioDto {
   nroDocumento: string

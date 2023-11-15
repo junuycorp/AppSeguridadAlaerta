@@ -1,4 +1,4 @@
-import { type Prisma, type Persona as PrismaPersona, prisma } from '@/database'
+import { type Prisma, type Persona as PrismaPersona, prisma } from '@agente/database'
 
 type CrearPersona = Prisma.PersonaUncheckedCreateInput
 type ActualizarPersona = Prisma.PersonaUncheckedUpdateInput

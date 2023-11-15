@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-extraneous-class */
-import { logger } from '@/configs'
+import { logger } from '@agente/configs'
 import { prisma } from './prisma-client'
 
 export class MysqlDatabase {
