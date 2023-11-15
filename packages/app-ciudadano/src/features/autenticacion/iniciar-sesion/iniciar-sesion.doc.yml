@@ -1,0 +1,85 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+components:
+  schemas:
+    IniciarSesionInput:
+      type: object
+      properties:
+        numeroDocumento: 
+          type: string
+          example: 76543210
+        contrasenia: 
+          type: string
+          example: Strong$Password
+    IniciarSesionOutput:
+      type: object
+      properties:
+        token: 
+          type: string
+        accesos:
+          type: array
+          items:
+            $ref: "#/components/schemas/Acceso"
+
+    Acceso:
+      type: object
+      properties:   
+        nivelAcceso: 
+          type: integer
+          format: int32
+        menuAcceso: 
+          type: object
+          properties: 
+            menuCodigo: 
+              type: string
+            nombre: 
+              type: string
+            descripcion: 
+              type: string
+            subSistema: 
+              type: string
+            nivel: 
+              type: integer
+              format: int32
+            tipoModulo: 
+              type: string
+            ruta: 
+              type: string
+            icono: 
+              type: string
+              format: nullable
+            ambitoAcceso: 
+              type: string
+              format: nullable
+            mostrarEnMenu: 
+              type: boolean
+            estadoRegistro: 
+              type: boolean
+      
+
+paths:
+  /autenticacion/iniciar-sesion:
+    post:
+      tags:
+        - Autenticación
+      summary: Iniciar sesión
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/IniciarSesionInput'
+      responses:
+        200:
+          description: Creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IniciarSesionOutput'
+        400:
+          description: Los datos ingresados no son válidos

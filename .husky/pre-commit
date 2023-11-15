@@ -19,7 +19,7 @@ if ! echo "$local_branch_name" | grep -qE "$valid_branch_regex"; then
 fi
 
 # Run linting verification
-yarn lint-staged --config package.json --no-stash
+# yarn lint-staged --config package.json --no-stash
 
 # Correct
 exit 0

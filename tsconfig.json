@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "es2016",
+
+    /* Modules */
+    "module": "commonjs",
+    // "rootDir": "./src",
+    "moduleResolution": "Node",
+    "baseUrl": "src",
+    "paths": {
+      "@app/ciudadano/*": ["./packages/app-ciudadano/src/*"],
+      "@app/agente/*": ["./packages/app-agente/src/*"]
+      // "@shared/*": ["./features/@shared/*"],
+      // "@/*": ["./*"]
+    },
+
+    /* Emit */
+    "sourceMap": true,
+    "outDir": "./dist",
+
+    /* Interop Constraints */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type Checking */
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Completeness */
+    "skipLibCheck": true
+  },
+  "include": [
+    "./packages/app-ciudadano/src/**/*.ts",
+    "./packages/app-agente/src/**/*.ts"
+  ]
+}

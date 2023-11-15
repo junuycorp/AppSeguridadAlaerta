@@ -1,0 +1,8 @@
+INSERT INTO tipo_documento 
+(id_tipo_documento, des_tipo_documento, id_tipo_persona) VALUES
+(1, 'DOCUMENTO NACIONAL DE IDENTIDAD', 1),
+(2, 'REGISTRO UNICO DE CONTRIBUYENTES', 2),
+(3, 'CARNET DE EXTRANJERIA', 1),
+(4, 'PASAPORTE', 1),
+(5, 'CEDULA DIPLOMATICA DE IDENTIDAD', 1),
+(6, 'OTROS TIPOS DE DOCUMENTOS',1);
