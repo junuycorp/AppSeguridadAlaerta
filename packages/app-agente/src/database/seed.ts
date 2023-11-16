@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma-agente/client'
-import { listaMenuSeed, menuAccesoSeed } from './seeders'
+import { listaMenuSeed, menuAccesoSeed, perfilSeed } from './seeders'
 
 const prisma = new PrismaClient()
 
@@ -12,6 +12,16 @@ async function main(): Promise<void> {
       create: { ...acceso },
     })
   }
+
+  // Perfil
+  for (const perfil of perfilSeed) {
+    await prisma.perfil.upsert({
+      where: { perfilCodigo: perfil.perfilCodigo },
+      update: {},
+      create: { ...perfil },
+    })
+  }
+
   // ListaMenu
   for (const menu of listaMenuSeed) {
     await prisma.listaMenu.upsert({
