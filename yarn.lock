@@ -31,7 +31,6 @@ __metadata:
     bcryptjs: "npm:^2.4.3"
     cors: "npm:^2.8.5"
     cross-env: "npm:^7.0.3"
-    dotenv: "npm:^16.3.1"
     env-var: "npm:^7.4.1"
     express: "npm:^4.18.2"
     jsonwebtoken: "npm:^9.0.2"
@@ -46,7 +45,7 @@ __metadata:
     ts-node: "npm:^10.9.1"
     ts-node-dev: "npm:^2.0.0"
     tsconfig-paths: "npm:^4.2.0"
-    typescript: "npm:^5.2.2"
+    typescript: "npm:*"
     winston: "npm:^3.11.0"
     winston-daily-rotate-file: "npm:^4.7.1"
   languageName: unknown
@@ -71,7 +70,6 @@ __metadata:
     bcryptjs: "npm:^2.4.3"
     cors: "npm:^2.8.5"
     cross-env: "npm:^7.0.3"
-    dotenv: "npm:^16.3.1"
     env-var: "npm:^7.4.1"
     express: "npm:^4.18.2"
     jsonwebtoken: "npm:^9.0.2"
@@ -86,7 +84,7 @@ __metadata:
     ts-node: "npm:^10.9.1"
     ts-node-dev: "npm:^2.0.0"
     tsconfig-paths: "npm:^4.2.0"
-    typescript: "npm:^5.2.2"
+    typescript: "npm:*"
     winston: "npm:^3.11.0"
     winston-daily-rotate-file: "npm:^4.7.1"
   languageName: unknown
@@ -1531,13 +1529,6 @@ __metadata:
   dependencies:
     esutils: "npm:^2.0.2"
   checksum: b6416aaff1f380bf56c3b552f31fdf7a69b45689368deca72d28636f41c16bb28ec3ebc40ace97db4c1afc0ceeb8120e8492fe0046841c94c2933b2e30a7d5ac
-  languageName: node
-  linkType: hard
-
-"dotenv@npm:^16.3.1":
-  version: 16.3.1
-  resolution: "dotenv@npm:16.3.1"
-  checksum: b95ff1bbe624ead85a3cd70dbd827e8e06d5f05f716f2d0cbc476532d54c7c9469c3bc4dd93ea519f6ad711cb522c00ac9a62b6eb340d5affae8008facc3fbd7
   languageName: node
   linkType: hard
 
@@ -4781,7 +4772,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:*, typescript@npm:^5.2.2":
+"typescript@npm:*":
   version: 5.2.2
   resolution: "typescript@npm:5.2.2"
   bin:
@@ -4791,7 +4782,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A*#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.2.2#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A*#optional!builtin<compat/typescript>":
   version: 5.2.2
   resolution: "typescript@patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>::version=5.2.2&hash=f3b441"
   bin:
