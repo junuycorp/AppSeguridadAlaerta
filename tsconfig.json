@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "es2016",
+
+    /* Modules */
+    "moduleResolution": "Node",
+    "baseUrl": "packages",
+    "paths": {
+      "@agente/*": ["./app-agente/src/*"],
+      "@agente/shared/*": ["./app-agente/src/features/@shared/*"],
+      "@ciudadano/*": ["./app-ciudadano/src/*"],
+      "@ciudadano/shared/*": ["./app-ciudadano/src/features/@shared/*"]
+    },
+
+    /* Interop Constraints */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type Checking */
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Completeness */
+    "skipLibCheck": true
+  }
+}
