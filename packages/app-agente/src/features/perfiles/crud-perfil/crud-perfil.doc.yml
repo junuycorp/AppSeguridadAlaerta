@@ -58,10 +58,10 @@ components:
                   example: null
   
 paths:
-  /perfiles/listar:
+  /mantenimientos/perfiles/listar:
     get:
       tags:
-        - Perfiles
+        - Mantenimientos / Perfiles
       summary: Listar perfiles
       responses:
         200:
@@ -71,10 +71,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/ListarPerfilesOutput'
 
-  /perfiles/buscar/{perfilCodigo}:
+  /mantenimientos/perfiles/buscar/{perfilCodigo}:
     get:
       tags:
-        - Perfiles
+        - Mantenimientos / Perfiles
       summary: Buscar perfil por ID
       parameters:
         - in: path
@@ -93,10 +93,10 @@ paths:
         404:
           description: ID no encontrado
 
-  /perfiles/crear:
+  /mantenimientos/perfiles/crear:
     post:
       tags:
-        - Perfiles
+        - Mantenimientos / Perfiles
       summary: Crear perfil
       requestBody:
         $ref: '#/components/requestBodies/CrearActualizarPerfil'
@@ -110,10 +110,10 @@ paths:
         409:
           description: ID ya se encuentra registrado
 
-  /perfiles/actualizar/{perfilCodigo}:
+  /mantenimientos/perfiles/actualizar/{perfilCodigo}:
     put:
       tags:
-        - Perfiles
+        - Mantenimientos / Perfiles
       summary: Actualizar perfil por ID
       parameters:
         - in: path
@@ -136,10 +136,10 @@ paths:
         409:
           description: Atributo que debe ser único ya existe
 
-  /perfiles/eliminar/{perfilCodigo}:
+  /mantenimientos/perfiles/eliminar/{perfilCodigo}:
     delete:
       tags:
-        - Perfiles
+        - Mantenimientos / Perfiles
       summary: Eliminar perfil por ID
       parameters:
         - in: path
@@ -160,10 +160,10 @@ paths:
         409:
           description: Elemento a eliminar está siendo usado
 
-  /perfiles/cambiar-estado/{perfilCodigo}:
+  /mantenimientos/perfiles/cambiar-estado/{perfilCodigo}:
     patch:
       tags:
-        - Perfiles
+        - Mantenimientos / Perfiles
       summary: Actualizar estado de perfil por ID
       parameters:
         - in: path

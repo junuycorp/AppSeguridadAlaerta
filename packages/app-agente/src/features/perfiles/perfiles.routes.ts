@@ -8,13 +8,13 @@ import {
   listar,
 } from './perfiles.controller'
 
-const router = Router()
+const routerMant = Router() // Mantenimientos
 
-router.get('/listar', listar)
-router.get('/buscar/:perfilCodigo', buscar)
-router.post('/crear', crear)
-router.put('/actualizar/:perfilCodigo', actualizar)
-router.delete('/eliminar/:perfilCodigo', eliminar)
-router.patch('/cambiar-estado/:perfilCodigo', cambiarEstado)
+routerMant.get('/listar', listar)
+routerMant.get('/buscar/:perfilCodigo', buscar)
+routerMant.post('/crear', crear)
+routerMant.put('/actualizar/:perfilCodigo', actualizar)
+routerMant.delete('/eliminar/:perfilCodigo', eliminar)
+routerMant.patch('/cambiar-estado/:perfilCodigo', cambiarEstado)
 
-export default router
+export default routerMant
