@@ -30,6 +30,9 @@ jobs:
             git pull
 
             yarn install
+            yarn db:deploy:agente
+            yarn db:deploy:ciudadano
+            
             pm2 reload ecosystem.config.js
 
             exit
