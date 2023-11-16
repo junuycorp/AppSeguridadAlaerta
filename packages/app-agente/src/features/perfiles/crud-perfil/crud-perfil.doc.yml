@@ -1,0 +1,195 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3301
+components:
+  schemas:
+    PerfilOutput:
+      type: object
+      properties:
+        perfilCodigo: 
+          type: integer
+          format: int32
+        perfilNombre: 
+          type: string
+        descripcion: 
+          type: string
+        icono: 
+          type: string
+          format: nullable
+        estadoRegistro: 
+          type: boolean
+
+    ListarPerfilesOutput:
+      type: object
+      properties:
+        mensaje:
+          type: string
+        datos:
+          type: array
+          items:
+            $ref: '#/components/schemas/PerfilOutput'
+    
+    CambiosHechosPerfilOutput:
+      type: object
+      properties:
+        mensaje:
+          type: string
+        datos:
+          $ref: '#/components/schemas/PerfilOutput'
+    
+  requestBodies:
+    CrearActualizarPerfil:
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                perfilNombre: 
+                  type: string
+                descripcion: 
+                  type: string
+                icono: 
+                  type: string
+                  format: nullable  
+                  example: null
+  
+paths:
+  /mantenimientos/perfiles/listar:
+    get:
+      tags:
+        - Mantenimientos / Perfiles
+      summary: Listar perfiles
+      responses:
+        200:
+          description: Listado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListarPerfilesOutput'
+
+  /mantenimientos/perfiles/buscar/{perfilCodigo}:
+    get:
+      tags:
+        - Mantenimientos / Perfiles
+      summary: Buscar perfil por ID
+      parameters:
+        - in: path
+          name: perfilCodigo
+          schema:
+            type: integer
+          required: true
+          description: ID de perfil
+      responses:
+        200:
+          description: ID encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerfilOutput'
+        404:
+          description: ID no encontrado
+
+  /mantenimientos/perfiles/crear:
+    post:
+      tags:
+        - Mantenimientos / Perfiles
+      summary: Crear perfil
+      requestBody:
+        $ref: '#/components/requestBodies/CrearActualizarPerfil'
+      responses:
+        200:
+          description: Creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CambiosHechosPerfilOutput'
+        409:
+          description: ID ya se encuentra registrado
+
+  /mantenimientos/perfiles/actualizar/{perfilCodigo}:
+    put:
+      tags:
+        - Mantenimientos / Perfiles
+      summary: Actualizar perfil por ID
+      parameters:
+        - in: path
+          name: perfilCodigo
+          schema:
+            type: integer
+          required: true
+          description: ID de perfil
+      requestBody:
+        $ref: '#/components/requestBodies/CrearActualizarPerfil'
+      responses:
+        200:
+          description: Actualizado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CambiosHechosPerfilOutput'
+        404:
+          description: ID no encontrado
+        409:
+          description: Atributo que debe ser único ya existe
+
+  /mantenimientos/perfiles/eliminar/{perfilCodigo}:
+    delete:
+      tags:
+        - Mantenimientos / Perfiles
+      summary: Eliminar perfil por ID
+      parameters:
+        - in: path
+          name: perfilCodigo
+          schema:
+            type: integer
+          required: true
+          description: ID de perfil
+      responses:
+        200:
+          description: Eliminado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CambiosHechosPerfilOutput'
+        404:
+          description: ID no encontrado
+        409:
+          description: Elemento a eliminar está siendo usado
+
+  /mantenimientos/perfiles/cambiar-estado/{perfilCodigo}:
+    patch:
+      tags:
+        - Mantenimientos / Perfiles
+      summary: Actualizar estado de perfil por ID
+      parameters:
+        - in: path
+          name: perfilCodigo
+          schema:
+            type: integer
+          required: true
+          description: ID de de perfil
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              required:
+                - estadoRegistro
+              properties:
+                estadoRegistro:
+                  type: boolean
+                  example: false
+      responses:
+        200:
+          description: Estado actualizado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CambiosHechosPerfilOutput'
+        404:
+          description: ID no encontrado

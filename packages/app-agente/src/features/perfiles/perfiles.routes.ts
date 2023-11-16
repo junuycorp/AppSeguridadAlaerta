@@ -1,8 +1,20 @@
 import { Router } from 'express'
-import { listar } from './perfiles.controller'
+import {
+  actualizar,
+  buscar,
+  cambiarEstado,
+  crear,
+  eliminar,
+  listar,
+} from './perfiles.controller'
 
-const router = Router()
+const routerMant = Router() // Mantenimientos
 
-router.get('/listar', listar)
+routerMant.get('/listar', listar)
+routerMant.get('/buscar/:perfilCodigo', buscar)
+routerMant.post('/crear', crear)
+routerMant.put('/actualizar/:perfilCodigo', actualizar)
+routerMant.delete('/eliminar/:perfilCodigo', eliminar)
+routerMant.patch('/cambiar-estado/:perfilCodigo', cambiarEstado)
 
-export default router
+export default routerMant
