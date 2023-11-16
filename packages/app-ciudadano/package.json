@@ -5,11 +5,16 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register --respawn --clear ./src/main.ts",
     "build": "rimraf ./dist && tsc -b tsconfig.build.json",
-    "deploy": "yarn build && cross-env NODE_ENV=production TZ=America/Lima node ./dist/main.js",
+    "start": "yarn build && cross-env NODE_ENV=production TZ=America/Lima node ./dist/main.js",
     "db:seed": "prisma db seed",
     "db:client": "prisma generate",
     "db:migrate": "prisma migrate deploy && yarn db:client",
-    "db:migrate:dev": "prisma migrate dev"
+    "db:migrate:dev": "prisma migrate dev",
+    
+    "dev:ciudadano": "yarn dev",
+    "db:dev:ciudadano": "yarn db:migrate:dev",
+    "db:client:ciudadano": "yarn db:client",
+    "deploy:ciudadano": "yarn db:migrate && yarn start"
   },
   "dependencies": {
     "@prisma/client": "latest",
@@ -26,7 +31,6 @@
     "nodemailer": "^6.9.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
-    "typescript": "^5.2.2",
     "winston": "^3.11.0",
     "winston-daily-rotate-file": "^4.7.1"
   },
@@ -46,7 +50,8 @@
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
-    "tsconfig-paths": "^4.2.0"
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "*"
   },
   "prisma": {
     "schema": "src/database/schema.prisma",

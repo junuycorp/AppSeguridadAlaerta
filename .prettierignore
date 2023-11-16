@@ -1,0 +1,7 @@
+# Directories
+node_modules
+.yarn
+dist
+
+# Files
+package.json
