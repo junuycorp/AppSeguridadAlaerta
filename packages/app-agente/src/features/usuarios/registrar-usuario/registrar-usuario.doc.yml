@@ -1,0 +1,80 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3301
+components:
+
+  requestBodies:
+    RegistrarUsuarioInput:
+      required: true
+      content:
+        application/json:
+          schema: 
+            type: object
+            properties:
+              nroDocumento: 
+                type: string
+              contrasena: 
+                type: string
+              nombres: 
+                type: string
+              apellidoMaterno: 
+                type: string
+              apellidoPaterno: 
+                type: string
+              sexo: 
+                type: string
+              perfilCodigo: 
+                type: integer
+                format: int32
+              correo: 
+                type: string
+                format: nullable
+              numeroCelular: 
+                type: string
+                format: nullable
+
+  schemas:
+    RegistrarUsuarioOutput:
+      type: object
+      properties:
+        mensaje: 
+          type: string
+        datos: 
+          type: object
+          properties: 
+            nroDocumento: 
+              type: string
+            correo: 
+              type: string
+              format: nullable
+            numeroCelular: 
+              type: string
+              format: nullable
+            perfilCodigo: 
+              type: integer
+              format: int32
+            estadoRegistro: 
+              type: boolean
+
+
+paths:
+  /mantenimientos/usuarios/registrar:
+    post:
+      tags:
+        - Mantenimientos / Usuarios
+      summary: Crear usuario
+      requestBody:
+        $ref: '#/components/requestBodies/RegistrarUsuarioInput'
+      responses:
+        200:
+          description: Creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrarUsuarioOutput'
+        409:
+          description: ID ya se encuentra registrado
+  

@@ -7,10 +7,10 @@
     "moduleResolution": "Node",
     "baseUrl": "packages",
     "paths": {
-      "@agente/*": ["./app-agente/src/*"],
       "@agente/shared/*": ["./app-agente/src/features/@shared/*"],
-      "@ciudadano/*": ["./app-ciudadano/src/*"],
-      "@ciudadano/shared/*": ["./app-ciudadano/src/features/@shared/*"]
+      "@agente/*": ["./app-agente/src/*"],
+      "@ciudadano/shared/*": ["./app-ciudadano/src/features/@shared/*"],
+      "@ciudadano/*": ["./app-ciudadano/src/*"]
     },
 
     /* Interop Constraints */

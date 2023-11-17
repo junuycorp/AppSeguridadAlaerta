@@ -6,3 +6,5 @@ tags:
     description: Consultas de información a servicios externos
   - name: Mantenimientos / Perfiles
     description: Mantenimiento de perfiles
+  - name: Mantenimientos / Usuarios
+    description: Mantenimiento de usuarios

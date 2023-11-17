@@ -15,6 +15,16 @@ export class UsuarioRepository {
     return await prisma.cuentaUsuario.findUnique({ where: { nroDocumento } })
   }
 
+  static buscarPorCorreo = async (correo: string): Promise<Usuario | null> => {
+    return await prisma.cuentaUsuario.findUnique({ where: { correo } })
+  }
+
+  static buscarPorNroCelular = async (
+    numeroCelular: string,
+  ): Promise<Usuario | null> => {
+    return await prisma.cuentaUsuario.findUnique({ where: { numeroCelular } })
+  }
+
   static crear = async (datos: CrearUsuario): Promise<Usuario> => {
     return await prisma.cuentaUsuario.create({ data: datos })
   }

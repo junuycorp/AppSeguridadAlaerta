@@ -18,6 +18,14 @@ export class PersonaRepository {
     return await prisma.persona.create({ data: datos })
   }
 
+  static obtenerOCrear = async (datos: CrearPersona): Promise<Persona> => {
+    return await prisma.persona.upsert({
+      where: { nroDocumento: datos.nroDocumento },
+      update: {},
+      create: { ...datos },
+    })
+  }
+
   static actualizar = async (
     nroDocumento: string,
     datos: ActualizarPersona,
