@@ -1,0 +1,185 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3301
+components:
+
+  requestBodies:
+    UsuarioInput:
+      required: true
+      content:
+        application/json:
+          schema: 
+            type: object
+            properties: 
+              nroDocumento: 
+                type: string
+                example: 76543210
+              contrasena: 
+                type: string
+                example: str0ngP4ssword
+              correo: 
+                type: string
+                example: test@test.com
+              numeroCelular: 
+                type: string
+                example: 987654321
+              perfilCodigo: 
+                type: integer
+                format: int32
+                example: 1
+  schemas:
+    UsuarioOutput:
+      type: object
+      properties: 
+        nroDocumento: 
+          type: string
+        correo: 
+          type: string
+        numeroCelular: 
+          type: string
+        perfilCodigo: 
+          type: integer
+          format: int32
+        estadoRegistro: 
+          type: boolean
+    
+    ListarUsuariosOutput:
+      type: object
+      properties:
+        totalElementos:
+          type: number
+        datos:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsuarioOutput'
+
+    CambiosHechosPerfilOutput:
+      type: object
+      properties:
+        mensaje:
+          type: string
+        datos:
+          $ref: '#/components/schemas/UsuarioOutput'
+paths:
+  /mantenimientos/usuarios/listar:
+    get:
+      tags:
+        - Mantenimientos / Usuarios
+      summary: Listar usuarios
+      responses:
+        200:
+          description: Listado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListarUsuariosOutput'
+
+  /mantenimientos/usuarios/buscar/{nroDocumento}:
+    get:
+      tags:
+        - Mantenimientos / Usuarios
+      summary: Buscar usuario por ID
+      parameters:
+        - in: path
+          name: nroDocumento
+          schema:
+            type: integer
+          required: true
+          description: ID de usuario
+      responses:
+        200:
+          description: ID encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsuarioOutput'
+        404:
+          description: ID no encontrado
+  
+  /mantenimientos/usuarios/actualizar/{nroDocumento}:
+    put:
+      tags:
+        - Mantenimientos / Usuarios
+      summary: Actualizar usuario por ID
+      parameters:
+        - in: path
+          name: nroDocumento
+          schema:
+            type: integer
+          required: true
+          description: ID de usuario
+      requestBody:
+        $ref: '#/components/requestBodies/UsuarioInput'
+
+      responses:
+        200:
+          description: Actualizado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CambiosHechosPerfilOutput'
+        404:
+          description: ID no encontrado
+        409:
+          description: Atributo que debe ser único ya existe
+
+  /mantenimientos/usuarios/eliminar/{nroDocumento}:
+    delete:
+      tags:
+        - Mantenimientos / Usuarios
+      summary: Eliminar usuario por ID
+      parameters:
+        - in: path
+          name: nroDocumento
+          schema:
+            type: integer
+          required: true
+          description: ID de usuario
+      responses:
+        200:
+          description: Eliminado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CambiosHechosPerfilOutput'
+        404:
+          description: ID no encontrado
+        409:
+          description: Elemento a eliminar está siendo usado
+
+  /mantenimientos/usuarios/cambiar-estado/{nroDocumento}:
+    patch:
+      tags:
+        - Mantenimientos / Usuarios
+      summary: Actualizar estado usuario por ID
+      parameters:
+        - in: path
+          name: nroDocumento
+          schema:
+            type: integer
+          required: true
+          description: ID de usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              required:
+                - estadoRegistro
+              properties:
+                estadoRegistro:
+                  type: boolean
+                  example: false
+      responses:
+        200:
+          description: Estado actualizado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CambiosHechosPerfilOutput'
+        404:
+          description: ID no encontrado
