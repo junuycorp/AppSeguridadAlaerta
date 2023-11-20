@@ -51,6 +51,12 @@ components:
       properties:
         totalElementos:
           type: number
+        totalPaginas:
+          type: number
+        paginaActual:
+          type: number
+        tamanioPagina:
+          type: number
         datos:
           type: array
           items:
@@ -69,6 +75,21 @@ paths:
       tags:
         - Mantenimientos / Usuarios
       summary: Listar usuarios
+      parameters:
+        - in: query
+          name: pagina
+          schema:
+            type: integer
+          required: false
+          example: 1
+          description: "Página inicial. Valor por defecto: 1"
+        - in: query
+          name: tamanio
+          schema:
+            type: integer
+          required: false
+          example: 10
+          description: "Nro de elementos por página. Valor por defecto: 10"
       responses:
         200:
           description: Listado correctamente
@@ -76,6 +97,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListarUsuariosOutput'
+        400:
+          description: Página fuera de rango
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: 'Página fuera de rango'
 
   /mantenimientos/usuarios/buscar/{nroDocumento}:
     get:

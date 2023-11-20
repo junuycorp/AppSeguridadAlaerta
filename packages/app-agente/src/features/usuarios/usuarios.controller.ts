@@ -7,15 +7,20 @@ import {
   cambiarEstadoUseCase,
   crudUsuarioMapper,
   eliminarUseCase,
-  listarUseCase,
+  listarConPaginacionUseCase,
 } from './crud-usuario'
+import { toNumberOrUndefined } from '@agente/shared/helpers'
 
 export const listar: Controller = (req, res, next) => {
-  listarUseCase()
-    .then((usuarios) =>
+  const { pagina, tamanio } = req.query
+  const NumPagina = toNumberOrUndefined(pagina, 'Página')
+  const NumTamanio = toNumberOrUndefined(tamanio, 'Tamaño de página')
+
+  listarConPaginacionUseCase(NumPagina, NumTamanio)
+    .then((resultado) =>
       res.json({
-        totalElementos: usuarios.length,
-        datos: usuarios.map(crudUsuarioMapper),
+        ...resultado,
+        datos: resultado.datos.map(crudUsuarioMapper),
       }),
     )
     .catch((error) => {

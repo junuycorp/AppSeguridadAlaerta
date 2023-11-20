@@ -1,5 +1,9 @@
 import { CustomError } from '@agente/errors'
-import { type Usuario, UsuarioRepository } from '../usuarios.repository'
+import {
+  type Usuario,
+  type ListarPaginacion,
+  UsuarioRepository,
+} from '../usuarios.repository'
 import type { CrudUsuarioDto, EstadoUsuarioDto } from './crud-usuario.dto'
 import {
   buscarErrorActualizar,
@@ -7,8 +11,11 @@ import {
   buscarErrorEliminar,
 } from './crud-usuario.helper'
 
-export const listarUseCase = async (): Promise<Usuario[]> => {
-  return await UsuarioRepository.listar()
+export const listarConPaginacionUseCase = async (
+  pagina: number = 1,
+  tamanioPagina: number = 10,
+): Promise<ListarPaginacion> => {
+  return await UsuarioRepository.listarConPaginacion(pagina, tamanioPagina)
 }
 
 export const buscarUseCase = async (id: string): Promise<Usuario> => {
