@@ -33,6 +33,9 @@ jobs:
             yarn db:deploy:agente
             yarn db:deploy:ciudadano
             
+            yarn build:agente
+            yarn build:ciudadano
+
             pm2 reload ecosystem.config.js
 
             exit

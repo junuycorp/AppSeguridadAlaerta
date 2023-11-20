@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register --env-file .env --respawn --clear ./src/main.ts",
     "build": "rimraf ./dist && tsc -b tsconfig.build.json",
-    "deploy": "yarn build && cross-env NODE_ENV=production TZ=America/Lima node --env-file .env ./dist/main.js",
+    "start": "cross-env NODE_ENV=production TZ=America/Lima node --env-file .env ./dist/main.js",
+    "deploy": "yarn build && yarn start",
     "db:seed": "prisma db seed",
     "db:client": "prisma generate",
     "db:migrate": "prisma migrate deploy && yarn db:client",
@@ -14,7 +15,8 @@
     "db:dev:ciudadano": "yarn db:migrate:dev",
     "db:client:ciudadano": "yarn db:client",
     "db:deploy:ciudadano": "yarn db:migrate",
-    "deploy:ciudadano": "yarn deploy"
+    "build:ciudadano": "yarn build",
+    "start:ciudadano": "yarn start"
   },
   "dependencies": {
     "@prisma/client": "latest",
