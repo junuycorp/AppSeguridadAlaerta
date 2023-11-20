@@ -17,12 +17,7 @@ export const listar: Controller = (req, res, next) => {
   const NumTamanio = toNumberOrUndefined(tamanio, 'Tamaño de página')
 
   listarConPaginacionUseCase(NumPagina, NumTamanio)
-    .then((resultado) =>
-      res.json({
-        ...resultado,
-        datos: resultado.datos.map(crudUsuarioMapper),
-      }),
-    )
+    .then((resultado) => res.json(resultado))
     .catch((error) => {
       next(error)
     })

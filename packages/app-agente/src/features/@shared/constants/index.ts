@@ -4,3 +4,7 @@ export const ID = {
   tipoPersonaNatural: 1,
   nacionalidadPeru: 193,
 } as const
+
+export const VALUES = {
+  sistemaPide: 'sistema-pide',
+} as const

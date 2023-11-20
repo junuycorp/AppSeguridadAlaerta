@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "rootDir": "./src",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@ciudadano/shared/*": ["./src/features/@shared/*"],
+      "@ciudadano/*": ["./src/*"]
+    }
+  }
+}

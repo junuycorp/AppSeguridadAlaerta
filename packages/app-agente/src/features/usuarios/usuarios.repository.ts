@@ -58,6 +58,22 @@ export class UsuarioRepository {
     const datos = await prisma.cuentaUsuario.findMany({
       skip: indiceInicio,
       take: tamanioPagina,
+      select: {
+        nroDocumento: true,
+        correo: true,
+        numeroCelular: true,
+        perfilCodigo: true,
+        estadoRegistro: true,
+        persona: {
+          select: {
+            razonSocial: true,
+            nombres: true,
+            apellidoPaterno: true,
+            apellidoMaterno: true,
+            sexo: true,
+          },
+        },
+      },
     })
     return {
       totalElementos: total,
@@ -74,5 +90,22 @@ export interface ListarPaginacion {
   totalPaginas: number
   paginaActual: number
   tamanioPagina: number
-  datos: Usuario[]
+  datos: UsuarioSelect[]
+}
+
+interface UsuarioSelect {
+  nroDocumento: string
+  correo: string | null
+  numeroCelular: string | null
+  perfilCodigo: number
+  estadoRegistro: boolean
+  persona: Persona | null
+}
+
+interface Persona {
+  razonSocial: string
+  nombres: string | null
+  apellidoPaterno: string | null
+  apellidoMaterno: string | null
+  sexo: string | null
 }
