@@ -11,7 +11,12 @@
   },
   "settings": {
     "import/resolver": {
-      "typescript": {} // Obtener paths de ./tsconfig.json
+      "typescript": {
+        "project": [
+          "./packages/app-agente/tsconfig.json",
+          "./packages/app-ciudadano/tsconfig.json"
+        ]
+      } // Obtener paths de ./tsconfig.json
     }
   },
   "overrides": [
