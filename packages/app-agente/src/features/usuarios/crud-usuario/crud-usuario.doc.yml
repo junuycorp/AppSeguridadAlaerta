@@ -30,6 +30,63 @@ components:
                 type: integer
                 format: int32
                 example: 1
+  
+    RegistrarUsuarioInput:
+      required: true
+      content:
+        application/json:
+          schema: 
+            type: object
+            properties:
+              nroDocumento: 
+                type: string
+              contrasena: 
+                type: string
+              nombres: 
+                type: string
+              apellidoMaterno: 
+                type: string
+              apellidoPaterno: 
+                type: string
+              sexo: 
+                type: string
+              perfilCodigo: 
+                type: integer
+                format: int32
+              correo: 
+                type: string
+                format: nullable
+              numeroCelular: 
+                type: string
+                format: nullable    
+
+    ActualizarUsuarioInput:
+      required: true
+      content:
+        application/json:
+          schema: 
+            type: object
+            properties:
+              contrasena: 
+                type: string
+              nombres: 
+                type: string
+              apellidoMaterno: 
+                type: string
+              apellidoPaterno: 
+                type: string
+              sexo: 
+                type: string
+              perfilCodigo: 
+                type: integer
+                format: int32
+              correo: 
+                type: string
+                format: nullable
+              numeroCelular: 
+                type: string
+                format: nullable 
+
   schemas:
     UsuarioOutput:
       type: object
@@ -51,10 +108,38 @@ components:
       properties:
         totalElementos:
           type: number
+        totalPaginas:
+          type: number
+        paginaActual:
+          type: number
+        tamanioPagina:
+          type: number
         datos:
           type: array
           items:
             $ref: '#/components/schemas/UsuarioOutput'
+
+    RegistrarUsuarioOutput:
+      type: object
+      properties:
+        mensaje: 
+          type: string
+        datos: 
+          type: object
+          properties: 
+            nroDocumento: 
+              type: string
+            correo: 
+              type: string
+              format: nullable
+            numeroCelular: 
+              type: string
+              format: nullable
+            perfilCodigo: 
+              type: integer
+              format: int32
+            estadoRegistro: 
+              type: boolean
 
     CambiosHechosPerfilOutput:
       type: object
@@ -69,6 +154,21 @@ paths:
       tags:
         - Mantenimientos / Usuarios
       summary: Listar usuarios
+      parameters:
+        - in: query
+          name: pagina
+          schema:
+            type: integer
+          required: false
+          example: 1
+          description: "Página inicial. Valor por defecto: 1"
+        - in: query
+          name: tamanio
+          schema:
+            type: integer
+          required: false
+          example: 10
+          description: "Nro de elementos por página. Valor por defecto: 10"
       responses:
         200:
           description: Listado correctamente
@@ -76,6 +176,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListarUsuariosOutput'
+        400:
+          description: Página fuera de rango
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: 'Página fuera de rango'
 
   /mantenimientos/usuarios/buscar/{nroDocumento}:
     get:
@@ -99,6 +209,23 @@ paths:
         404:
           description: ID no encontrado
   
+  /mantenimientos/usuarios/crear:
+    post:
+      tags:
+        - Mantenimientos / Usuarios
+      summary: Crear usuario
+      requestBody:
+        $ref: '#/components/requestBodies/RegistrarUsuarioInput'
+      responses:
+        200:
+          description: Creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrarUsuarioOutput'
+        409:
+          description: ID ya se encuentra registrado
+  
   /mantenimientos/usuarios/actualizar/{nroDocumento}:
     put:
       tags:
@@ -112,7 +239,7 @@ paths:
           required: true
           description: ID de usuario
       requestBody:
-        $ref: '#/components/requestBodies/UsuarioInput'
+        $ref: '#/components/requestBodies/ActualizarUsuarioInput'
 
       responses:
         200:

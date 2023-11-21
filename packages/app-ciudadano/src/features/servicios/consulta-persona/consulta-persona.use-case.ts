@@ -2,6 +2,7 @@ import { CustomError } from '@ciudadano/errors'
 import { consultaPersona } from '@ciudadano/services'
 import { PersonaRepository, type Persona } from '@ciudadano/shared/repositories'
 import type { ConsultaPersonaDto } from './consulta-persona.dto'
+import { VALUES } from '@ciudadano/shared/constants'
 
 export const consultaPersonaUseCase = async (
   consultaPersonaDto: ConsultaPersonaDto,
@@ -29,7 +30,7 @@ export const consultaPersonaUseCase = async (
       idTipoPersona: data.tipoPersona.idTipoPersona,
       codigoUbigeo: data.ubigeo?.codigoUbigeo,
       idNacionalidad: data.nacionalidad?.idNacionalidad,
-      usuarioCreador: 'sistema-pide',
+      usuarioCreador: VALUES.sistemaPide,
     })
   }
 

@@ -1,14 +1,25 @@
 import { CustomError } from '@agente/errors'
-import { type Usuario, UsuarioRepository } from '../usuarios.repository'
+import {
+  type Usuario,
+  type ListarPaginacion,
+  UsuarioRepository,
+} from '../usuarios.repository'
 import type { CrudUsuarioDto, EstadoUsuarioDto } from './crud-usuario.dto'
 import {
   buscarErrorActualizar,
   buscarErrorCambiarEstado,
+  buscarErrorCrear,
   buscarErrorEliminar,
 } from './crud-usuario.helper'
+import { bcryptAdapter } from '@agente/adapters'
+import { ID } from '@agente/shared/constants'
+import { PersonaRepository } from '@agente/shared/repositories'
 
-export const listarUseCase = async (): Promise<Usuario[]> => {
-  return await UsuarioRepository.listar()
+export const listarConPaginacionUseCase = async (
+  pagina: number = 1,
+  tamanioPagina: number = 10,
+): Promise<ListarPaginacion> => {
+  return await UsuarioRepository.listarConPaginacion(pagina, tamanioPagina)
 }
 
 export const buscarUseCase = async (id: string): Promise<Usuario> => {
@@ -17,12 +28,64 @@ export const buscarUseCase = async (id: string): Promise<Usuario> => {
   return usuario
 }
 
+export const crearUseCase = async (
+  crudDto: CrudUsuarioDto,
+  codUsuarioCreador: string,
+): Promise<Usuario> => {
+  const { nombres, apellidoPaterno, apellidoMaterno, sexo, ...usuarioDto } = crudDto
+  const razonSocial = `${nombres} ${apellidoPaterno} ${apellidoMaterno}`
+  try {
+    // Crear persona si no existe
+    await PersonaRepository.obtenerOCrear({
+      nroDocumento: crudDto.nroDocumento,
+      idTipoDocumento: ID.tipoDocumentoDNI,
+      idTipoPersona: ID.tipoPersonaNatural,
+      razonSocial,
+      nombres,
+      apellidoPaterno,
+      apellidoMaterno,
+      fechaNacimiento: null,
+      sexo,
+      codigoUbigeo: null,
+      idNacionalidad: ID.nacionalidadPeru,
+      usuarioCreador: codUsuarioCreador,
+      usuarioModificador: null,
+    })
+
+    // Convertir contraseña en hash
+    const { contrasena } = usuarioDto
+    const hashContrasenia = bcryptAdapter.hash(contrasena)
+    usuarioDto.contrasena = hashContrasenia
+
+    const usuario = await UsuarioRepository.crear(usuarioDto)
+    return usuario
+  } catch (error) {
+    await buscarErrorCrear(usuarioDto.nroDocumento)
+    throw error
+  }
+}
+
 export const actualizarUseCase = async (
   crudDto: CrudUsuarioDto,
-  id: string,
+  codUsuarioModificador: string,
 ): Promise<Usuario> => {
+  const id = crudDto.nroDocumento
   try {
-    const usuario = await UsuarioRepository.actualizar(id, crudDto)
+    const { apellidoMaterno, apellidoPaterno, nombres, sexo, ...datosUsuario } =
+      crudDto
+    const datosPersona = {
+      nroDocumento: crudDto.nroDocumento,
+      razonSocial: `${nombres} ${apellidoPaterno} ${apellidoMaterno}`,
+      nombres,
+      apellidoPaterno,
+      apellidoMaterno,
+      sexo,
+      usuarioModificador: codUsuarioModificador,
+    }
+    const usuario = await UsuarioRepository.actualizarUsuarioPersona(
+      datosPersona,
+      datosUsuario,
+    )
     return usuario
   } catch (error) {
     await buscarErrorActualizar(crudDto, id)

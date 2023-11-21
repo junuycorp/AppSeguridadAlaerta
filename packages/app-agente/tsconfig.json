@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "rootDir": "./src",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@agente/shared/*": ["./src/features/@shared/*"],
+      "@agente/*": ["./src/*"]
+    }
+  }
+}

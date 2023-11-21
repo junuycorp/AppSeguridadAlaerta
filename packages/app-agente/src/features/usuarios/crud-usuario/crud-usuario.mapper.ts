@@ -1,15 +1,23 @@
-import type { Usuario } from '../usuarios.repository'
+import type { Persona, CuentaUsuario as Usuario } from '@prisma-agente/client'
 
-type OmitProps =
-  | 'celularVerificado'
-  | 'contrasena'
-  | 'contrasenaAnterior'
-  | 'correoVerificado'
-  | 'fechaCreacion'
-  | 'fechaModificacion'
-  | 'preguntaSecreta'
-  | 'respuesta'
-type PerfilMapper = Omit<Usuario, OmitProps>
+interface PerfilMapper {
+  nroDocumento: string
+  correo: string | null
+  numeroCelular: string | null
+  perfilCodigo: number
+  estadoRegistro: boolean
+  persona: {
+    razonSocial: string
+    nombres: string | null
+    apellidoPaterno: string | null
+    apellidoMaterno: string | null
+    sexo: string | null
+  }
+}
+
+interface TUsuario extends Usuario {
+  persona: Persona
+}
 
 export const crudUsuarioMapper = (usuario: Usuario): PerfilMapper => {
   const {
@@ -21,7 +29,20 @@ export const crudUsuarioMapper = (usuario: Usuario): PerfilMapper => {
     fechaModificacion,
     preguntaSecreta,
     respuesta,
+    persona,
     ...rest
-  } = usuario
-  return rest
+  } = usuario as TUsuario
+
+  const { razonSocial, nombres, apellidoMaterno, apellidoPaterno, sexo } = persona
+
+  return {
+    ...rest,
+    persona: {
+      razonSocial,
+      nombres,
+      apellidoPaterno,
+      apellidoMaterno,
+      sexo,
+    },
+  }
 }

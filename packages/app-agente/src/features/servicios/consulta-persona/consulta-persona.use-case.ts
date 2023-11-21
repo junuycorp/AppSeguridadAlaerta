@@ -1,6 +1,7 @@
 import { CustomError } from '@agente/errors'
 import { consultaPersona } from '@agente/services'
 import { PersonaRepository, type Persona } from '@agente/shared/repositories'
+import { VALUES } from '@agente/shared/constants'
 import type { ConsultaPersonaDto } from './consulta-persona.dto'
 
 export const consultaPersonaUseCase = async (
@@ -29,7 +30,7 @@ export const consultaPersonaUseCase = async (
       idTipoPersona: data.tipoPersona.idTipoPersona,
       codigoUbigeo: data.ubigeo?.codigoUbigeo,
       idNacionalidad: data.nacionalidad?.idNacionalidad,
-      usuarioCreador: 'sistema-pide',
+      usuarioCreador: VALUES.sistemaPide,
     })
   }
 

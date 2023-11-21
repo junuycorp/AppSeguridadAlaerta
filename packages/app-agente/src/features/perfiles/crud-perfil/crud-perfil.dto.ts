@@ -11,14 +11,19 @@ export class CrudPerfilDto {
     public perfilNombre?: string,
     public descripcion?: string,
     public icono?: string,
+    public notificarEvento?: boolean,
   ) {}
 
   static crear(object: Record<string, unknown>): [string?, CrudPerfilDto?] {
-    const { perfilNombre, descripcion, icono } = object as Flexible<CrudPerfilDto>
+    const { perfilNombre, descripcion, icono, notificarEvento } =
+      object as Flexible<CrudPerfilDto>
 
     if (perfilNombre == null) return ['Falta proporcionar nombre del perfil']
 
-    return [undefined, new CrudPerfilDto(perfilNombre, descripcion, icono)]
+    return [
+      undefined,
+      new CrudPerfilDto(perfilNombre, descripcion, icono, notificarEvento),
+    ]
   }
 
   static obtenerId(
