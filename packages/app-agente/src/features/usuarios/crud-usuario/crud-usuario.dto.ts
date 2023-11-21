@@ -1,5 +1,5 @@
 import { validators } from '@agente/configs'
-import { toNumber } from '@agente/shared/helpers'
+import { toNumber, validarContrasenia } from '@agente/shared/helpers'
 import type { Flexible } from '@agente/shared/types'
 
 export interface EstadoUsuarioDto {
@@ -9,44 +9,65 @@ export interface EstadoUsuarioDto {
 
 export class CrudUsuarioDto {
   private constructor(
+    public nroDocumento: string,
     public contrasena: string,
-    public correo: string,
-    public numeroCelular: string,
+    public nombres: string,
+    public apellidoPaterno: string,
+    public apellidoMaterno: string,
+    public sexo: string,
     public perfilCodigo: number,
-    public preguntaSecreta?: string,
-    public respuesta?: string,
+    public correo?: string,
+    public numeroCelular?: string,
   ) {}
 
   static crear(object: Record<string, unknown>): [string?, CrudUsuarioDto?] {
     const {
+      nroDocumento,
       contrasena,
+      nombres,
+      apellidoMaterno,
+      apellidoPaterno,
+      sexo,
+      perfilCodigo,
       correo,
       numeroCelular,
-      perfilCodigo,
-      preguntaSecreta,
-      respuesta,
     } = object as Flexible<CrudUsuarioDto>
 
+    if (nroDocumento == null) return ['Falta proporcionar número de documento']
+    if (!validators.dni.test(nroDocumento))
+      return ['Número de documento no es válido']
+
     if (contrasena == null) return ['Falta proporcionar contraseña']
+    const [esValido, mensaje] = validarContrasenia(contrasena)
+    if (!esValido && mensaje != null) return [mensaje]
 
-    if (correo == null) return ['Falta proporcionar correo']
-    if (!validators.correo.test(correo)) return ['Correo no es válido']
+    if (nombres == null) return ['Falta proporcionar nombres']
+    if (apellidoMaterno == null) return ['Falta proporcionar apellido paterno']
+    if (apellidoPaterno == null) return ['Falta proporcionar apellido materno']
 
-    if (numeroCelular == null) return ['Falta proporcionar numero de celular']
-    if (!validators.numeroCelular.test(numeroCelular))
-      return ['Número de celular no válido']
+    if (sexo == null) return ['Falta proporcionar sexo']
+    if (!['M', 'F'].includes(sexo)) return ['Sexo no es válido']
 
-    if (perfilCodigo == null) return ['Falta proporcionar código del perfil']
+    if (perfilCodigo == null) return ['Falta proporcionar el código del perfil']
+
+    if (correo != null && !validators.correo.test(correo))
+      return ['Correo no es válido']
+
+    if (numeroCelular != null && !validators.numeroCelular.test(numeroCelular))
+      return ['Numero de celular no válido']
 
     return [
       undefined,
       new CrudUsuarioDto(
+        nroDocumento,
         contrasena,
+        nombres,
+        apellidoPaterno,
+        apellidoMaterno,
+        sexo,
+        toNumber(perfilCodigo, 'Código de perfil'),
         correo,
         numeroCelular,
-        toNumber(perfilCodigo, 'Perfil código'),
-        preguntaSecreta,
-        respuesta,
       ),
     ]
   }

@@ -83,6 +83,7 @@ model Perfil {
   perfilNombre      String?         @map("perfil_nombre") @db.VarChar(100)
   descripcion       String?         @db.VarChar(200)
   icono             String?         @db.VarChar(20)
+  notificarEvento   Boolean?         @default(true) @map("notificar_evento")
   estadoRegistro    Boolean         @default(true) @map("estado_registro")
   fechaCreacion     DateTime        @default(now()) @map("fecha_creacion")
   fechaModificacion DateTime        @updatedAt @map("fecha_modificacion")

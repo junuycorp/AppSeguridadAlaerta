@@ -1,10 +1,10 @@
 import type { Controller } from '@agente/shared/types'
-import { RegistrarUsuarioDto, registrarUsuarioUseCase } from './registrar-usuario'
 import {
   CrudUsuarioDto,
   actualizarUseCase,
   buscarUseCase,
   cambiarEstadoUseCase,
+  crearUseCase,
   crudUsuarioMapper,
   eliminarUseCase,
   listarConPaginacionUseCase,
@@ -17,7 +17,12 @@ export const listar: Controller = (req, res, next) => {
   const NumTamanio = toNumberOrUndefined(tamanio, 'Tamaño de página')
 
   listarConPaginacionUseCase(NumPagina, NumTamanio)
-    .then((resultado) => res.json(resultado))
+    .then((resultado) =>
+      res.json({
+        ...resultado,
+        datos: resultado.datos.map(crudUsuarioMapper),
+      }),
+    )
     .catch((error) => {
       next(error)
     })
@@ -38,15 +43,34 @@ export const buscar: Controller = (req, res, next) => {
     })
 }
 
-export const actualizar: Controller = (req, res, next) => {
-  const [error, crudDto] = CrudUsuarioDto.crear(req.body)
-  const [errorId, id] = CrudUsuarioDto.obtenerId(req.params)
-  const mensaje = error ?? errorId
-  if (mensaje != null) {
-    res.status(400).json({ mensaje })
+export const crear: Controller = (req, res, next) => {
+  const usuario = req.body.user
+  const [error, dto] = CrudUsuarioDto.crear(req.body)
+  if (error != null) {
+    res.status(400).json({ mensaje: error })
     return
   }
-  actualizarUseCase(crudDto!, id!)
+  crearUseCase(dto!, usuario.nroDocumento)
+    .then((usuario) =>
+      res.json({
+        mensaje: 'Usuario creado correctamente',
+        datos: crudUsuarioMapper(usuario),
+        // datos: usuario,
+      }),
+    )
+    .catch((error) => {
+      next(error)
+    })
+}
+
+export const actualizar: Controller = (req, res, next) => {
+  const usuario = req.body.user
+  const [error, crudDto] = CrudUsuarioDto.crear({ ...req.body, ...req.params })
+  if (error != null) {
+    res.status(400).json({ mensaje: error })
+    return
+  }
+  actualizarUseCase(crudDto!, usuario.nroDocumento)
     .then((usuario) =>
       res.json({
         mensaje: 'Usuario actualizado correctamente',
@@ -92,25 +116,6 @@ export const cambiarEstado: Controller = (req, res, next) => {
         datos: crudUsuarioMapper(usuario),
       })
     })
-    .catch((error) => {
-      next(error)
-    })
-}
-
-export const registrarUsuario: Controller = (req, res, next) => {
-  const usuario = req.body.user
-  const [error, dto] = RegistrarUsuarioDto.crear(req.body)
-  if (error != null) {
-    res.status(400).json({ mensaje: error })
-    return
-  }
-  registrarUsuarioUseCase(dto!, usuario.nroDocumento)
-    .then((usuario) =>
-      res.json({
-        mensaje: 'Usuario registrado correctamente',
-        datos: crudUsuarioMapper(usuario),
-      }),
-    )
     .catch((error) => {
       next(error)
     })

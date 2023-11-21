@@ -1,5 +1,5 @@
 import { prisma } from '@agente/database'
-import type { CuentaUsuario, Prisma } from '@agente/database'
+import type { CuentaUsuario, Persona, Prisma } from '@agente/database'
 import { CustomError } from '@agente/errors'
 
 type CrearUsuario = Prisma.CuentaUsuarioUncheckedCreateInput
@@ -13,7 +13,10 @@ export class UsuarioRepository {
   }
 
   static buscarPorId = async (nroDocumento: string): Promise<Usuario | null> => {
-    return await prisma.cuentaUsuario.findUnique({ where: { nroDocumento } })
+    return await prisma.cuentaUsuario.findUnique({
+      where: { nroDocumento },
+      include: { persona: true },
+    })
   }
 
   static buscarPorCorreo = async (correo: string): Promise<Usuario | null> => {
@@ -27,7 +30,10 @@ export class UsuarioRepository {
   }
 
   static crear = async (datos: CrearUsuario): Promise<Usuario> => {
-    return await prisma.cuentaUsuario.create({ data: datos })
+    return await prisma.cuentaUsuario.create({
+      data: datos,
+      include: { persona: true },
+    })
   }
 
   static actualizar = async (
@@ -37,11 +43,15 @@ export class UsuarioRepository {
     return await prisma.cuentaUsuario.update({
       where: { nroDocumento },
       data: datos,
+      include: { persona: true },
     })
   }
 
   static eliminar = async (nroDocumento: string): Promise<Usuario> => {
-    return await prisma.cuentaUsuario.delete({ where: { nroDocumento } })
+    return await prisma.cuentaUsuario.delete({
+      where: { nroDocumento },
+      include: { persona: true },
+    })
   }
 
   static listarConPaginacion = async (
@@ -58,21 +68,8 @@ export class UsuarioRepository {
     const datos = await prisma.cuentaUsuario.findMany({
       skip: indiceInicio,
       take: tamanioPagina,
-      select: {
-        nroDocumento: true,
-        correo: true,
-        numeroCelular: true,
-        perfilCodigo: true,
-        estadoRegistro: true,
-        persona: {
-          select: {
-            razonSocial: true,
-            nombres: true,
-            apellidoPaterno: true,
-            apellidoMaterno: true,
-            sexo: true,
-          },
-        },
+      include: {
+        persona: true,
       },
     })
     return {
@@ -83,6 +80,25 @@ export class UsuarioRepository {
       datos,
     }
   }
+
+  static actualizarUsuarioPersona = async (
+    datosPersona: Partial<Persona>,
+    datosUsuario: Partial<Usuario>,
+  ): Promise<Usuario> => {
+    return await prisma.$transaction(async (tx) => {
+      await tx.persona.update({
+        where: { nroDocumento: datosPersona.nroDocumento },
+        data: datosPersona,
+      })
+      const usuario = await tx.cuentaUsuario.update({
+        where: { nroDocumento: datosUsuario.nroDocumento },
+        data: datosUsuario,
+        include: { persona: true },
+      })
+
+      return usuario
+    })
+  }
 }
 
 export interface ListarPaginacion {
@@ -90,22 +106,5 @@ export interface ListarPaginacion {
   totalPaginas: number
   paginaActual: number
   tamanioPagina: number
-  datos: UsuarioSelect[]
-}
-
-interface UsuarioSelect {
-  nroDocumento: string
-  correo: string | null
-  numeroCelular: string | null
-  perfilCodigo: number
-  estadoRegistro: boolean
-  persona: Persona | null
-}
-
-interface Persona {
-  razonSocial: string
-  nombres: string | null
-  apellidoPaterno: string | null
-  apellidoMaterno: string | null
-  sexo: string | null
+  datos: Usuario[]
 }

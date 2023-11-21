@@ -19,6 +19,8 @@ components:
         icono: 
           type: string
           format: nullable
+        notificarEvento:
+          type: boolean
         estadoRegistro: 
           type: boolean
 
@@ -48,7 +50,7 @@ components:
             schema: 
               type: object
               properties:
-                perfilNombre: 
+                perfilNombre:
                   type: string
                 descripcion: 
                   type: string
@@ -56,6 +58,9 @@ components:
                   type: string
                   format: nullable  
                   example: null
+                notificarEvento:
+                  type: boolean
+                  example: true
   
 paths:
   /mantenimientos/perfiles/listar:
