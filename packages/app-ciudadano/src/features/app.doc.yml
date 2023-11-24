@@ -4,3 +4,5 @@ tags:
     description: Registro y acceso al sistema
   - name: Servicios
     description: Consultas de información a servicios externos
+  - name: Incidentes
+    description: Operaciones con incidentes

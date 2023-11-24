@@ -4,6 +4,7 @@ dist
 # Generated files
 temp
 logs
+uploads
 
 # Dependencies
 node_modules

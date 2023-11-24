@@ -3,6 +3,7 @@ import { Prisma } from '@ciudadano/database'
 import { logger } from '@ciudadano/configs'
 import { CustomError } from '@ciudadano/errors'
 import { AxiosError } from 'axios'
+import { MulterError } from 'multer'
 
 export const handleError = (
   error: unknown,
@@ -64,6 +65,16 @@ export const handleError = (
     const respError = error.response
     if (respError?.data !== undefined) {
       res.status(respError.status).json(respError.data)
+      return
+    }
+  }
+
+  if (error instanceof MulterError) {
+    if (error.code === 'LIMIT_UNEXPECTED_FILE') {
+      res.status(400).json({
+        mensaje: 'Ocurrió un error al subir los archivos',
+        error,
+      })
       return
     }
   }
