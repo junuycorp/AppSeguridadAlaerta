@@ -156,7 +156,8 @@ model Incidente {
   idIncidente       Int               @id @default(autoincrement()) @map("id_incidente")
   idDenunciante     String            @map("id_denunciante") @db.VarChar(20)
   descripcion       String            @db.Text
-  estado            String
+  estado            String            @default("PENDIENTE")
+  activo            Boolean           @default(true)
   longitud          String
   latitud           String
   fechaCreacion     DateTime          @default(now()) @map("fecha_creacion")
