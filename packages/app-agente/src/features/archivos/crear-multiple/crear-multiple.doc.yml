@@ -1,0 +1,40 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3301
+
+paths:
+  /procesos/archivos/crear-multiple:
+    post:
+      tags:
+        - Procesos / Archivos
+      summary: Crear varios archivos
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                idIncidente:
+                  type: number
+                  example: 1
+                rutasArchivos:
+                  type: array
+                  items:
+                    type: string
+                    example: "20231128/ID-14/161420-01.png"
+      responses:
+        200:
+          description: Creado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalCreados:
+                    type: number
+        409:
+          description: ID ya se encuentra registrado
