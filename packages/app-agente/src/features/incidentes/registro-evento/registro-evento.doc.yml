@@ -1,0 +1,53 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3301
+components:
+  schemas:
+    RegistroEventoOutput:
+      type: object
+      properties:
+        mensaje:
+          type: string
+        datos:
+          type: boolean
+paths:
+  /proceso/incidentes/registro-evento:
+    post:
+      tags:
+        - Proceso / Incidentes
+      summary: Reportar incidente
+      requestBody:
+        description: |
+          - idDenunciante: Número de documento del usuario que reportó
+          - descripcion: Descripcion del incidente
+          - latitud: Coordenada latitud
+          - longitud: Coordenada longitud
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties: 
+                idDenunciante: 
+                  type: string
+                  example: 76543210
+                descripcion: 
+                  type: string
+                  example: Descripcion del incidente
+                latitud: 
+                  type: string
+                  example: -11.718343
+                longitud: 
+                  type: string
+                  example: -72.946554
+        
+      responses:
+        200:
+          description: Creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistroEventoOutput'

@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { autenticarUsuario } from '@agente/middlewares'
 import servicios from './servicios/servicios.routes'
 import autenticacion from './autenticacion/autenticacion.routes'
+import incidentes from './incidentes/incidentes.routes'
 import * as perfiles from './perfiles/perfiles.routes'
 import * as usuarios from './usuarios/usuarios.routes'
 
@@ -15,3 +16,4 @@ appRouter.use('/servicios', servicios)
 appRouter.use(autenticarUsuario)
 appRouter.use('/mantenimientos/perfiles', perfiles.mantenimientos)
 appRouter.use('/mantenimientos/usuarios', usuarios.mantenimientos)
+appRouter.use('/proceso/incidentes', incidentes)
