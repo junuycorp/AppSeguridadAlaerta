@@ -14,10 +14,10 @@ components:
         datos:
           type: boolean
 paths:
-  /proceso/incidentes/registro-evento:
+  /procesos/incidentes/registro-evento:
     post:
       tags:
-        - Proceso / Incidentes
+        - Procesos / Incidentes
       summary: Reportar incidente
       requestBody:
         description: |
