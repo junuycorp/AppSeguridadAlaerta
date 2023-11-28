@@ -62,6 +62,11 @@ export const handleError = (
       res.status(504).json({ mensaje: 'La solicitud tardó más de lo esperado' })
       return
     }
+    if (error.code === 'ECONNREFUSED') {
+      res.status(502).json({ mensaje: 'Lo solicitud no se encuentra disponible' })
+      logger.error(error)
+      return
+    }
     const respError = error.response
     if (respError?.data !== undefined) {
       res.status(respError.status).json(respError.data)

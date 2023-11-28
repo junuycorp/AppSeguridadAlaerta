@@ -4,13 +4,13 @@ import multer from 'multer'
 import { obtenerFechaActual } from '@ciudadano/shared/helpers'
 
 // Directorio donde se guardarán los archivos
-const uploadDirectory = 'uploads/'
+const directorioBase = path.join('..', 'uploads')
 
-// Configuración de multer para gestionar la carga de archivos
+// Configuración de multer para guardar en Disco
 const diskStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     const fechaActual = obtenerFechaActual()
-    const carpetaDestino = path.join(uploadDirectory, fechaActual)
+    const carpetaDestino = path.join(directorioBase, fechaActual)
 
     // Verificar si la carpeta de destino existe, y créala si no
     if (!fs.existsSync(carpetaDestino)) {
@@ -25,4 +25,14 @@ const diskStorage = multer.diskStorage({
   },
 })
 
-export const upload = multer({ storage: diskStorage })
+// Configuración para guardar en RAM
+const memoryStorage = multer.memoryStorage()
+
+export const uploadDisk = multer({ storage: diskStorage })
+
+export const uploadMemory = multer({
+  storage: memoryStorage,
+  limits: {
+    fieldSize: 1024 * 1024 * 30, // Limite de 30MB
+  },
+})

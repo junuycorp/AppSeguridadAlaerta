@@ -1,0 +1,57 @@
+import axios from 'axios'
+import { envs } from '@ciudadano/configs'
+import type { DatosEvento } from './registrar-evento.use-case'
+
+export interface Incidente {
+  idIncidente: number
+  idDenunciante: string
+  descripcion: string
+  estado: 'PENDIENTE' | 'ATENDIDO' | 'ARCHIVADO' | 'DERIVADO'
+  activo: boolean
+  latitud: string
+  longitud: string
+}
+
+export interface CrearMultiplesArchivos {
+  idIncidente: number
+  rutasArchivos: string[]
+}
+
+const apiUrl = envs.SEGURIDAD_API
+
+export const registrarEventoService = async (
+  datos: DatosEvento,
+): Promise<Incidente> => {
+  const respuesta = await axios({
+    method: 'post',
+    baseURL: apiUrl,
+    url: `/procesos/incidentes/registro-evento`,
+    timeout: 15000,
+    data: {
+      idDenunciante: datos.codUsuario,
+      descripcion: datos.descripcion,
+      latitud: datos.latitud,
+      longitud: datos.longitud,
+    },
+  })
+
+  const incidente = respuesta.data.datos as Incidente
+  return incidente
+}
+
+export const crearMultiplesArchivos = async (
+  datos: CrearMultiplesArchivos,
+): Promise<number> => {
+  const respuesta = await axios({
+    method: 'post',
+    baseURL: apiUrl,
+    url: '/procesos/archivos/crear-multiple',
+    timeout: 15000,
+    data: {
+      idIncidente: datos.idIncidente,
+      rutasArchivos: datos.rutasArchivos,
+    },
+  })
+  const totalCreados = respuesta.data.totalCreados as number
+  return totalCreados
+}
