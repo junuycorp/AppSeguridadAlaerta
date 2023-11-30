@@ -1,0 +1,50 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+paths:
+  /incidentes/registrar-evento:
+    post:
+      tags:
+        - Incidentes
+      summary: Registrar un evento
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                descripcion:
+                  type: string
+                  description: Descripción del evento
+                longitud:
+                  type: string
+                  description: Coordenada longitud del lugar evento
+                latitud:
+                  type: string
+                  description: Coordenada latitud del lugar del evento
+                archivos:
+                  description: Lista de archivos por subir
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+              required:
+                - descripcion
+                - longitud
+                - latitud
+      responses:
+        200:
+          description: Registros creados correctamente
+          # content:
+            # application/json:
+            #   schema:
+            #     type: object
+            #     properties:
+            #       mensaje: 
+            #         type: string
+        409:
+          description: ID de registro ya se encuentra registrado

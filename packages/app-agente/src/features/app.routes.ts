@@ -2,6 +2,8 @@ import { Router } from 'express'
 import { autenticarUsuario } from '@agente/middlewares'
 import servicios from './servicios/servicios.routes'
 import autenticacion from './autenticacion/autenticacion.routes'
+import incidentes from './incidentes/incidentes.routes'
+import archivos from './archivos/archivos.routes'
 import * as perfiles from './perfiles/perfiles.routes'
 import * as usuarios from './usuarios/usuarios.routes'
 
@@ -10,6 +12,8 @@ export const appRouter = Router()
 // Endpoints sin token
 appRouter.use('/autenticacion', autenticacion)
 appRouter.use('/servicios', servicios)
+appRouter.use('/procesos/incidentes', incidentes)
+appRouter.use('/procesos/archivos', archivos)
 
 // Endpoints que requiren token
 appRouter.use(autenticarUsuario)

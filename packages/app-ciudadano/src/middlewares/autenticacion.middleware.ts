@@ -49,8 +49,11 @@ export const autenticarUsuario = async (
       res.status(401).json({ mensaje: 'Usuario no se encuentra activo' })
       return
     }
+
+    // Guardando informacion de usuario
     req.body.user = usuario
     req.body.payload = payload
+    req.headers.idUser = usuario.nroDocumento
   } catch (error) {
     logger.error(error)
     res.status(500).json({ mensaje: 'Ocurrió un error inesperado' })

@@ -3,6 +3,7 @@ import { Prisma } from '@ciudadano/database'
 import { logger } from '@ciudadano/configs'
 import { CustomError } from '@ciudadano/errors'
 import { AxiosError } from 'axios'
+import { MulterError } from 'multer'
 
 export const handleError = (
   error: unknown,
@@ -61,9 +62,24 @@ export const handleError = (
       res.status(504).json({ mensaje: 'La solicitud tardó más de lo esperado' })
       return
     }
+    if (error.code === 'ECONNREFUSED') {
+      res.status(502).json({ mensaje: 'Lo solicitud no se encuentra disponible' })
+      logger.error(error)
+      return
+    }
     const respError = error.response
     if (respError?.data !== undefined) {
       res.status(respError.status).json(respError.data)
+      return
+    }
+  }
+
+  if (error instanceof MulterError) {
+    if (error.code === 'LIMIT_UNEXPECTED_FILE') {
+      res.status(400).json({
+        mensaje: 'Ocurrió un error al subir los archivos',
+        error,
+      })
       return
     }
   }

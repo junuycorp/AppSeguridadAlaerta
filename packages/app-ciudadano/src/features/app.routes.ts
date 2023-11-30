@@ -3,6 +3,7 @@ import { autenticarUsuario } from '@ciudadano/middlewares'
 import autenticacion from './autenticacion/autenticacion.routes'
 import servicios from './servicios/servicios.routes'
 import perfiles from './perfiles/perfiles.routes'
+import incidentes from './incidentes/incidentes.routes'
 
 export const appRouter = Router()
 
@@ -13,3 +14,4 @@ appRouter.use('/servicios', servicios)
 // Endpoints que requiren token
 appRouter.use(autenticarUsuario)
 appRouter.use('/perfiles', perfiles)
+appRouter.use('/incidentes', incidentes)

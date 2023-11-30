@@ -8,3 +8,5 @@ tags:
     description: Mantenimiento de perfiles
   - name: Mantenimientos / Usuarios
     description: Mantenimiento de usuarios
+  - name: Procesos / Incidentes
+    descripcion: Manejo de incidentes

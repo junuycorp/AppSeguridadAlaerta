@@ -18,21 +18,22 @@ model Configuracion {
 }
 
 model CuentaUsuario {
-  nroDocumento       String   @id @map("nro_documento") @db.VarChar(20)
-  contrasena         String   @db.VarChar(128)
-  correo             String?  @unique @db.VarChar(35)
-  numeroCelular      String?  @unique @map("numero_celular") @db.VarChar(11)
-  correoVerificado   Boolean  @default(false) @map("correo_verificado")
-  celularVerificado  Boolean  @default(false) @map("celular_verificado")
-  preguntaSecreta    String?  @map("pregunta_secreta") @db.VarChar(60)
-  respuesta          String?  @db.VarChar(60)
-  contrasenaAnterior String?  @map("contrasena_old") @db.VarChar(128)
-  perfilCodigo       Int      @map("perfil_codigo")
-  estadoRegistro     Boolean  @default(true) @map("estado_registro")
-  fechaCreacion      DateTime @default(now()) @map("fecha_creacion")
-  fechaModificacion  DateTime @updatedAt @map("fecha_modificacion")
-  persona            Persona? @relation(fields: [nroDocumento], references: [nroDocumento])
-  perfil             Perfil   @relation(fields: [perfilCodigo], references: [perfilCodigo])
+  nroDocumento       String            @id @map("nro_documento") @db.VarChar(20)
+  contrasena         String            @db.VarChar(128)
+  correo             String?           @unique @db.VarChar(35)
+  numeroCelular      String?           @unique @map("numero_celular") @db.VarChar(11)
+  correoVerificado   Boolean           @default(false) @map("correo_verificado")
+  celularVerificado  Boolean           @default(false) @map("celular_verificado")
+  preguntaSecreta    String?           @map("pregunta_secreta") @db.VarChar(60)
+  respuesta          String?           @db.VarChar(60)
+  contrasenaAnterior String?           @map("contrasena_old") @db.VarChar(128)
+  perfilCodigo       Int               @map("perfil_codigo")
+  estadoRegistro     Boolean           @default(true) @map("estado_registro")
+  fechaCreacion      DateTime          @default(now()) @map("fecha_creacion")
+  fechaModificacion  DateTime          @updatedAt @map("fecha_modificacion")
+  persona            Persona?          @relation(fields: [nroDocumento], references: [nroDocumento])
+  perfil             Perfil            @relation(fields: [perfilCodigo], references: [perfilCodigo])
+  incidenteSereno    IncidenteSereno[]
 
   @@map("cuenta_usuario")
 }
@@ -83,7 +84,7 @@ model Perfil {
   perfilNombre      String?         @map("perfil_nombre") @db.VarChar(100)
   descripcion       String?         @db.VarChar(200)
   icono             String?         @db.VarChar(20)
-  notificarEvento   Boolean?         @default(true) @map("notificar_evento")
+  notificarEvento   Boolean?        @default(true) @map("notificar_evento")
   estadoRegistro    Boolean         @default(true) @map("estado_registro")
   fechaCreacion     DateTime        @default(now()) @map("fecha_creacion")
   fechaModificacion DateTime        @updatedAt @map("fecha_modificacion")
@@ -149,4 +150,43 @@ model Ubigeo {
   persona         Persona[]
 
   @@map("ubigeo")
+}
+
+model Incidente {
+  idIncidente       Int               @id @default(autoincrement()) @map("id_incidente")
+  idDenunciante     String            @map("id_denunciante") @db.VarChar(20)
+  descripcion       String            @db.Text
+  estado            String            @default("PENDIENTE")
+  activo            Boolean           @default(true)
+  longitud          String
+  latitud           String
+  fechaCreacion     DateTime          @default(now()) @map("fecha_creacion")
+  fechaModificacion DateTime          @updatedAt @map("fecha_modificacion")
+  archivoDigital    ArchivoDigital[]
+  incidenteSereno   IncidenteSereno[]
+
+  @@map("incidente")
+}
+
+model ArchivoDigital {
+  idArchivo         Int       @id @default(autoincrement()) @map("id_archivo")
+  idIncidente       Int       @map("id_incidente")
+  ruta              String    @db.VarChar(35)
+  fechaCreacion     DateTime  @default(now()) @map("fecha_creacion")
+  fechaModificacion DateTime  @updatedAt @map("fecha_modificacion")
+  incidente         Incidente @relation(fields: [idIncidente], references: [idIncidente])
+
+  @@map("archivo_digital")
+}
+
+model IncidenteSereno {
+  idIncidente       Int           @map("id_incidente")
+  idSereno          String        @map("id_sereno") @db.VarChar(20)
+  fechaCreacion     DateTime      @default(now()) @map("fecha_creacion")
+  fechaModificacion DateTime      @updatedAt @map("fecha_modificacion")
+  incidente         Incidente     @relation(fields: [idIncidente], references: [idIncidente])
+  sereno            CuentaUsuario @relation(fields: [idSereno], references: [nroDocumento])
+
+  @@id([idIncidente, idSereno])
+  @@map("incidente_sereno")
 }
