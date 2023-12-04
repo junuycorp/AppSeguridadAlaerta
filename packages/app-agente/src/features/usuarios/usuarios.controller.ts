@@ -44,13 +44,13 @@ export const buscar: Controller = (req, res, next) => {
 }
 
 export const crear: Controller = (req, res, next) => {
-  const usuario = req.body.user
+  const nroDocumento = req.body.idUser
   const [error, dto] = CrudUsuarioDto.crear(req.body)
   if (error != null) {
     res.status(400).json({ mensaje: error })
     return
   }
-  crearUseCase(dto!, usuario.nroDocumento)
+  crearUseCase(dto!, nroDocumento)
     .then((usuario) =>
       res.json({
         mensaje: 'Usuario creado correctamente',
@@ -64,13 +64,13 @@ export const crear: Controller = (req, res, next) => {
 }
 
 export const actualizar: Controller = (req, res, next) => {
-  const usuario = req.body.user
+  const nroDocumento = req.body.idUser
   const [error, crudDto] = CrudUsuarioDto.crear({ ...req.body, ...req.params })
   if (error != null) {
     res.status(400).json({ mensaje: error })
     return
   }
-  actualizarUseCase(crudDto!, usuario.nroDocumento)
+  actualizarUseCase(crudDto!, nroDocumento)
     .then((usuario) =>
       res.json({
         mensaje: 'Usuario actualizado correctamente',
