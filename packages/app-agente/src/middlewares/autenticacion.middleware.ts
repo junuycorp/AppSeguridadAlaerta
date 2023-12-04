@@ -2,6 +2,8 @@ import { jwtAdapter } from '@agente/adapters'
 import { logger } from '@agente/configs'
 import { prisma } from '@agente/database'
 import type { NextFunction, Request, Response } from 'express'
+import type { Socket } from 'socket.io'
+import type { ExtendedError } from 'socket.io/dist/namespace'
 
 interface Payload {
   numeroDocumento: string
@@ -27,33 +29,48 @@ export const autenticarUsuario = async (
   }
 
   const token = authorization.split(' ').at(1) ?? ''
+  const [mensaje, nroDocumento] = await validarToken(token)
 
+  if (mensaje != null || nroDocumento == null) {
+    res.status(400).json({ mensaje })
+    return
+  }
+  req.body.idUser = nroDocumento
+  next()
+}
+
+type NextSocket = (err?: ExtendedError | undefined) => void
+export const socketAuth = async (
+  socket: Socket,
+  next: NextSocket,
+): Promise<void> => {
+  const { auth, headers } = socket.handshake
+  const token = auth.token ?? headers.authorization
+
+  const [mensaje, nroDocumento] = await validarToken(token)
+  if (mensaje != null || nroDocumento == null) {
+    next(new Error(mensaje))
+    return
+  }
+  socket.handshake.headers.userId = nroDocumento
+  next()
+}
+
+const validarToken = async (token: string): Promise<[string?, string?]> => {
   try {
     const payload = await jwtAdapter.validateToken<Payload>(token)
-    if (!payload) {
-      res.status(401).json({ mensaje: 'Token inválido' })
-      return
-    }
+    if (!payload) return ['Token inválido']
 
     // TODO: Recuperar de cache
     const usuario = await prisma.cuentaUsuario.findUnique({
       where: { nroDocumento: payload.numeroDocumento },
     })
+    if (!usuario) return ['Token inválido']
+    if (!usuario.estadoRegistro) return ['Usuario no se encuentra activo']
 
-    if (!usuario) {
-      res.status(400).json({ mensaje: 'Token inválido' })
-      return
-    }
-    // Verificar si usuario esta activo
-    if (!usuario.estadoRegistro) {
-      res.status(401).json({ mensaje: 'Usuario no se encuentra activo' })
-      return
-    }
-    req.body.user = usuario
-    req.body.payload = payload
+    return [undefined, usuario.nroDocumento]
   } catch (error) {
     logger.error(error)
-    res.status(500).json({ mensaje: 'Ocurrió un error inesperado' })
+    return ['Ocurrió un error inesperado']
   }
-  next()
 }

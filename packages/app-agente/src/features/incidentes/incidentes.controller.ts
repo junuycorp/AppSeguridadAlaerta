@@ -1,6 +1,7 @@
 import type { Controller } from '@agente/shared/types'
 import { RegistroEventoDto, registroEventoUseCase } from './registro-evento'
 import { incidenteMapper } from './incidentes.mapper'
+import type { Server } from 'socket.io'
 
 export const registroEvento: Controller = (req, res, next) => {
   const [error, dto] = RegistroEventoDto.crear(req.body)
@@ -9,12 +10,16 @@ export const registroEvento: Controller = (req, res, next) => {
     return
   }
   registroEventoUseCase(dto!)
-    .then((incidente) =>
+    .then((incidente) => {
+      const io = req.app.get('socketio') as Server
+      const mapIncidente = incidenteMapper(incidente)
+
+      io.emit('server:nuevo-incidente', mapIncidente)
       res.json({
         mensaje: 'Incidente registrado correctamente',
-        datos: incidenteMapper(incidente),
-      }),
-    )
+        datos: mapIncidente,
+      })
+    })
     .catch((error) => {
       next(error)
     })

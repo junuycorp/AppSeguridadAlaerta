@@ -1,8 +1,16 @@
+import http from 'node:http'
 import express, { type Router } from 'express'
+import { Server as SocketServer } from 'socket.io'
 import cors from 'cors'
-import { handleError, logRequest, emptyStringsToNull } from '@agente/middlewares'
+import {
+  handleError,
+  logRequest,
+  emptyStringsToNull,
+  socketAuth,
+} from '@agente/middlewares'
 import { logger } from './logger'
 import { swaggerDocs } from './swagger'
+import { socketController } from '@agente/sockets'
 
 export type Environment = 'development' | 'production' | 'test'
 
@@ -13,7 +21,9 @@ interface Options {
 }
 
 export class Server {
-  public readonly app = express()
+  private readonly app = express()
+  public readonly server = http.createServer(this.app)
+  private readonly io = new SocketServer(this.server)
   private readonly port: number
   private readonly routes: Router
   private readonly environment: Environment
@@ -33,12 +43,19 @@ export class Server {
     this.app.use(emptyStringsToNull) // Formatear peticion
   }
 
+  public sockets(): void {
+    this.app.set('socketio', this.io)
+    this.io.use(socketAuth)
+    socketController(this.io)
+  }
+
   async start(): Promise<void> {
     this.middlewares()
+    this.sockets()
     swaggerDocs(this.app, this.port)
     this.app.use(this.routes)
     this.app.use(handleError)
-    this.app.listen(this.port, () => {
+    this.server.listen(this.port, () => {
       logger.info(`Ejecución en MODO ${this.environment.toUpperCase()}`)
       logger.info(`Servidor corriendo en el puerto ${this.port}`)
     })
