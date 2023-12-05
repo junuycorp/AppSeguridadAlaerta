@@ -10,6 +10,7 @@ export interface Incidente {
   activo: boolean
   latitud: string
   longitud: string
+  tipo: string
 }
 
 export interface CrearMultiplesArchivos {
@@ -32,6 +33,7 @@ export const registrarEventoService = async (
       descripcion: datos.descripcion,
       latitud: datos.latitud,
       longitud: datos.longitud,
+      tipo: datos.tipo,
     },
   })
 

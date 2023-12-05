@@ -6,13 +6,32 @@ servers:
   - url: http://localhost:3301
 components:
   schemas:
+    Incidente:
+      type: object
+      properties:
+        idDenunciante: 
+          type: string
+          example: 76543210
+        descripcion: 
+          type: string
+          example: Descripcion del incidente
+        latitud: 
+          type: string
+          example: -11.718343
+        longitud: 
+          type: string
+          example: -72.946554
+        tipo:
+          type: string
+          example: SUBIDA DE RIO
+
     RegistroEventoOutput:
       type: object
       properties:
         mensaje:
           type: string
         datos:
-          type: boolean
+          $ref: "#/components/schemas/Incidente"
 paths:
   /procesos/incidentes/registro-evento:
     post:
@@ -21,10 +40,12 @@ paths:
       summary: Reportar incidente
       requestBody:
         description: |
+          Parametros a enviar
           - idDenunciante: Número de documento del usuario que reportó
           - descripcion: Descripcion del incidente
           - latitud: Coordenada latitud
           - longitud: Coordenada longitud
+          - tipo: Tipo de incidente. Valores disponibles: ACCIDENTE, SUBIDA DE RIO, VIOLENCIA FAMILIAR, RIESGO, ROBO
         required: true
         content:
           application/json:
@@ -43,6 +64,9 @@ paths:
                 longitud: 
                   type: string
                   example: -72.946554
+                tipo:
+                  type: string
+                  example: SUBIDA DE RIO
         
       responses:
         200:

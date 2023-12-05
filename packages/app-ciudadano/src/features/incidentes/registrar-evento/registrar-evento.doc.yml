@@ -26,6 +26,15 @@ paths:
                 latitud:
                   type: string
                   description: Coordenada latitud del lugar del evento
+                tipo:
+                  type: string
+                  description: |
+                    Tipo de incidente. Valores disponibles
+                    - ACCIDENTE
+                    - SUBIDA DE RIO
+                    - VIOLENCIA FAMILIAR
+                    - RIESGO
+                    - ROBO 
                 archivos:
                   description: Lista de archivos por subir
                   type: array
@@ -36,6 +45,7 @@ paths:
                 - descripcion
                 - longitud
                 - latitud
+                - tipo
       responses:
         200:
           description: Registros creados correctamente
