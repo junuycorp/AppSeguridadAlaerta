@@ -23,7 +23,12 @@ interface Options {
 export class Server {
   private readonly app = express()
   public readonly server = http.createServer(this.app)
-  private readonly io = new SocketServer(this.server)
+  private readonly io = new SocketServer(this.server, {
+    cors: {
+      origin: ['http://localhost:5173'],
+    },
+  })
+
   private readonly port: number
   private readonly routes: Router
   private readonly environment: Environment

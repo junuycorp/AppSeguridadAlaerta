@@ -16,6 +16,7 @@ export interface DatosEvento {
   descripcion: string
   longitud: string
   latitud: string
+  tipo: string
 }
 
 type Archivos = Express.Multer.File[] | undefined
