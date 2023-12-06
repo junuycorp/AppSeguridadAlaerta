@@ -1,0 +1,69 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+# components:
+  # schemas:
+    # CrudIncidenteInput:
+    #   type: object
+    #   properties:
+    #     idValor:
+    #       type: integer
+    #     texto:
+    #       type: string
+    #     estado:
+    #       type: boolean
+paths:
+  /procesos/incidentes/listar:
+    get:
+      tags:
+        - Procesos / Incidentes
+      summary: Listar incidentes
+      parameters:
+        - in: query
+          name: fechaInicio
+          schema:
+            type: string
+          example: "2023-01-01"
+          description: "Fecha de inicio. Valor por defecto: 2023-01-01"
+        - in: query
+          name: fechaFin
+          schema:
+            type: string
+          example: "2023-12-31"
+          description: "Fecha fin. Valor por defecto: 2023-12-31"
+        - in: query
+          name: estado
+          schema:
+            type: string
+            enum: [PENDIENTE,ATENDIDO,ARCHIVADO,DERIVADO]
+          example: "PENDIENTE"
+          description: |
+            Estado del incidente. Valores disponibles: 
+            - PENDIENTE (valor por defecto)
+            - ATENDIDO
+            - ARCHIVADO
+            - DERIVADO
+        - in: query
+          name: tipo
+          schema:
+            type: string
+            enum: [ACCIDENTE,SUBIDA DE RIO,VIOLENCIA FAMILIAR,RIESGO,ROBO]
+          description: |
+            Estado del incidente. Por defecto: Listar todos
+            Valores disponibles: 
+            - ACCIDENTE
+            - SUBIDA DE RIO
+            - VIOLENCIA FAMILIAR
+            - RIESGO
+            - ROBO
+
+      responses:
+        200:
+          description: Listado correctamente
+          # content:
+          #   application/json:
+          #     schema:
+          #       $ref: '#/components/schemas/CrudIncidenteOutput'

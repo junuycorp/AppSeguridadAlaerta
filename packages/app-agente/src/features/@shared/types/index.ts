@@ -2,8 +2,8 @@ import type { Request, Response, NextFunction } from 'express'
 
 // Agregar undefined y string si es de tipo number a todas las propiedades
 export type Flexible<T> = {
-  [K in keyof T]: T[K] extends number | undefined
-    ? number | string | undefined
+  [K in keyof T]: T[K] extends number | Date | undefined
+    ? string | undefined
     : T[K] | undefined
 }
 
