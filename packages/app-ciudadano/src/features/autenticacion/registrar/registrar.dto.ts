@@ -1,5 +1,5 @@
 import { validators } from '@ciudadano/configs'
-import { validarContrasenia } from '@ciudadano/shared/helpers'
+// import { validarContrasenia } from '@ciudadano/shared/helpers'
 
 export class RegistrarDto {
   private constructor(
@@ -26,8 +26,9 @@ export class RegistrarDto {
 
     // Validación contraseña
     if (contrasenia == null) return ['Falta proporcionar contraseña']
-    const [esValido, mensaje] = validarContrasenia(contrasenia)
-    if (!esValido) return [mensaje]
+    // No habrá validacion para este sistema
+    // const [esValido, mensaje] = validarContrasenia(contrasenia)
+    // if (!esValido) return [mensaje]
 
     return [
       undefined,
