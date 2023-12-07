@@ -32,6 +32,9 @@ export class IncidenteRepository {
         },
         estado,
       },
+      orderBy: {
+        fechaCreacion: 'desc',
+      },
     })
   }
 
