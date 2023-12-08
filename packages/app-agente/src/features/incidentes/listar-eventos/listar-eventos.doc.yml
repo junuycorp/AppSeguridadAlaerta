@@ -32,8 +32,8 @@ paths:
           name: fechaFin
           schema:
             type: string
-          example: "2023-12-31"
-          description: "Fecha fin. Valor por defecto: 2023-12-31"
+          example: "2100-12-31"
+          description: "Fecha fin. Valor por defecto: 2100-12-31"
         - in: query
           name: estado
           schema:

@@ -19,7 +19,7 @@ export class IncidenteRepository {
     fechaInicio: Date,
     fechaFin: Date,
     tipo: Tipo | undefined,
-    estado: Estado,
+    estado: Estado | undefined,
   ): Promise<Incidente[]> => {
     return await prisma.incidente.findMany({
       where: {
@@ -27,10 +27,8 @@ export class IncidenteRepository {
           gte: fechaInicio,
           lte: fechaFin,
         },
-        tipo: {
-          equals: tipo,
-        },
-        estado,
+        tipo: { equals: tipo },
+        estado: { equals: estado },
       },
       orderBy: {
         fechaCreacion: 'desc',
