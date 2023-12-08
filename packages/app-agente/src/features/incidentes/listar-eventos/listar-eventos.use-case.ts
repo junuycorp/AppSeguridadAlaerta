@@ -9,7 +9,7 @@ export const listarUseCase = async (
   fechaInicio: Date = new Date('2023-01-01'),
   fechaFin: Date = new Date('2100-01-01'),
   tipo: Tipo | undefined = undefined,
-  estado: Estado = 'PENDIENTE',
+  estado: Estado | undefined = undefined,
 ): Promise<Incidente[]> => {
   const incidentes = await IncidenteRepository.listarConFiltros(
     fechaInicio,
