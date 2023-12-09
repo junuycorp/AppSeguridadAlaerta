@@ -1,0 +1,39 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+components:
+  schemas:
+    BuscarEventoInput:
+      type: object
+      properties:
+        idValor:
+          type: integer
+        texto:
+          type: string
+        estado:
+          type: boolean
+paths:
+  /procesos/incidentes/buscar/{idIncidente}:
+    get:
+      tags:
+        - Procesos / Incidentes
+      summary: Buscar incidente por ID
+      parameters:
+        - in: path
+          name: idIncidente
+          schema:
+            type: integer
+          required: true
+          description: ID de incidente
+      responses:
+        200:
+          description: ID encontrado
+          # content:
+          #   application/json:
+          #     schema:
+          #       $ref: '#/components/schemas/BuscarEventoOutput'
+        404:
+          description: ID no encontrado

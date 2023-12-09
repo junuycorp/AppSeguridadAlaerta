@@ -6,6 +6,7 @@ import { listarUseCase } from './listar-eventos'
 import { listarIncidenteMapper } from './listar-eventos/listar-eventos.mapper'
 import { ListarEventosDto } from './listar-eventos/listar-eventos.dto'
 import type { Estado, Tipo } from './incidentes.repository'
+import { buscarEventoUseCase } from './buscar-evento/buscar-evento.use-case'
 
 export const listar: Controller = (req, res, next) => {
   const [error, dtoQuery] = ListarEventosDto.crear(req.query)
@@ -20,6 +21,17 @@ export const listar: Controller = (req, res, next) => {
         datos: incidentes.map(listarIncidenteMapper),
       }),
     )
+    .catch((error) => {
+      next(error)
+    })
+}
+
+export const buscarEvento: Controller = (req, res, next) => {
+  const { idIncidente } = req.params
+  buscarEventoUseCase(Number(idIncidente))
+    .then((incidente) => {
+      res.json(incidente)
+    })
     .catch((error) => {
       next(error)
     })

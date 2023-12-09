@@ -173,6 +173,7 @@ model ArchivoDigital {
   idArchivo         Int       @id @default(autoincrement()) @map("id_archivo")
   idIncidente       Int       @map("id_incidente")
   ruta              String    @db.VarChar(35)
+  tipo              String    @db.VarChar(12)
   fechaCreacion     DateTime  @default(now()) @map("fecha_creacion")
   fechaModificacion DateTime  @updatedAt @map("fecha_modificacion")
   incidente         Incidente @relation(fields: [idIncidente], references: [idIncidente])

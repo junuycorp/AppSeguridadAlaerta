@@ -36,6 +36,22 @@ export class IncidenteRepository {
     })
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  static buscarPorId = async (idIncidente: number) => {
+    return await prisma.incidente.findUnique({
+      where: { idIncidente },
+      include: {
+        archivoDigital: {
+          select: {
+            idArchivo: true,
+            ruta: true,
+            tipo: true,
+          },
+        },
+      },
+    })
+  }
+
   static crear = async (datos: CrearIncidente): Promise<Incidente> => {
     return await prisma.incidente.create({
       data: datos,
