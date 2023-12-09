@@ -15,9 +15,10 @@ export const enviarCodigoUseCase = async (
   cacheAdapter.set(destino, codigoVerificacion, tiempoExpiracion)
 
   let enviarCodigo: Promise<void>
-  enviarCodigo = enviarCodigoPorCorreo(destino, codigoVerificacion)
   if (opcion === 'sms')
     enviarCodigo = enviarCodigoPorSms(destino, codigoVerificacion)
+  // opcion === 'correo'
+  else enviarCodigo = enviarCodigoPorCorreo(destino, codigoVerificacion)
 
   await enviarCodigo
 }

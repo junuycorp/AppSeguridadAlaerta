@@ -15,7 +15,8 @@ export const enviarCodigoPorSms = async (
 ): Promise<void> => {
   // const celular = `+51${numeroCelularDestino}`
   // const mensaje = `Su código de verificación es ${codigoVerificacion}. No comparta este código con nadie`
-  const mensaje = `Su código de verificación es ${codigoVerificacion}`
+  // const mensaje = `Su código de verificación es ${codigoVerificacion}`
+  const mensaje = `${codigoVerificacion}`
 
   await smsSenderAdapter.sendSms(numeroCelularDestino, mensaje)
 }
