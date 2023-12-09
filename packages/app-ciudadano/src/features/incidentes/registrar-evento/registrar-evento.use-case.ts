@@ -8,7 +8,7 @@ import {
 import {
   obtenerHoraActual,
   bufferToDisk,
-  obtenerFechaActual,
+  obtenerAnioMesActual,
 } from '@ciudadano/shared/helpers'
 
 export interface DatosEvento {
@@ -35,12 +35,12 @@ export const registrarEventoUseCase = async (
   const incidente = await registrarEventoService(datosEvento)
 
   // Obtener parametros
-  const fechaActual = obtenerFechaActual()
+  const anioMesActual = obtenerAnioMesActual()
   const horaActual = obtenerHoraActual()
 
   const rutaRaiz = path.join(__dirname, '..', '..', '..', '..') // Raiz del proyecto
   const rutaUploads = path.join(rutaRaiz, '..', 'uploads')
-  const rutaIncidente = path.join(fechaActual, `ID-${incidente.idIncidente}`)
+  const rutaIncidente = path.join(anioMesActual, `ID-${incidente.idIncidente}`)
 
   // Carpeta donde será guardado los archivos
   const nombreDirectorio = path.join(rutaUploads, rutaIncidente)

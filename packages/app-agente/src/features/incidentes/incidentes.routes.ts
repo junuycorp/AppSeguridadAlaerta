@@ -1,9 +1,10 @@
 import { Router } from 'express'
-import { listar, registroEvento } from './incidentes.controller'
+import { buscarEvento, listar, registroEvento } from './incidentes.controller'
 
 const router = Router()
 
 router.get('/listar', listar)
+router.get('/buscar/:idIncidente', buscarEvento)
 router.post('/registro-evento', registroEvento)
 
 export default router
