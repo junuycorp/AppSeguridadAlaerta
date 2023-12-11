@@ -11,6 +11,7 @@ paths:
       tags:
         - Procesos / Archivos
       summary: Crear varios archivos
+      security: []
       requestBody: 
         required: true
         content:
