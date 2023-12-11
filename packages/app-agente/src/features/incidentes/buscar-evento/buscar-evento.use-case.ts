@@ -39,8 +39,6 @@ export const buscarEventoUseCase = async (idIncidente: number) => {
         archivo.miniatura = null
         return
       }
-
-      // const jsonBuffer = JSON.stringify(buffer) as unknown as Miniatura
       archivo.miniatura = buffer
     }),
   )

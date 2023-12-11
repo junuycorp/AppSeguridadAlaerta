@@ -1,11 +1,8 @@
-/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { CustomError } from '@agente/errors'
 import ffmpeg from 'fluent-ffmpeg'
 import mime from 'mime-types'
 import path from 'node:path'
 import sharp from 'sharp'
-// import fs from 'fs'
 
 const fileTypes = {
   image: 'imagen',
@@ -53,46 +50,40 @@ export const thumbnailFromImage = async (
   return await sharp(imagePath).resize(width, height).toBuffer()
 }
 
-export const thumbnailFromVideo = (
+export const thumbnailFromVideo = async (
   videoPath: string,
   width: number = 100,
   height: number = 100,
 ): Promise<Buffer> => {
-  const secondFrame = 2 // Frame del segundo 1
-  return new Promise((resolve, reject) => {
-    const ffmpegCommand = ffmpeg()
+  const secondFrame = 1 // Frame del segundo 1
+  const chunks: Uint8Array[] = []
+  let imageBuffer: Buffer
+  return await new Promise((resolve, reject) => {
+    ffmpeg()
       .input(videoPath)
-      .seekInput(secondFrame)
-      .frames(1)
+      .seekInput(secondFrame) // Tiempo de captura del frame
+      .frames(1) // Cantidad de frames
       .toFormat('image2')
       .on('error', (err) => {
         reject(err)
       })
-      // .pipe(fs.createWriteStream('minitau.jpg', { flags: 'w' }))
       .pipe()
-
-    // Generar buffer del frame
-    const chunks: Uint8Array[] = []
-    ffmpegCommand.on('data', (chunk) => {
-      chunks.push(chunk)
-    })
-
-    if (chunks.length === 0)
-      throw CustomError.internalServer('Error al generar miniatura')
-
-    const imageBuffer = Buffer.concat(chunks)
-
-    // Recortar frame
-    ffmpegCommand.on('end', () => {
-      sharp(imageBuffer)
-        .resize(width, height)
-        .toBuffer()
-        .then((thumbnailBuffer) => {
-          resolve(thumbnailBuffer)
-        })
-        .catch((err) => {
-          reject(err)
-        })
-    })
+      .on('data', (chunk) => {
+        // Generar buffer del frame
+        chunks.push(chunk)
+        imageBuffer = Buffer.concat(chunks)
+      })
+      .on('end', () => {
+        // Recortar frame
+        sharp(imageBuffer)
+          .resize(width, height)
+          .toBuffer()
+          .then((thumbnailBuffer) => {
+            resolve(thumbnailBuffer)
+          })
+          .catch((err) => {
+            reject(err)
+          })
+      })
   })
 }
