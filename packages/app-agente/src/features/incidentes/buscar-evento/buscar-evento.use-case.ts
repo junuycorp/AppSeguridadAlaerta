@@ -34,7 +34,6 @@ export const buscarEventoUseCase = async (idIncidente: number) => {
   await Promise.all(
     archivos.map(async (archivo) => {
       const buffer = await obtenerMiniatura(archivo)
-
       if (buffer == null) {
         archivo.miniatura = null
         return

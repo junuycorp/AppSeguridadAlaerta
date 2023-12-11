@@ -6,21 +6,73 @@ servers:
   - url: http://localhost:3100
 components:
   schemas:
-    BuscarEventoInput:
+    BuscarEventoOutput:
       type: object
-      properties:
-        idValor:
+      properties: 
+        idIncidente: 
           type: integer
-        texto:
+          format: int32
+          example: 1
+        idDenunciante: 
           type: string
-        estado:
+          example: 76543210
+        descripcion: 
+          type: string
+          example: Descripcion del incidente
+        estado: 
+          type: string
+          example: PENDIENTE
+        activo: 
           type: boolean
+        longitud: 
+          type: string
+          example: -72.946554
+        latitud: 
+          type: string
+          example: -11.718343
+        tipo: 
+          type: string
+          example: ROBO
+        fechaCreacion: 
+          type: string
+          format: date-time
+          example: 2023-12-11T19:28:55.306Z
+        archivoDigital: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              idArchivo: 
+                type: integer
+                format: int32
+                example: 1
+              ruta: 
+                type: string
+                example: 202312/ID-1/142855-00.png
+              tipo: 
+                type: string
+                example: imagen
+              miniatura: 
+                type: object
+                properties: 
+                  type: 
+                    type: string
+                    example: Buffer
+                  data: 
+                    type: array
+                    example: [137,12,233,963]
+                    items: 
+                      type: integer
+
 paths:
   /procesos/incidentes/buscar/{idIncidente}:
     get:
       tags:
         - Procesos / Incidentes
       summary: Buscar incidente por ID
+      description: |
+        NO EJECUTAR ESTE ENDPOINT EN SWAGGER! 
+        - La respuesta hace que el renderizado de la página sea más lento de lo normal.
       parameters:
         - in: path
           name: idIncidente
@@ -30,10 +82,10 @@ paths:
           description: ID de incidente
       responses:
         200:
-          description: ID encontrado
-          # content:
-          #   application/json:
-          #     schema:
-          #       $ref: '#/components/schemas/BuscarEventoOutput'
+          description: ID encontrado. La miniatura del archivo digital puede ser un Buffer o null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuscarEventoOutput'
         404:
           description: ID no encontrado
