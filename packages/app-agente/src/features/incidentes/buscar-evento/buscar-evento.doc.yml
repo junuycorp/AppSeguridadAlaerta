@@ -70,6 +70,7 @@ paths:
       tags:
         - Procesos / Incidentes
       summary: Buscar incidente por ID
+      security: []
       description: |
         NO EJECUTAR ESTE ENDPOINT EN SWAGGER! 
         - La respuesta hace que el renderizado de la página sea más lento de lo normal.

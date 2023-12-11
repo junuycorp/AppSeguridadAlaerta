@@ -38,6 +38,7 @@ paths:
       tags:
         - Procesos / Incidentes
       summary: Reportar incidente
+      security: []
       requestBody:
         description: |
           Parametros a enviar
