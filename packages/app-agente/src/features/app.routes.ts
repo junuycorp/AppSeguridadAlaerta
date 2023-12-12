@@ -3,6 +3,7 @@ import { autenticarUsuario } from '@agente/middlewares'
 import servicios from './servicios/servicios.routes'
 import autenticacion from './autenticacion/autenticacion.routes'
 import incidentes from './incidentes/incidentes.routes'
+import serenos from './serenos/serenos.routes'
 import archivos from './archivos/archivos.routes'
 import * as perfiles from './perfiles/perfiles.routes'
 import * as usuarios from './usuarios/usuarios.routes'
@@ -19,3 +20,4 @@ appRouter.use('/procesos/archivos', archivos)
 appRouter.use(autenticarUsuario)
 appRouter.use('/mantenimientos/perfiles', perfiles.mantenimientos)
 appRouter.use('/mantenimientos/usuarios', usuarios.mantenimientos)
+appRouter.use('/procesos/serenos', serenos)
