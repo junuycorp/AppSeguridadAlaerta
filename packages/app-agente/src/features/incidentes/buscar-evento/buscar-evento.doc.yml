@@ -53,16 +53,9 @@ components:
                 type: string
                 example: imagen
               miniatura: 
-                type: object
-                properties: 
-                  type: 
-                    type: string
-                    example: Buffer
-                  data: 
-                    type: array
-                    example: [137,12,233,963]
-                    items: 
-                      type: integer
+                type: string
+                example: thumbnails/202312/ID-1/142855-00.png
+
 
 paths:
   /procesos/incidentes/buscar/{idIncidente}:
@@ -71,9 +64,6 @@ paths:
         - Procesos / Incidentes
       summary: Buscar incidente por ID
       security: []
-      description: |
-        NO EJECUTAR ESTE ENDPOINT EN SWAGGER! 
-        - La respuesta hace que el renderizado de la página sea más lento de lo normal.
       parameters:
         - in: path
           name: idIncidente
@@ -83,7 +73,7 @@ paths:
           description: ID de incidente
       responses:
         200:
-          description: ID encontrado. La miniatura del archivo digital puede ser un Buffer o null.
+          description: ID encontrado. La miniatura del archivo digital puede ser un enlace o null.
           content:
             application/json:
               schema:

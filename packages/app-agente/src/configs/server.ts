@@ -27,7 +27,7 @@ export class Server {
   public readonly server = http.createServer(this.app)
   private readonly io = new SocketServer(this.server, {
     cors: {
-      origin: ['http://localhost:5173'],
+      origin: ['http://localhost:5173', 'http://seguridad.junuy.pe'],
     },
   })
 

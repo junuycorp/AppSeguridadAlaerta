@@ -11,7 +11,5 @@ export const envs = {
   JUNUY_API: get('JUNUY_API').required().asString(),
   JUNUY_TOKEN: get('JUNUY_TOKEN').required().asString(),
   SERVICES_TOKEN: get('SERVICES_TOKEN').required().asString(),
-  // SMS_ID: get('SMS_ID').required().asString(),
-  // SMS_TOKEN: get('SMS_TOKEN').required().asString(),
-  // SMS_PHONE: get('SMS_PHONE').required().asString(),
+  UPLOADS_PATH: get('UPLOADS_PATH').required().asUrlString(),
 }
