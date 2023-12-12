@@ -74,6 +74,7 @@ paths:
       tags:
         - Procesos / Incidentes
       summary: Listar incidentes por idDenunciante
+      security: []
       parameters:
         - in: path
           name: idDenunciante
