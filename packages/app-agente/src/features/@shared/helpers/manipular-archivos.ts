@@ -61,7 +61,7 @@ export const thumbnailFromImageToDisk = async (
   height: number = 100,
 ): Promise<string> => {
   const thumbnailsPath = path.join('thumbnails', imagePath)
-  const finalPath = path.join(envs.UPLOADS_PATH, thumbnailsPath)
+  const finalPath = envs.UPLOADS_PATH + '/' + thumbnailsPath
 
   // Verificar si ya existe archivo
   if (await existsFile(path.join(basePath, thumbnailsPath))) return finalPath
@@ -93,7 +93,7 @@ export const thumbnailFromVideoToDisk = async (
   const newName = nameBase + '.jpg'
 
   const thumbnailPath = path.join('thumbnails', relativeDirectory, newName)
-  const finalPath = path.join(envs.UPLOADS_PATH, thumbnailPath)
+  const finalPath = envs.UPLOADS_PATH + '/' + thumbnailPath
 
   // Verificar si ya existe archivo
   if (await existsFile(path.join(basePath, thumbnailPath))) return finalPath
