@@ -56,6 +56,8 @@ export const thumbnailFromVideo = async (
   height: number = 100,
 ): Promise<Buffer> => {
   const secondFrame = 1 // Frame del segundo 1
+  const chunks: Uint8Array[] = []
+  let imageBuffer: Buffer
   return await new Promise((resolve, reject) => {
     ffmpeg()
       .input(videoPath)
@@ -66,7 +68,12 @@ export const thumbnailFromVideo = async (
         reject(err)
       })
       .pipe()
-      .on('data', (imageBuffer: Buffer) => {
+      .on('data', (chunk) => {
+        // Generar buffer del frame
+        chunks.push(chunk)
+        imageBuffer = Buffer.concat(chunks)
+      })
+      .on('end', () => {
         // Recortar frame
         sharp(imageBuffer)
           .resize(width, height)
