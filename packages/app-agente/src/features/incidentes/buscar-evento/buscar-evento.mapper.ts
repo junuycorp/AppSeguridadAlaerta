@@ -7,6 +7,7 @@ interface ArchivoDigital {
   idArchivo: number
   ruta: string
   tipo: string
+  categoria: 'INFORME' | 'DENUNCIA'
   miniatura?: string | null
 }
 

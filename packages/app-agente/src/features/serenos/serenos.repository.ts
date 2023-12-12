@@ -14,4 +14,18 @@ export class SerenoRepository {
       },
     })
   }
+
+  static async buscarIncidenteSerenoPorId(
+    idSereno: string,
+    idIncidente: number,
+  ): Promise<IncidenteSereno | null> {
+    return await prisma.incidenteSereno.findUnique({
+      where: {
+        idIncidente_idSereno: {
+          idIncidente,
+          idSereno,
+        },
+      },
+    })
+  }
 }

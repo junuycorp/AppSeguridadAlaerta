@@ -11,6 +11,7 @@ interface Archivo {
   idArchivo: number
   ruta: string
   tipo: string
+  categoria: 'DENUNCIA' | 'INFORME'
   miniatura: string | null
 }
 

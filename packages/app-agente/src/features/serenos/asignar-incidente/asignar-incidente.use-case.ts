@@ -8,17 +8,25 @@ import { UsuarioRepository } from '@agente/shared/repositories'
 export const asignarIncidenteUseCase = async (
   dto: AsignarIncidenteDto,
 ): Promise<IncidenteSereno> => {
+  const { idIncidente, idSereno } = dto
   try {
     const incidenteSereno = await SerenoRepository.asignarIncidente(
-      dto.idSereno,
-      dto.idIncidente,
+      idSereno,
+      idIncidente,
     )
     return incidenteSereno
   } catch (error) {
-    const incidente = await IncidenteRepository.buscarPorId(dto.idIncidente)
+    const incidenteSereno = await SerenoRepository.buscarIncidenteSerenoPorId(
+      idSereno,
+      idIncidente,
+    )
+    if (incidenteSereno != null)
+      throw CustomError.conflict('Sereno ya se encuentra asignado al incidente')
+
+    const incidente = await IncidenteRepository.buscarPorId(idIncidente)
     if (incidente == null) throw CustomError.notFound('Incidente no encontrado')
 
-    const usuario = await UsuarioRepository.buscarPorId(dto.idSereno)
+    const usuario = await UsuarioRepository.buscarPorId(idSereno)
     if (usuario == null) throw CustomError.notFound('Sereno no encontrado')
 
     throw error

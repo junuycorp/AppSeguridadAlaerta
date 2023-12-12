@@ -61,6 +61,7 @@ export class IncidenteRepository {
             idArchivo: true,
             ruta: true,
             tipo: true,
+            categoria: true,
           },
         },
       },
