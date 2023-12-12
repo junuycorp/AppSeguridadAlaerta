@@ -11,8 +11,10 @@ import {
 import { logger } from './logger'
 import { swaggerDocs } from './swagger'
 import { socketController } from '@agente/sockets'
+import path from 'node:path'
 
 export type Environment = 'development' | 'production' | 'test'
+export const uploadsPath = path.join(__dirname, '..', '..', '..', 'uploads')
 
 interface Options {
   port?: number
@@ -44,6 +46,7 @@ export class Server {
     this.app.use(cors())
     this.app.use(express.json()) // Lectura del body
     this.app.use(express.static('public')) // Directorio publico
+    this.app.use('/uploads', express.static(uploadsPath)) // Directorio uploads
     this.app.use(logRequest(this.environment)) // Registrar peticiones
     this.app.use(emptyStringsToNull) // Formatear peticion
   }
