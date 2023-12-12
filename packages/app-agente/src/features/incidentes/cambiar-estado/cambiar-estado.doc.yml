@@ -1,0 +1,64 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+components:
+  schemas:
+    CambiarEstadoOutput:
+      type: object
+      properties: 
+        idIncidente: 
+          type: integer
+          format: int32
+        estado: 
+          type: string
+        fechaCreacion: 
+          type: string
+          format: date-time
+        fechaModificacion: 
+          type: string
+          format: date-time
+
+paths:
+  /procesos/incidentes/cambiar-estado/{idIncidente}:
+    patch:
+      tags:
+        - Procesos / Incidentes
+      summary: Actualizar estado de incidente por ID
+      security: []
+      parameters:
+        - in: path
+          name: idIncidente
+          schema:
+            type: integer
+          required: true
+          description: ID de incidete
+      requestBody:
+        required: true
+        description: |
+          Valores de estado:
+          - PENDIENTE
+          - RECIBIDO
+          - ASIGNADO
+          - TERMINADO
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                estado:
+                  type: string
+
+      responses:
+        200:
+          description: Actualizado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CambiarEstadoOutput'
+        404:
+          description: ID no encontrado
+        409:
+          description: Atributo que debe ser único ya existe

@@ -7,6 +7,11 @@ import { listarIncidenteMapper } from './listar-eventos/listar-eventos.mapper'
 import { ListarEventosDto } from './listar-eventos/listar-eventos.dto'
 import type { Estado, Tipo } from './incidentes.repository'
 import { buscarEventoMapper, buscarEventoUseCase } from './buscar-evento'
+import {
+  CambiarEstadoDto,
+  cambiarEstadoMapper,
+  cambiarEstadoUseCase,
+} from './cambiar-estado'
 
 export const listar: Controller = (req, res, next) => {
   const [error, dtoQuery] = ListarEventosDto.crear(req.query)
@@ -51,6 +56,29 @@ export const registroEvento: Controller = (req, res, next) => {
       io.emit('server:nuevo-incidente', mapIncidente)
       res.json({
         mensaje: 'Incidente registrado correctamente',
+        datos: mapIncidente,
+      })
+    })
+    .catch((error) => {
+      next(error)
+    })
+}
+
+export const cambiarEstado: Controller = (req, res, next) => {
+  const { idIncidente } = req.params
+  const [error, dto] = CambiarEstadoDto.crear(req.body)
+  if (error != null) {
+    res.status(400).json({ mensaje: error })
+    return cambiarEstadoUseCase
+  }
+  cambiarEstadoUseCase(Number(idIncidente), dto!)
+    .then((incidente) => {
+      const io = req.app.get('socketio') as Server
+      const mapIncidente = cambiarEstadoMapper(incidente)
+
+      io.emit('server:cambio-estado', mapIncidente)
+      res.json({
+        mensaje: 'Incidente actualizado correctamente',
         datos: mapIncidente,
       })
     })
