@@ -43,7 +43,7 @@ export const registrarEventoUseCase = async (
   const rutaIncidente = path.join(anioMesActual, `ID-${incidente.idIncidente}`)
 
   // Carpeta donde será guardado los archivos
-  const nombreDirectorio = path.join(rutaUploads, rutaIncidente)
+  const nombreDirectorio = path.join(rutaUploads, rutaIncidente, 'denuncia')
 
   // Guardar archivos en disco
   if (archivos != null) {
@@ -53,11 +53,13 @@ export const registrarEventoUseCase = async (
       const numeracion = index.toString().padStart(2, '0')
       const nombreArchivo = `${horaActual}-${numeracion}${extension}`
       bufferToDisk(archivo.buffer, nombreDirectorio, nombreArchivo)
-      rutasArchivos.push(path.join(rutaIncidente, nombreArchivo))
+      rutasArchivos.push(path.join(rutaIncidente, 'denuncia', nombreArchivo))
     })
+    // TODO: Evitar llamar a doble endpoint
     // Guardar rutas en BD
     await crearMultiplesArchivos({
       idIncidente: incidente.idIncidente,
+      categoria: 'DENUNCIA',
       rutasArchivos,
     })
   }
