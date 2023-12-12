@@ -2,6 +2,7 @@ import { prisma } from '@agente/database'
 import type { Incidente, Prisma } from '@prisma-agente/client'
 
 type CrearIncidente = Prisma.IncidenteUncheckedCreateInput
+type ActualizarIncidente = Prisma.IncidenteUncheckedUpdateInput
 export type Estado = 'PENDIENTE' | 'ATENDIDO' | 'ARCHIVADO' | 'DERIVADO'
 export type Tipo =
   | 'ACCIDENTE'
@@ -54,6 +55,16 @@ export class IncidenteRepository {
 
   static crear = async (datos: CrearIncidente): Promise<Incidente> => {
     return await prisma.incidente.create({
+      data: datos,
+    })
+  }
+
+  static actualizar = async (
+    idIncidente: number,
+    datos: ActualizarIncidente,
+  ): Promise<Incidente> => {
+    return await prisma.incidente.update({
+      where: { idIncidente },
       data: datos,
     })
   }
