@@ -1,13 +1,12 @@
 import { formatDate } from '@agente/shared/helpers'
 import type { Incidente } from '@agente/database'
 import { envs } from '@agente/configs'
-import path from 'node:path'
 
 interface ArchivoDigital {
   idArchivo: number
   ruta: string
   tipo: string
-  categoria: 'INFORME' | 'DENUNCIA'
+  categoria: string // 'INFORME' | 'DENUNCIA'
   miniatura?: string | null
 }
 
@@ -26,7 +25,7 @@ export const buscarEventoMapper = (incidente: IIncidente): BuscarEventoMapper =>
 
   const archivos = archivoDigital.map((archivo) => ({
     ...archivo,
-    ruta: path.join(envs.UPLOADS_PATH, archivo.ruta),
+    ruta: envs.UPLOADS_PATH + '/' + archivo.ruta,
   }))
 
   return {
