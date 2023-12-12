@@ -34,6 +34,7 @@ model CuentaUsuario {
   persona            Persona?          @relation(fields: [nroDocumento], references: [nroDocumento])
   perfil             Perfil            @relation(fields: [perfilCodigo], references: [perfilCodigo])
   incidenteSereno    IncidenteSereno[]
+  informe            Informe[]
 
   @@map("cuenta_usuario")
 }
@@ -165,6 +166,7 @@ model Incidente {
   fechaModificacion DateTime          @updatedAt @map("fecha_modificacion")
   archivoDigital    ArchivoDigital[]
   incidenteSereno   IncidenteSereno[]
+  informe           Informe[]
 
   @@map("incidente")
 }
@@ -173,7 +175,8 @@ model ArchivoDigital {
   idArchivo         Int       @id @default(autoincrement()) @map("id_archivo")
   idIncidente       Int       @map("id_incidente")
   ruta              String    @db.VarChar(35)
-  tipo              String    @db.VarChar(12)
+  tipo              String    @db.VarChar(12) // Valores: imagen, audio, video, doc-pdf...
+  categoria         String    @db.VarChar(10) // Valores: DENUNCIA, INFORME
   fechaCreacion     DateTime  @default(now()) @map("fecha_creacion")
   fechaModificacion DateTime  @updatedAt @map("fecha_modificacion")
   incidente         Incidente @relation(fields: [idIncidente], references: [idIncidente])
@@ -191,4 +194,17 @@ model IncidenteSereno {
 
   @@id([idIncidente, idSereno])
   @@map("incidente_sereno")
+}
+
+model Informe {
+  idInforme         Int           @id @default(autoincrement()) @map("id_informe")
+  idIncidente       Int           @map("id_incidente")
+  idSereno          String        @map("id_sereno") @db.VarChar(20)
+  descripcion       String        @db.Text
+  fechaCreacion     DateTime      @default(now()) @map("fecha_creacion")
+  fechaModificacion DateTime      @updatedAt @map("fecha_modificacion")
+  incidente         Incidente     @relation(fields: [idIncidente], references: [idIncidente])
+  cuentaUsuario     CuentaUsuario @relation(fields: [idSereno], references: [nroDocumento])
+
+  @@map("informe")
 }
