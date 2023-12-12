@@ -1,3 +1,5 @@
+import { ESTADOS_INCIDENTE } from '@agente/shared/constants'
+import { toNumberOrUndefined } from '@agente/shared/helpers'
 import type { Flexible } from '@agente/shared/types'
 
 const estados = ['PENDIENTE', 'ATENDIDO', 'ARCHIVADO', 'DERIVADO']
@@ -28,4 +30,26 @@ export class ListarEventosDto {
       new ListarEventosDto(formatFechaInicio, formatFechaFin, tipo, estado),
     ]
   }
+
+  static listarPorDenunciante(
+    object: Record<string, unknown>,
+  ): [string?, ListarPorDenuncianteDto?] {
+    const { tamanio, estado } = object as Flexible<ListarPorDenuncianteDto>
+
+    if (estado != null && !ESTADOS_INCIDENTE.includes(estado))
+      return ['Estado no válido']
+
+    return [
+      undefined,
+      {
+        tamanio: toNumberOrUndefined(tamanio, 'Tamaño de página'),
+        estado,
+      },
+    ]
+  }
+}
+
+interface ListarPorDenuncianteDto {
+  tamanio?: number
+  estado?: string
 }

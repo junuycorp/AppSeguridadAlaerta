@@ -8,3 +8,5 @@ export const ID = {
 export const VALUES = {
   sistemaPide: 'sistema-pide',
 } as const
+
+export const ESTADOS_INCIDENTE = ['PENDIENTE', 'RECIBIDO', 'ASIGNADO', 'TERMINADO']
