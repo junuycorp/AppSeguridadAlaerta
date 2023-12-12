@@ -19,3 +19,16 @@ export const listarUseCase = async (
   )
   return incidentes
 }
+
+export const listarPorDenuncianteUseCase = async (
+  idDenunciante: string,
+  nroDenuncias: number = 5,
+  estado: Estado | undefined = undefined,
+): Promise<Incidente[]> => {
+  const incidentes = await IncidenteRepository.listarPorDenunciante(
+    idDenunciante,
+    nroDenuncias,
+    estado,
+  )
+  return incidentes
+}
