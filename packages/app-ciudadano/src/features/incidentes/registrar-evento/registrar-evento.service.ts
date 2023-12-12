@@ -15,6 +15,7 @@ export interface Incidente {
 
 export interface CrearMultiplesArchivos {
   idIncidente: number
+  categoria: 'DENUNCIA' | 'INFORME'
   rutasArchivos: string[]
 }
 
@@ -51,6 +52,7 @@ export const crearMultiplesArchivos = async (
     timeout: 15000,
     data: {
       idIncidente: datos.idIncidente,
+      categoria: datos.categoria,
       rutasArchivos: datos.rutasArchivos,
     },
   })

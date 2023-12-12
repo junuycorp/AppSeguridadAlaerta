@@ -9,4 +9,6 @@ tags:
   - name: Mantenimientos / Usuarios
     description: Mantenimiento de usuarios
   - name: Procesos / Incidentes
-    descripcion: Manejo de incidentes
+    descripcion: Operaciones y control de incidentes
+  - name: Procesos / Serenos
+    descripcion: Operaciones y control de serenos

@@ -14,6 +14,10 @@ paths:
       security: []
       requestBody: 
         required: true
+        description: |
+          Valores de categoria:
+          - DENUNCIA
+          - INFORME
         content:
           application/json:
             schema: 
@@ -22,6 +26,9 @@ paths:
                 idIncidente:
                   type: number
                   example: 1
+                categoria:
+                  type: string
+                  example: "DENUNCIA"
                 rutasArchivos:
                   type: array
                   items:

@@ -1,0 +1,45 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+components:
+  schemas:
+    AsignarIncidenteInput:
+      type: object
+      properties:
+        idValor:
+          type: integer
+        texto:
+          type: string
+        estado:
+          type: boolean
+paths:
+  /procesos/serenos/asignar-incidente:
+    post:
+      tags:
+        - Procesos / Serenos
+      summary: Asignar incidente a un sereno
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                idIncidente:
+                  type: integer
+                  example: 60
+                idSereno:
+                  type: string
+                  example: "76543210"
+      responses:
+        200:
+          description: Creado correctamente
+          # content:
+          #   application/json:
+          #     schema:
+          #       $ref: '#/components/schemas/AsignarIncidenteOutput'
+        409:
+          description: ID ya se encuentra registrado

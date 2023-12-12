@@ -52,6 +52,9 @@ components:
               tipo: 
                 type: string
                 example: imagen
+              categoria:
+                type: string
+                example: "DENUNCIA"
               miniatura: 
                 type: string
                 example: thumbnails/202312/ID-1/142855-00.png
