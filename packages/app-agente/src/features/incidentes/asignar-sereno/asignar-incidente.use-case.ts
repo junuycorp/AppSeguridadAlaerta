@@ -1,18 +1,23 @@
-import type { IncidenteSereno } from '@agente/database'
 import type { AsignarIncidenteDto } from './asignar-incidente.dto'
 import { IncidenteRepository } from '@agente/features/incidentes/incidentes.repository'
 import { CustomError } from '@agente/errors'
-import { SerenoRepository, UsuarioRepository } from '@agente/shared/repositories'
+import {
+  type IncidenteSerenoWithIncidente,
+  SerenoRepository,
+  UsuarioRepository,
+} from '@agente/shared/repositories'
 
 export const asignarIncidenteUseCase = async (
   dto: AsignarIncidenteDto,
-): Promise<IncidenteSereno> => {
+): Promise<IncidenteSerenoWithIncidente> => {
   const { idIncidente, idSereno } = dto
   try {
     const incidenteSereno = await SerenoRepository.asignarIncidente(
       idSereno,
       idIncidente,
     )
+
+    // await IncidenteRepository.actualizar(idIncidente, {})
     return incidenteSereno
   } catch (error) {
     const incidenteSereno = await SerenoRepository.buscarIncidenteSerenoPorId(

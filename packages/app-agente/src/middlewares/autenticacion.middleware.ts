@@ -53,7 +53,8 @@ export const socketAuth = async (
     next(new Error(mensaje))
     return
   }
-  socket.handshake.headers.userId = nroDocumento
+  // socket.handshake.headers.userId = nroDocumento
+  socket.handshake.auth.userId = nroDocumento
   next()
 }
 

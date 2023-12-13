@@ -7,8 +7,8 @@ const set = (key: string, value: unknown, expireTime: number = 0): boolean => {
   return cache.set(key, value, expireTime)
 }
 
-const get = (key: string): unknown => {
-  return cache.get(key)
+const get = <T>(key: string): T => {
+  return cache.get(key) as T
 }
 
 // Verificar si existe key

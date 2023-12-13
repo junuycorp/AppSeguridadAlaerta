@@ -1,12 +1,12 @@
 import { Router } from 'express'
 import {
-  asignarIncidente,
   buscarEvento,
   cambiarEstado,
   listar,
   listarPorDenunciante,
   registroEvento,
 } from './incidentes.controller'
+import { asignarIncidente } from './asignar-sereno/asignar-sereno.controller'
 
 const router = Router()
 

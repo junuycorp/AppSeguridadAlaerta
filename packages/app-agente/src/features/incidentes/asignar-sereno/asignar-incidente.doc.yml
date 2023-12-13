@@ -53,6 +53,34 @@ paths:
                         format: int32
                       idSereno: 
                         type: string
+                      incidente: 
+                        type: object
+                        properties: 
+                          idIncidente: 
+                            type: integer
+                            format: int32
+                          idDenunciante: 
+                            type: string
+                          descripcion: 
+                            type: string
+                          estado: 
+                            type: string
+                          subestado: 
+                            type: string
+                            format: nullable
+                          longitud: 
+                            type: string
+                          latitud: 
+                            type: string
+                          tipo: 
+                            type: string
+                  estadoNotificacion: 
+                    type: object
+                    properties: 
+                      notificado: 
+                        type: boolean
+                      mensaje: 
+                        type: string
 
         409:
           description: ID ya se encuentra registrado
