@@ -19,6 +19,11 @@ export class SerenoRepository {
       },
       include: { incidente: true },
       take: tamanio,
+      orderBy: {
+        incidente: {
+          fechaCreacion: 'desc',
+        },
+      },
     })
   }
 
