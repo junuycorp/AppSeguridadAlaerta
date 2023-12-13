@@ -38,11 +38,8 @@ paths:
       requestBody:
         required: true
         description: |
-          Valores de estado:
-          - PENDIENTE
-          - RECIBIDO
-          - ASIGNADO
-          - TERMINADO
+          - Valores de estado: [PENDIENTE, RECIBIDO, ASIGNADO, TERMINADO]
+          - Valores de subestado cuando estado es TERMINADO: [ARCHIVADO, DERIVADO, DENUNCIADO, ATENDIDO], para los demás casos, es null.
         content:
           application/json:
             schema: 
@@ -50,6 +47,11 @@ paths:
               properties:
                 estado:
                   type: string
+                  example: RECIBIDO
+                subestado:
+                  type: string
+                  nullable: true
+                  example: null
 
       responses:
         200:

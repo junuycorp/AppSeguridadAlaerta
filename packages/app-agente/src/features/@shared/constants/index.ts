@@ -10,3 +10,9 @@ export const VALUES = {
 } as const
 
 export const ESTADOS_INCIDENTE = ['PENDIENTE', 'RECIBIDO', 'ASIGNADO', 'TERMINADO']
+export const SUBESTADOS_INCIDENTE = [
+  'ARCHIVADO',
+  'DERIVADO',
+  'DENUNCIADO',
+  'ATENDIDO',
+]
