@@ -1,6 +1,5 @@
-import { prisma } from '@agente/database'
+import { prisma, type Incidente, type Prisma } from '@agente/database'
 import type { Estado, Tipo } from '@agente/shared/types'
-import type { Incidente, Prisma } from '@prisma-agente/client'
 
 type CrearIncidente = Prisma.IncidenteUncheckedCreateInput
 type ActualizarIncidente = Prisma.IncidenteUncheckedUpdateInput

@@ -27,18 +27,6 @@ export class SerenoRepository {
     })
   }
 
-  static async asignarIncidente(
-    idSereno: string,
-    idIncidente: number,
-  ): Promise<IncidenteSereno> {
-    return await prisma.incidenteSereno.create({
-      data: {
-        idIncidente,
-        idSereno,
-      },
-    })
-  }
-
   static async buscarIncidenteSerenoPorId(
     idSereno: string,
     idIncidente: number,
@@ -63,6 +51,18 @@ export class SerenoRepository {
         descripcion,
         idSereno,
         idIncidente,
+      },
+    })
+  }
+
+  static async asignarIncidente(
+    idSereno: string,
+    idIncidente: number,
+  ): Promise<IncidenteSereno> {
+    return await prisma.incidenteSereno.create({
+      data: {
+        idIncidente,
+        idSereno,
       },
     })
   }

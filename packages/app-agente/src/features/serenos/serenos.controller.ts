@@ -1,10 +1,5 @@
 import type { Controller, Estado } from '@agente/shared/types'
 import {
-  AsignarIncidenteDto,
-  asignarIncidenteUseCase,
-  incidenteSerenoMapper,
-} from './asignar-incidente'
-import {
   listarIncidentesMapper,
   ListarIncidentesDto,
   listarIncidentesPorSerenoUseCase,
@@ -50,26 +45,6 @@ export const registrarInforme: Controller = (req, res, next) => {
         datos: registrarInformeMapper(resp),
       })
     })
-    .catch((error) => {
-      next(error)
-    })
-}
-
-export const asignarIncidente: Controller = (req, res, next) => {
-  const [error, dto] = AsignarIncidenteDto.crear(req.body)
-  if (error != null) {
-    res.status(400).json({ mensaje: error })
-    return
-  }
-
-  // TODO: Notificar a sereno con socket.io
-  asignarIncidenteUseCase(dto!)
-    .then((resp) =>
-      res.json({
-        mensaje: 'Asignado correctamente',
-        datos: incidenteSerenoMapper(resp),
-      }),
-    )
     .catch((error) => {
       next(error)
     })

@@ -1,9 +1,5 @@
 import { Router } from 'express'
-import {
-  asignarIncidente,
-  listarIncidentePorSereno,
-  registrarInforme,
-} from './serenos.controller'
+import { listarIncidentePorSereno, registrarInforme } from './serenos.controller'
 import { uploadMemory } from '@agente/middlewares'
 import { buscarEvento } from '../incidentes/incidentes.controller'
 
@@ -18,6 +14,5 @@ router.post(
   registrarInforme,
 )
 router.get('/buscar/:idIncidente', buscarEvento)
-router.post('/asignar-incidente', asignarIncidente)
 
 export default router

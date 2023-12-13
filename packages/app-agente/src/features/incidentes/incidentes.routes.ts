@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import {
+  asignarIncidente,
   buscarEvento,
   cambiarEstado,
   listar,
@@ -14,5 +15,6 @@ router.get('/listar/:idDenunciante', listarPorDenunciante)
 router.get('/buscar/:idIncidente', buscarEvento)
 router.post('/registro-evento', registroEvento)
 router.patch('/cambiar-estado/:idIncidente', cambiarEstado)
+router.post('/asignar-incidente', asignarIncidente)
 
 export default router

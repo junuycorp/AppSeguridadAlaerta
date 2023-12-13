@@ -1,9 +1,8 @@
 import type { IncidenteSereno } from '@agente/database'
 import type { AsignarIncidenteDto } from './asignar-incidente.dto'
-import { SerenoRepository } from '../serenos.repository'
 import { IncidenteRepository } from '@agente/features/incidentes/incidentes.repository'
 import { CustomError } from '@agente/errors'
-import { UsuarioRepository } from '@agente/shared/repositories'
+import { SerenoRepository, UsuarioRepository } from '@agente/shared/repositories'
 
 export const asignarIncidenteUseCase = async (
   dto: AsignarIncidenteDto,
