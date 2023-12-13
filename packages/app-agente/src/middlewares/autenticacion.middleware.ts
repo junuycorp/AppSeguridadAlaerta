@@ -35,6 +35,7 @@ export const autenticarUsuario = async (
     res.status(400).json({ mensaje })
     return
   }
+  req.headers.idUser = nroDocumento
   req.body.idUser = nroDocumento
   next()
 }

@@ -1,9 +1,6 @@
 import type { Incidente } from '@agente/database'
-import {
-  type Estado,
-  type Tipo,
-  IncidenteRepository,
-} from '../incidentes.repository'
+import { IncidenteRepository } from '../incidentes.repository'
+import type { Estado, Tipo } from '@agente/shared/types'
 
 export const listarUseCase = async (
   fechaInicio: Date = new Date('2023-01-01'),
