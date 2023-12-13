@@ -10,6 +10,7 @@ import {
   bufferToDisk,
   obtenerAnioMesActual,
 } from '@ciudadano/shared/helpers'
+import { uploadsPath } from '@ciudadano/configs'
 
 export interface DatosEvento {
   codUsuario: string
@@ -38,12 +39,10 @@ export const registrarEventoUseCase = async (
   const anioMesActual = obtenerAnioMesActual()
   const horaActual = obtenerHoraActual()
 
-  const rutaRaiz = path.join(__dirname, '..', '..', '..', '..') // Raiz del proyecto
-  const rutaUploads = path.join(rutaRaiz, '..', 'uploads')
   const rutaIncidente = path.join(anioMesActual, `ID-${incidente.idIncidente}`)
 
   // Carpeta donde será guardado los archivos
-  const nombreDirectorio = path.join(rutaUploads, rutaIncidente, 'denuncia')
+  const nombreDirectorio = path.join(uploadsPath, rutaIncidente, 'denuncia')
 
   // Guardar archivos en disco
   if (archivos != null) {

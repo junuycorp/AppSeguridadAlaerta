@@ -1,15 +1,9 @@
 import { prisma } from '@agente/database'
+import type { Estado, Tipo } from '@agente/shared/types'
 import type { Incidente, Prisma } from '@prisma-agente/client'
 
 type CrearIncidente = Prisma.IncidenteUncheckedCreateInput
 type ActualizarIncidente = Prisma.IncidenteUncheckedUpdateInput
-export type Estado = 'PENDIENTE' | 'RECIBIDO' | 'ASIGNADO' | 'TERMINADO'
-export type Tipo =
-  | 'ACCIDENTE'
-  | 'SUBIDA DE RIO'
-  | 'VIOLENCIA FAMILIAR'
-  | 'RIESGO'
-  | 'ROBO'
 
 export class IncidenteRepository {
   static listar = async (): Promise<Incidente[]> => {

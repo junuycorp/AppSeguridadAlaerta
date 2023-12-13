@@ -1,11 +1,10 @@
-import type { Controller } from '@agente/shared/types'
+import type { Controller, Estado, Tipo } from '@agente/shared/types'
 import { RegistroEventoDto, registroEventoUseCase } from './registro-evento'
 import { incidenteMapper } from './incidentes.mapper'
 import type { Server } from 'socket.io'
 import { listarPorDenuncianteUseCase, listarUseCase } from './listar-eventos'
 import { listarIncidenteMapper } from './listar-eventos/listar-eventos.mapper'
 import { ListarEventosDto } from './listar-eventos/listar-eventos.dto'
-import type { Estado, Tipo } from './incidentes.repository'
 import { buscarEventoMapper, buscarEventoUseCase } from './buscar-evento'
 import {
   CambiarEstadoDto,
