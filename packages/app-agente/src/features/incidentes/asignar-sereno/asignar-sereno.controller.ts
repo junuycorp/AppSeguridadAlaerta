@@ -29,7 +29,7 @@ export const asignarIncidente: Controller = (req, res, next) => {
           datos: incidenteMapper,
         })
         estadoNotificacion = {
-          notificado: false,
+          notificado: true,
           mensaje: 'Sereno notificado',
         }
       }
