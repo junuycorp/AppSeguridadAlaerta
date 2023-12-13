@@ -37,9 +37,21 @@ paths:
       responses:
         200:
           description: Creado correctamente
-          # content:
-          #   application/json:
-          #     schema:
-          #       $ref: '#/components/schemas/AsignarIncidenteOutput'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  mensaje: 
+                    type: string
+                  datos: 
+                    type: object
+                    properties: 
+                      idIncidente: 
+                        type: integer
+                        format: int32
+                      idSereno: 
+                        type: string
+
         409:
           description: ID ya se encuentra registrado

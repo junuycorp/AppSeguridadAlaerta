@@ -34,12 +34,40 @@ paths:
       responses:
         200:
           description: Registros creados correctamente
-          # content:
-            # application/json:
-            #   schema:
-            #     type: object
-            #     properties:
-            #       mensaje: 
-            #         type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  mensaje: 
+                    type: string
+                  datos: 
+                    type: object
+                    properties: 
+                      idInforme: 
+                        type: integer
+                        format: int32
+                      idIncidente: 
+                        type: integer
+                        format: int32
+                      idSereno: 
+                        type: string
+                      descripcion: 
+                        type: string
+                      archivoDigital: 
+                        type: array
+                        items: 
+                          type: object
+                          properties: 
+                            idIncidente: 
+                              type: integer
+                              format: int32
+                            ruta: 
+                              type: string
+                            tipo: 
+                              type: string
+                            categoria: 
+                              type: string
+
         409:
           description: ID de registro ya se encuentra registrado
