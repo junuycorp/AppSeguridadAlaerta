@@ -11,6 +11,11 @@ import {
   cambiarEstadoMapper,
   cambiarEstadoUseCase,
 } from './cambiar-estado'
+import {
+  AsignarIncidenteDto,
+  asignarIncidenteUseCase,
+  incidenteSerenoMapper,
+} from './asignar-incidente'
 
 export const listar: Controller = (req, res, next) => {
   const [error, dtoQuery] = ListarEventosDto.crear(req.query)
@@ -100,6 +105,26 @@ export const cambiarEstado: Controller = (req, res, next) => {
         datos: mapIncidente,
       })
     })
+    .catch((error) => {
+      next(error)
+    })
+}
+
+export const asignarIncidente: Controller = (req, res, next) => {
+  const [error, dto] = AsignarIncidenteDto.crear(req.body)
+  if (error != null) {
+    res.status(400).json({ mensaje: error })
+    return
+  }
+
+  // TODO: Notificar a sereno con socket.io
+  asignarIncidenteUseCase(dto!)
+    .then((resp) =>
+      res.json({
+        mensaje: 'Asignado correctamente',
+        datos: incidenteSerenoMapper(resp),
+      }),
+    )
     .catch((error) => {
       next(error)
     })

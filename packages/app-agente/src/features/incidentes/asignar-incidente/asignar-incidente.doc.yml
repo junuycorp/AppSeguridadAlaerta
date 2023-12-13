@@ -16,11 +16,12 @@ components:
         estado:
           type: boolean
 paths:
-  /procesos/serenos/asignar-incidente:
+  /procesos/incidentes/asignar-incidente:
     post:
       tags:
-        - Procesos / Serenos
+        - Procesos / Incidentes
       summary: Asignar incidente a un sereno
+      security: []
       requestBody:
         required: true
         content:
@@ -36,7 +37,7 @@ paths:
                   example: "76543210"
       responses:
         200:
-          description: Creado correctamente
+          description: Asignado correctamente
           content:
             application/json:
               schema:
