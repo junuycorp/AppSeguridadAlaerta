@@ -14,7 +14,7 @@ const accesosAdmin = [
   '010400',
 ]
 
-const accesosSereno = ['020000', '020100', '020400']
+const accesosSereno = ['020000', '020100', '020101', '020400']
 
 const objAccesosAdmin = accesosAdmin.map((acceso) => ({
   menuCodigo: acceso,
