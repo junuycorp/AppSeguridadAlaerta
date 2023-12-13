@@ -16,7 +16,7 @@ components:
         estado:
           type: boolean
 paths:
-  /procesos/incidentes/asignar-incidente:
+  /procesos/incidentes/asignar-sereno:
     post:
       tags:
         - Procesos / Incidentes
@@ -52,6 +52,34 @@ paths:
                         type: integer
                         format: int32
                       idSereno: 
+                        type: string
+                      incidente: 
+                        type: object
+                        properties: 
+                          idIncidente: 
+                            type: integer
+                            format: int32
+                          idDenunciante: 
+                            type: string
+                          descripcion: 
+                            type: string
+                          estado: 
+                            type: string
+                          subestado: 
+                            type: string
+                            format: nullable
+                          longitud: 
+                            type: string
+                          latitud: 
+                            type: string
+                          tipo: 
+                            type: string
+                  estadoNotificacion: 
+                    type: object
+                    properties: 
+                      notificado: 
+                        type: boolean
+                      mensaje: 
                         type: string
 
         409:
