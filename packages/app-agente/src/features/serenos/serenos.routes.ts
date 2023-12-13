@@ -5,6 +5,7 @@ import {
   registrarInforme,
 } from './serenos.controller'
 import { uploadMemory } from '@agente/middlewares'
+import { buscarEvento } from '../incidentes/incidentes.controller'
 
 const router = Router()
 
@@ -16,6 +17,7 @@ router.post(
   uploadMemory.array('archivos', maxFiles),
   registrarInforme,
 )
+router.get('/buscar/:idIncidente', buscarEvento)
 router.post('/asignar-incidente', asignarIncidente)
 
 export default router
