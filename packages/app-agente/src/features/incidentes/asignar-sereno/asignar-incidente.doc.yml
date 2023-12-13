@@ -16,7 +16,7 @@ components:
         estado:
           type: boolean
 paths:
-  /procesos/incidentes/asignar-incidente:
+  /procesos/incidentes/asignar-sereno:
     post:
       tags:
         - Procesos / Incidentes

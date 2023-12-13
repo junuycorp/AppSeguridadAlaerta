@@ -15,7 +15,7 @@ import {
   AsignarIncidenteDto,
   asignarIncidenteUseCase,
   incidenteSerenoMapper,
-} from './asignar-incidente'
+} from './asignar-sereno'
 
 export const listar: Controller = (req, res, next) => {
   const [error, dtoQuery] = ListarEventosDto.crear(req.query)
