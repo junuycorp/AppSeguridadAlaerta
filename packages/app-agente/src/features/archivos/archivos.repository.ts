@@ -1,7 +1,7 @@
 import { prisma } from '@agente/database'
 import type { Prisma } from '@prisma-agente/client'
 
-type CrearArchivo = Prisma.ArchivoDigitalUncheckedCreateInput
+export type CrearArchivo = Prisma.ArchivoDigitalUncheckedCreateInput
 
 export class ArchivoRepository {
   static crearMultiple = async (datos: CrearArchivo[]): Promise<number> => {

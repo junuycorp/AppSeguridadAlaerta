@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { prisma, type IncidenteSereno } from '@agente/database'
+import { prisma, type IncidenteSereno, type Informe } from '@agente/database'
 import type { Estado } from '@agente/shared/types'
 
 // type CrearIncidenteSereno = Prisma.IncidenteSerenoUncheckedCreateInput
@@ -49,6 +49,20 @@ export class SerenoRepository {
           idIncidente,
           idSereno,
         },
+      },
+    })
+  }
+
+  static async registrarInforme(
+    idSereno: string,
+    idIncidente: number,
+    descripcion?: string,
+  ): Promise<Informe> {
+    return await prisma.informe.create({
+      data: {
+        descripcion,
+        idSereno,
+        idIncidente,
       },
     })
   }

@@ -200,7 +200,7 @@ model Informe {
   idInforme         Int           @id @default(autoincrement()) @map("id_informe")
   idIncidente       Int           @map("id_incidente")
   idSereno          String        @map("id_sereno") @db.VarChar(20)
-  descripcion       String        @db.Text
+  descripcion       String?       @db.Text
   fechaCreacion     DateTime      @default(now()) @map("fecha_creacion")
   fechaModificacion DateTime      @updatedAt @map("fecha_modificacion")
   incidente         Incidente     @relation(fields: [idIncidente], references: [idIncidente])

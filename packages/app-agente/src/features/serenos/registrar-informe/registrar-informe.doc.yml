@@ -1,0 +1,45 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+paths:
+  /procesos/serenos/registrar-informe:
+    post:
+      tags:
+        - Procesos / Serenos
+      summary: Registrar un informe de incidente
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                idIncidente:
+                  type: integer
+                  description: Id del incidente
+                descripcion:
+                  type: string
+                  description: Descripción del evento
+                archivos:
+                  description: Lista de archivos por subir
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+              required:
+                - idIncidente
+      responses:
+        200:
+          description: Registros creados correctamente
+          # content:
+            # application/json:
+            #   schema:
+            #     type: object
+            #     properties:
+            #       mensaje: 
+            #         type: string
+        409:
+          description: ID de registro ya se encuentra registrado

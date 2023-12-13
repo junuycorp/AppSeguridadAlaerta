@@ -33,6 +33,6 @@ export const uploadDisk = multer({ storage: diskStorage })
 export const uploadMemory = multer({
   storage: memoryStorage,
   limits: {
-    fieldSize: 1024 * 1024 * 30, // Limite de 30MB
+    fieldSize: 1024 * 1024 * 60, // Limite de 30MB
   },
 })

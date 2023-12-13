@@ -3,8 +3,10 @@ import cors from 'cors'
 import { handleError, logRequest, emptyStringsToNull } from '@ciudadano/middlewares'
 import { logger } from './logger'
 import { swaggerDocs } from './swagger'
+import path from 'node:path'
 
 export type Environment = 'development' | 'production' | 'test'
+export const uploadsPath = path.join(__dirname, '..', '..', '..', 'uploads')
 
 interface Options {
   port?: number
