@@ -157,7 +157,8 @@ model Incidente {
   idIncidente       Int               @id @default(autoincrement()) @map("id_incidente")
   idDenunciante     String            @map("id_denunciante") @db.VarChar(20)
   descripcion       String            @db.Text
-  estado            String            @default("PENDIENTE")
+  estado            String            @default("PENDIENTE") // Valores: PENDIENTE, RECIBIDO, ASIGNADO, TERMIANDO
+  subestado         String?           @db.VarChar(10) // NULL, ARCHIVADO, DERIVADO, DENUNCIADO, ATENDIDO
   activo            Boolean           @default(true)
   longitud          String
   latitud           String
