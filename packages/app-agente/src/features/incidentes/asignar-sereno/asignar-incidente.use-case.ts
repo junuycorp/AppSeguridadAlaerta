@@ -6,10 +6,11 @@ import {
   SerenoRepository,
   UsuarioRepository,
 } from '@agente/shared/repositories'
+import type { Incidente } from '@agente/database'
 
 export const asignarIncidenteUseCase = async (
   dto: AsignarIncidenteDto,
-): Promise<IncidenteSerenoWithIncidente> => {
+): Promise<[IncidenteSerenoWithIncidente, Incidente]> => {
   const { idIncidente, idSereno } = dto
   try {
     const incidenteSereno = await SerenoRepository.asignarIncidente(
@@ -17,8 +18,12 @@ export const asignarIncidenteUseCase = async (
       idIncidente,
     )
 
-    // await IncidenteRepository.actualizar(idIncidente, {})
-    return incidenteSereno
+    // Actualizar estado del incidente a "ASIGNADO"
+    const incidente = await IncidenteRepository.actualizar(idIncidente, {
+      estado: 'ASIGNADO',
+    })
+
+    return [incidenteSereno, incidente]
   } catch (error) {
     const incidenteSereno = await SerenoRepository.buscarIncidenteSerenoPorId(
       idSereno,

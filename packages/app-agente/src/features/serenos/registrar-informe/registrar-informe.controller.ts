@@ -1,7 +1,9 @@
+import type { Server } from 'socket.io'
 import type { Controller } from '@agente/shared/types'
 import { RegistrarInformeDto } from './registrar-informe.dto'
 import { registrarInformeUseCase } from './registrar-informe.use-case'
 import { registrarInformeMapper } from './registrar-informe.mapper'
+import { cambiarEstadoMapper } from '@agente/features/incidentes/cambiar-estado/cambiar-estado.mapper'
 
 type Archivos = Express.Multer.File[] | undefined
 export const registrarInforme: Controller = (req, res, next) => {
@@ -13,10 +15,18 @@ export const registrarInforme: Controller = (req, res, next) => {
     return
   }
   registrarInformeUseCase(dto!, idSereno, archivos)
-    .then((resp) => {
+    .then(([informe, incidente]) => {
+      const mapIncidente = cambiarEstadoMapper(incidente)
+
+      // Notificar cambio estado
+      const io = req.app.get('socketio') as Server
+      // TODO: Notificar usando rooms
+      io.emit('server:cambio-estado', mapIncidente)
+
+      // Enviar respues de peticion
       res.json({
         mensaje: 'Informe registrado correctamente',
-        datos: registrarInformeMapper(resp),
+        datos: registrarInformeMapper(informe),
       })
     })
     .catch((error) => {

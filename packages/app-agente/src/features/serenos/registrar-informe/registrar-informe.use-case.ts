@@ -7,9 +7,10 @@ import {
   obtenerHoraActual,
 } from '@agente/shared/helpers'
 import { uploadsPath } from '@agente/configs'
-import type { Informe } from '@agente/database'
+import type { Incidente, Informe } from '@agente/database'
 import path from 'node:path'
 import { ArchivoRepository, type CrearArchivo } from '@agente/shared/repositories'
+import { IncidenteRepository } from '@agente/features/incidentes/incidentes.repository'
 
 type Archivos = Express.Multer.File[] | undefined
 
@@ -17,7 +18,7 @@ export const registrarInformeUseCase = async (
   dto: RegistrarInformeDto,
   idSereno: string,
   archivos: Archivos,
-): Promise<IInforme> => {
+): Promise<[IInforme, Incidente]> => {
   const { idIncidente, descripcion } = dto
   const informe = await SerenoRepository.registrarInforme(
     idSereno,
@@ -52,10 +53,19 @@ export const registrarInformeUseCase = async (
     // Guardar rutas en BD
     await ArchivoRepository.crearMultiple(listaArchivos)
   }
-  return {
+
+  // Cambiar estado a terminado
+  const incidente = await IncidenteRepository.actualizar(idIncidente, {
+    estado: 'TERMINADO',
+    fechaFinalizacion: new Date(),
+  })
+
+  const informeRegistrado = {
     ...informe,
     archivoDigital: listaArchivos,
   }
+
+  return [informeRegistrado, incidente]
 }
 
 interface IInforme extends Informe {
