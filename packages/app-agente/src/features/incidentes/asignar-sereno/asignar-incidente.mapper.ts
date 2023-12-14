@@ -1,9 +1,6 @@
 import type { Incidente, IncidenteSereno } from '@agente/database'
 
-type IncidenteSerenoMapper = Omit<
-  IncidenteSereno,
-  'fechaCreacion' | 'fechaModificacion'
->
+type IncidenteSerenoMapper = Omit<IncidenteSereno, 'activo' | 'fechaAsignacion'>
 
 interface IIncidenteSereno extends IncidenteSereno {
   incidente: Partial<Incidente>
@@ -12,11 +9,10 @@ interface IIncidenteSereno extends IncidenteSereno {
 export const incidenteSerenoMapper = (
   incidenteSereno: IIncidenteSereno,
 ): IncidenteSerenoMapper => {
-  const { fechaCreacion, fechaModificacion, ...rest } = incidenteSereno
+  const { fechaAsignacion, ...rest } = incidenteSereno
 
-  delete incidenteSereno.incidente.fechaModificacion
-  delete incidenteSereno.incidente.fechaCreacion
   delete incidenteSereno.incidente.activo
+  // incidenteSereno.fechaAsignacion
 
   return rest
 }

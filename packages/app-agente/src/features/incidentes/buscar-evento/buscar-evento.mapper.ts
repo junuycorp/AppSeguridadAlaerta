@@ -21,7 +21,7 @@ interface IIncidente extends Incidente {
 }
 
 export const buscarEventoMapper = (incidente: IIncidente): BuscarEventoMapper => {
-  const { fechaModificacion, archivoDigital, ...rest } = incidente
+  const { archivoDigital, ...rest } = incidente
 
   const archivos = archivoDigital.map((archivo) => ({
     ...archivo,

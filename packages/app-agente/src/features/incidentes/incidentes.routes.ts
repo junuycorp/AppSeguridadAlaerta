@@ -1,11 +1,11 @@
 import { Router } from 'express'
 import {
-  buscarEvento,
-  cambiarEstado,
   listar,
   listarPorDenunciante,
-  registroEvento,
-} from './incidentes.controller'
+} from './listar-eventos/listar-eventos.controller'
+import { buscarEvento } from './buscar-evento/buscar-evento.controller'
+import { registroEvento } from './registro-evento/registro-evento.controller'
+import { cambiarEstado } from './cambiar-estado/cambiar-estado.controller'
 import { asignarIncidente } from './asignar-sereno/asignar-sereno.controller'
 
 const router = Router()

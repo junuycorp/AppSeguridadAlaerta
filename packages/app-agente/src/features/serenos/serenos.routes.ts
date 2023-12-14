@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { listarIncidentePorSereno, registrarInforme } from './serenos.controller'
 import { uploadMemory } from '@agente/middlewares'
-import { buscarEvento } from '../incidentes/incidentes.controller'
+import { buscarEvento } from '../incidentes/buscar-evento/buscar-evento.controller'
 
 const router = Router()
 
