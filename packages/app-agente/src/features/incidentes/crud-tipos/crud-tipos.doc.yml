@@ -1,0 +1,42 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+components:
+  schemas:
+    CrudTiposInput:
+      type: object
+      properties: 
+        totalElementos: 
+          type: integer
+          format: int32
+        datos: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              idTipoIncidente: 
+                type: integer
+                format: int32
+              nombre: 
+                type: string
+              descripcion: 
+                type: string
+              colorMarcador: 
+                type: string
+
+paths:
+  /procesos/incidentes/listar-tipos:
+    get:
+      tags:
+        - Procesos / Incidentes
+      summary: Listar tipos de incidentes
+      responses:
+        200:
+          description: Listado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrudTiposOutput'

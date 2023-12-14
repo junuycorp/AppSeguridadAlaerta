@@ -7,11 +7,13 @@ import { buscarEvento } from './buscar-evento/buscar-evento.controller'
 import { registroEvento } from './registro-evento/registro-evento.controller'
 import { cambiarEstado } from './cambiar-estado/cambiar-estado.controller'
 import { asignarIncidente } from './asignar-sereno/asignar-sereno.controller'
+import { listarTipos } from './crud-tipos/crud-tipos.controller'
 
 const router = Router()
 
 router.get('/listar', listar)
 router.get('/listar/:idDenunciante', listarPorDenunciante)
+router.get('/listar-tipos', listarTipos)
 router.get('/buscar/:idIncidente', buscarEvento)
 router.post('/registro-evento', registroEvento)
 router.patch('/cambiar-estado/:idIncidente', cambiarEstado)

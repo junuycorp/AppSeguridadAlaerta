@@ -1,4 +1,4 @@
-import { prisma, type Incidente, type Prisma } from '@agente/database'
+import { prisma, type Incidente, type Prisma, type TipoIncidente } from '@agente/database'
 import type { Estado } from '@agente/shared/types'
 
 type CrearIncidente = Prisma.IncidenteUncheckedCreateInput
@@ -75,5 +75,9 @@ export class IncidenteRepository {
       where: { idIncidente },
       data: datos,
     })
+  }
+
+  static listarTipos = async (): Promise<TipoIncidente[]> => {
+    return await prisma.tipoIncidente.findMany()
   }
 }
