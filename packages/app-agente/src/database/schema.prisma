@@ -180,7 +180,7 @@ model TipoIncidente {
   idTipoIncidente Int         @id @default(autoincrement()) @map("id_tipo_incidente")
   nombre          String      @db.VarChar(35)
   descripcion     String?     @db.Text
-  colorMarcador   String      @default("#cb273a") @db.VarChar(9) @map("color_marcador")
+  colorMarcador   String      @default("#cb273a") @map("color_marcador") @db.VarChar(9)
   incidente       Incidente[]
 
   @@map("tipo_incidente")
