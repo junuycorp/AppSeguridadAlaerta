@@ -9,8 +9,13 @@ import {
 import { uploadsPath } from '@agente/configs'
 import type { Incidente, Informe } from '@agente/database'
 import path from 'node:path'
-import { ArchivoRepository, type CrearArchivo } from '@agente/shared/repositories'
+import {
+  ArchivoRepository,
+  CentroPobladoRepository,
+  type CrearArchivo,
+} from '@agente/shared/repositories'
 import { IncidenteRepository } from '@agente/features/incidentes/incidentes.repository'
+import { CustomError } from '@agente/errors'
 
 type Archivos = Express.Multer.File[] | undefined
 
@@ -19,13 +24,29 @@ export const registrarInformeUseCase = async (
   idSereno: string,
   archivos: Archivos,
 ): Promise<[IInforme, Incidente]> => {
-  const { idIncidente, descripcion } = dto
+  const { idIncidente, idCentroPoblado, descripcion } = dto
   const informe = await SerenoRepository.registrarInforme(
     idSereno,
     idIncidente,
     descripcion,
   )
 
+  // Cambiar estado a terminado
+  let incidente: Incidente
+  try {
+    incidente = await IncidenteRepository.actualizar(idIncidente, {
+      idCentroPoblado,
+      estado: 'TERMINADO',
+      fechaFinalizacion: new Date(),
+    })
+  } catch (error) {
+    const centroPoblado = await CentroPobladoRepository.buscarPorId(idCentroPoblado)
+    if (centroPoblado == null)
+      throw CustomError.conflict('ID de centro poblado no existe')
+    throw error
+  }
+
+  // MANIPULAR ARCHIVOS
   // Obtener parametros
   const anioMesActual = obtenerAnioMesActual()
   const horaActual = obtenerHoraActual()
@@ -53,12 +74,6 @@ export const registrarInformeUseCase = async (
     // Guardar rutas en BD
     await ArchivoRepository.crearMultiple(listaArchivos)
   }
-
-  // Cambiar estado a terminado
-  const incidente = await IncidenteRepository.actualizar(idIncidente, {
-    estado: 'TERMINADO',
-    fechaFinalizacion: new Date(),
-  })
 
   const informeRegistrado = {
     ...informe,
