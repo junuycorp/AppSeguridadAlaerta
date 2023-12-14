@@ -156,6 +156,7 @@ model Ubigeo {
 model Incidente {
   idIncidente       Int               @id @default(autoincrement()) @map("id_incidente")
   idDenunciante     String            @map("id_denunciante") @db.VarChar(20)
+  idCentroPoblado   Int?
   descripcion       String            @db.Text
   estado            String            @default("PENDIENTE") // Valores: PENDIENTE, RECIBIDO, ASIGNADO, TERMIANDO
   subestado         String?           @db.VarChar(10) // NULL, ARCHIVADO, DERIVADO, DENUNCIADO, ATENDIDO
@@ -168,6 +169,7 @@ model Incidente {
   archivoDigital    ArchivoDigital[]
   incidenteSereno   IncidenteSereno[]
   informe           Informe[]
+  centroPoblado     CentroPoblado?    @relation(fields: [idCentroPoblado], references: [idCentroPoblado])
 
   @@map("incidente")
 }
@@ -208,4 +210,12 @@ model Informe {
   cuentaUsuario     CuentaUsuario @relation(fields: [idSereno], references: [nroDocumento])
 
   @@map("informe")
+}
+
+model CentroPoblado {
+  idCentroPoblado Int         @id @default(autoincrement()) @map("id_centro_poblado")
+  nombre          String      @db.VarChar(40)
+  ubicacion       String?     @db.VarChar(100)
+  extension       String?     @db.VarChar(50)
+  incidente       Incidente[]
 }
