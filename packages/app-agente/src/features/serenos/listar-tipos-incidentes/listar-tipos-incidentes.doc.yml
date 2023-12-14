@@ -6,7 +6,7 @@ servers:
   - url: http://localhost:3100
 components:
   schemas:
-    CrudTiposOutput:
+    ListarTiposIncidentesOutput:
       type: object
       properties: 
         totalElementos: 
@@ -26,18 +26,16 @@ components:
                 type: string
               colorMarcador: 
                 type: string
-
 paths:
-  /procesos/incidentes/listar-tipos:
+  /procesos/serenos/tipos-incidentes:
     get:
       tags:
-        - Procesos / Incidentes
+        - Procesos / Serenos
       summary: Listar tipos de incidentes
-      security: []
       responses:
         200:
           description: Listado correctamente
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CrudTiposOutput'
+                $ref: '#/components/schemas/ListarTiposIncidentesOutput'

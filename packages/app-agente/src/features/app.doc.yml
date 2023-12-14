@@ -2,13 +2,22 @@
 tags:
   - name: Autenticación
     description: Acceso al sistema
+
   - name: Servicios
     description: Consultas de información a servicios externos
+
+
   - name: Mantenimientos / Perfiles
     description: Mantenimiento de perfiles
+
   - name: Mantenimientos / Usuarios
     description: Mantenimiento de usuarios
+
   - name: Procesos / Incidentes
-    descripcion: Operaciones de incidentes
+    description: Operaciones de incidentes
+
   - name: Procesos / Serenos
-    descripcion: Operaciones de serenos
+    description: Operaciones de serenos
+
+  - name: Procesos / Archivos
+    description: Operaciones con archivos
