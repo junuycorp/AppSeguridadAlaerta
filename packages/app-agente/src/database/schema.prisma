@@ -164,7 +164,6 @@ model Incidente {
   activo            Boolean           @default(true)
   longitud          String
   latitud           String
-  // tipo              String            @db.VarChar(20)
   fechaCreacion     DateTime          @default(now()) @map("fecha_creacion")
   fechaRecepcion    DateTime?         @map("fecha_recepcion")
   fechaFinalizacion DateTime?         @map("fecha_finalizacion")
