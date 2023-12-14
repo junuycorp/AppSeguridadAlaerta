@@ -61,6 +61,11 @@ paths:
                             format: int32
                           idDenunciante: 
                             type: string
+                          idTipoIncidente:
+                            type: number
+                          idCentroPoblado:
+                            type: number
+                            format: nullable
                           descripcion: 
                             type: string
                           estado: 
@@ -71,8 +76,6 @@ paths:
                           longitud: 
                             type: string
                           latitud: 
-                            type: string
-                          tipo: 
                             type: string
                   estadoNotificacion: 
                     type: object

@@ -3,7 +3,7 @@ info:
   title: API
   version: 1.0.0
 servers:
-  - url: http://localhost:3100
+  - url: http://localhost:3301
 # components:
   # schemas:
     # CrudIncidenteInput:
@@ -40,26 +40,14 @@ paths:
           schema:
             type: string
             enum: [PENDIENTE,RECIBIDO,ASIGNADO,TERMINADO]
-          example: "PENDIENTE"
           description: |
-            Estado del incidente. Valores disponibles: 
-            - PENDIENTE (valor por defecto)
-            - ATENDIDO
-            - ARCHIVADO
-            - DERIVADO
+            Estado del incidente. Por defecto: Listar todos 
         - in: query
-          name: tipo
+          name: idTipoIncidente
           schema:
-            type: string
-            enum: [ACCIDENTE,SUBIDA DE RIO,VIOLENCIA FAMILIAR,RIESGO,ROBO]
+            type: number
           description: |
-            Estado del incidente. Por defecto: Listar todos
-            Valores disponibles: 
-            - ACCIDENTE
-            - SUBIDA DE RIO
-            - VIOLENCIA FAMILIAR
-            - RIESGO
-            - ROBO
+            ID del tipo incidente. Por defecto: Listar todos
 
       responses:
         200:

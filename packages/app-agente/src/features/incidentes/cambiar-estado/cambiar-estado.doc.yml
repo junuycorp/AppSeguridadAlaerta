@@ -9,17 +9,28 @@ components:
     CambiarEstadoOutput:
       type: object
       properties: 
-        idIncidente: 
-          type: integer
-          format: int32
-        estado: 
+        mensaje: 
           type: string
-        fechaCreacion: 
-          type: string
-          format: date-time
-        fechaModificacion: 
-          type: string
-          format: date-time
+        datos: 
+          type: object
+          properties: 
+            idIncidente: 
+              type: integer
+              format: int32
+            estado: 
+              type: string
+            subestado: 
+              type: string
+              format: nullable
+            fechaCreacion: 
+              type: string
+              format: date-time
+            fechaRecepcion: 
+              type: string
+              format: nullable
+            fechaFinalizacion: 
+              type: string
+              format: nullable
 
 paths:
   /procesos/incidentes/cambiar-estado/{idIncidente}:

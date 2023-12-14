@@ -12,7 +12,9 @@ export const incidenteSerenoMapper = (
   const { fechaAsignacion, ...rest } = incidenteSereno
 
   delete incidenteSereno.incidente.activo
-  // incidenteSereno.fechaAsignacion
+  delete incidenteSereno.incidente.fechaCreacion
+  delete incidenteSereno.incidente.fechaFinalizacion
+  delete incidenteSereno.incidente.fechaRecepcion
 
   return rest
 }
