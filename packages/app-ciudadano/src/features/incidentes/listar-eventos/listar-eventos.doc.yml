@@ -21,7 +21,7 @@ paths:
     get:
       tags:
         - Incidentes
-      summary: Listar incidentes denunciados
+      summary: Listar incidentes denunciados por el usuario
       parameters:
         - in: query
           name: tamanio

@@ -12,31 +12,36 @@ components:
         idIncidente: 
           type: integer
           format: int32
-          example: 1
         idDenunciante: 
           type: string
-          example: 76543210
+        idTipoIncidente: 
+          type: integer
+          format: int32
+        idCentroPoblado: 
+          type: string
+          format: nullable
         descripcion: 
           type: string
-          example: Descripcion del incidente
         estado: 
           type: string
-          example: PENDIENTE
+        subestado: 
+          type: string
+          format: nullable
         activo: 
           type: boolean
         longitud: 
           type: string
-          example: -72.946554
         latitud: 
           type: string
-          example: -11.718343
-        tipo: 
-          type: string
-          example: ROBO
         fechaCreacion: 
           type: string
           format: date-time
-          example: 2023-12-11T19:28:55.306Z
+        fechaRecepcion: 
+          type: string
+          format: nullable
+        fechaFinalizacion: 
+          type: string
+          format: nullable
         archivoDigital: 
           type: array
           items: 
@@ -45,19 +50,16 @@ components:
               idArchivo: 
                 type: integer
                 format: int32
-                example: 1
               ruta: 
                 type: string
-                example: 202312/ID-1/142855-00.png
               tipo: 
                 type: string
-                example: imagen
-              categoria:
+              categoria: 
                 type: string
-                example: "DENUNCIA"
               miniatura: 
                 type: string
-                example: thumbnails/202312/ID-1/142855-00.png
+                format: nullable
+
 
 
 paths:

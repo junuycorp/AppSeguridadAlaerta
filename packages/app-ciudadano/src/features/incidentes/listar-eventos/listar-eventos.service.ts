@@ -4,13 +4,16 @@ import type { EstadoIncidente } from '@ciudadano/shared/types'
 
 export interface Incidente {
   idIncidente: number
-  idDenunciante: string
+  idTipoIncidente: number
+  idCentroPoblado: number | null
   descripcion: string
   estado: EstadoIncidente
-  activo: boolean
-  latitud: string
+  subestado: null
   longitud: string
-  tipo: string
+  latitud: string
+  fechaRecepcion: string | null
+  fechaFinalizacion: string | null
+  fechaCreacion: string
 }
 
 const apiUrl = envs.SEGURIDAD_API

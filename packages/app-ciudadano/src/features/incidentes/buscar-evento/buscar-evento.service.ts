@@ -4,13 +4,17 @@ import { envs } from '@ciudadano/configs'
 export interface IncidenteDetallado {
   idIncidente: number
   idDenunciante: string
+  idTipoIncidente: number
+  idCentroPoblado: number | null
   descripcion: string
   estado: string
+  subestado: string | null
   activo: boolean
   longitud: string
   latitud: string
-  tipo: string
   fechaCreacion: string
+  fechaRecepcion: null | string
+  fechaFinalizacion: null | string
   archivoDigital: ArchivoDigital[]
 }
 
@@ -18,7 +22,8 @@ export interface ArchivoDigital {
   idArchivo: number
   ruta: string
   tipo: string
-  miniatura: string | null
+  categoria: string
+  miniatura: null | string
 }
 
 const apiUrl = envs.SEGURIDAD_API
