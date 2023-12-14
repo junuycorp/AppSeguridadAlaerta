@@ -19,15 +19,10 @@ interface IIncidente
 export const listarIncidentesMapper = (
   incidenteSereno: IIncidenteSereno,
 ): ListarIncidenteSereno => {
-  const {
-    fechaCreacion: _fc,
-    fechaModificacion: _fm,
-    idIncidente,
-    incidente,
-    ...restIncidenteSereno
-  } = incidenteSereno
+  const { fechaAsignacion, idIncidente, incidente, ...restIncidenteSereno } =
+    incidenteSereno
 
-  const { fechaModificacion, activo, fechaCreacion, ...restIncidente } = incidente
+  const { activo, fechaCreacion, ...restIncidente } = incidente
   const nuevoIncidente = {
     ...restIncidente,
     fechaCreacion: formatDate(fechaCreacion),

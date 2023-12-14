@@ -12,14 +12,6 @@ import {
 } from '@ciudadano/shared/helpers'
 import { uploadsPath } from '@ciudadano/configs'
 
-export interface DatosEvento {
-  codUsuario: string
-  descripcion: string
-  longitud: string
-  latitud: string
-  tipo: string
-}
-
 type Archivos = Express.Multer.File[] | undefined
 
 export const registrarEventoUseCase = async (

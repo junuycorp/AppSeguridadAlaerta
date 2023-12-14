@@ -17,6 +17,9 @@ paths:
             schema:
               type: object
               properties:
+                idTipoIncidente:
+                  description: ID del tipo de incidente
+                  type: number
                 descripcion:
                   type: string
                   description: Descripción del evento
@@ -26,15 +29,6 @@ paths:
                 latitud:
                   type: string
                   description: Coordenada latitud del lugar del evento
-                tipo:
-                  type: string
-                  description: |
-                    Tipo de incidente. Valores disponibles
-                    - ACCIDENTE
-                    - SUBIDA DE RIO
-                    - VIOLENCIA FAMILIAR
-                    - RIESGO
-                    - ROBO 
                 archivos:
                   description: Lista de archivos por subir
                   type: array
@@ -45,7 +39,7 @@ paths:
                 - descripcion
                 - longitud
                 - latitud
-                - tipo
+                - idTipoIncidente
       responses:
         200:
           description: Registros creados correctamente

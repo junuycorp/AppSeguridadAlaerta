@@ -43,10 +43,10 @@ paths:
         description: |
           Parametros a enviar
           - idDenunciante: Número de documento del usuario que reportó
+          - idTipoIncidente: ID del Tipo de incidente
           - descripcion: Descripcion del incidente
           - latitud: Coordenada latitud
           - longitud: Coordenada longitud
-          - tipo: Tipo de incidente. Valores disponibles: ACCIDENTE, SUBIDA DE RIO, VIOLENCIA FAMILIAR, RIESGO, ROBO
         required: true
         content:
           application/json:
@@ -56,6 +56,9 @@ paths:
                 idDenunciante: 
                   type: string
                   example: 76543210
+                idTipoIncidente:
+                  type: number
+                  example: 1
                 descripcion: 
                   type: string
                   example: Descripcion del incidente
@@ -65,9 +68,6 @@ paths:
                 longitud: 
                   type: string
                   example: -72.946554
-                tipo:
-                  type: string
-                  example: SUBIDA DE RIO
         
       responses:
         200:

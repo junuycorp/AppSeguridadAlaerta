@@ -4,19 +4,33 @@ import type { Incidente } from '@prisma-agente/client'
 interface ListarIncidenteMapper
   extends Omit<
     Incidente,
-    'idDenunciante' | 'fechaModificacion' | 'activo' | 'fechaCreacion'
+    | 'idDenunciante'
+    | 'activo'
+    | 'fechaCreacion'
+    | 'fechaRecepcion'
+    | 'fechaFinalizacion'
   > {
   fechaCreacion: string
+  fechaRecepcion: string | null
+  fechaFinalizacion: string | null
 }
 
 export const listarIncidenteMapper = (
   incidente: Incidente,
 ): ListarIncidenteMapper => {
-  const { idDenunciante, activo, fechaModificacion, fechaCreacion, ...rest } =
-    incidente
+  const {
+    idDenunciante,
+    activo,
+    fechaCreacion,
+    fechaRecepcion,
+    fechaFinalizacion,
+    ...rest
+  } = incidente
 
   return {
     ...rest,
     fechaCreacion: formatDate(fechaCreacion),
+    fechaRecepcion: fechaRecepcion ? formatDate(fechaRecepcion) : null,
+    fechaFinalizacion: fechaFinalizacion ? formatDate(fechaFinalizacion) : null,
   }
 }

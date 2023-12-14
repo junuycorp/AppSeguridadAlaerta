@@ -1,42 +1,33 @@
+import { toNumber } from '@agente/shared/helpers'
 import type { Flexible } from '@agente/shared/types'
 
 export class RegistroEventoDto {
   private constructor(
     public idDenunciante: string,
+    public idTipoIncidente: number,
     public descripcion: string,
     public longitud: string,
     public latitud: string,
-    public tipo: string,
   ) {}
 
   static crear(object: Record<string, unknown>): [string?, RegistroEventoDto?] {
-    const { idDenunciante, descripcion, longitud, latitud, tipo } =
+    const { idDenunciante, idTipoIncidente, descripcion, longitud, latitud } =
       object as Flexible<RegistroEventoDto>
 
     if (idDenunciante == null) return ['Falta proporcionar idDenunciante']
+    if (idTipoIncidente == null) return ['Falta proporcionar tipo de incidente']
     if (descripcion == null) return ['Falta proporcionar descripcion']
     if (longitud == null) return ['Falta proporcionar longitud']
     if (latitud == null) return ['Falta proporcionar latitud']
-    if (tipo == null) return ['Falta proporcionar tipo']
-
-    const formatTipo = tipo.toUpperCase()
-    const tiposValidos = [
-      'ACCIDENTE',
-      'SUBIDA DE RIO',
-      'VIOLENCIA FAMILIAR',
-      'RIESGO',
-      'ROBO',
-    ]
-    if (!tiposValidos.includes(formatTipo)) return ['Tipo no válido']
 
     return [
       undefined,
       new RegistroEventoDto(
         idDenunciante,
+        toNumber(idTipoIncidente, 'ID de tipo de incidente'),
         descripcion,
         longitud,
         latitud,
-        formatTipo,
       ),
     ]
   }
