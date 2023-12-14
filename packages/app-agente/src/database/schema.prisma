@@ -156,22 +156,35 @@ model Ubigeo {
 model Incidente {
   idIncidente       Int               @id @default(autoincrement()) @map("id_incidente")
   idDenunciante     String            @map("id_denunciante") @db.VarChar(20)
-  idCentroPoblado   Int?
+  idTipoIncidente   Int               @map("id_tipo_incidente")
+  idCentroPoblado   Int?              @map("id_centro_poblado")
   descripcion       String            @db.Text
   estado            String            @default("PENDIENTE") // Valores: PENDIENTE, RECIBIDO, ASIGNADO, TERMIANDO
   subestado         String?           @db.VarChar(10) // NULL, ARCHIVADO, DERIVADO, DENUNCIADO, ATENDIDO
   activo            Boolean           @default(true)
   longitud          String
   latitud           String
-  tipo              String            @db.VarChar(20)
+  // tipo              String            @db.VarChar(20)
   fechaCreacion     DateTime          @default(now()) @map("fecha_creacion")
-  fechaModificacion DateTime          @updatedAt @map("fecha_modificacion")
+  fechaRecepcion    DateTime?         @map("fecha_recepcion")
+  fechaFinalizacion DateTime?         @map("fecha_finalizacion")
   archivoDigital    ArchivoDigital[]
   incidenteSereno   IncidenteSereno[]
   informe           Informe[]
   centroPoblado     CentroPoblado?    @relation(fields: [idCentroPoblado], references: [idCentroPoblado])
+  tipoIncidente     TipoIncidente     @relation(fields: [idTipoIncidente], references: [idTipoIncidente])
 
   @@map("incidente")
+}
+
+model TipoIncidente {
+  idTipoIncidente Int         @id @default(autoincrement()) @map("id_tipo_incidente")
+  nombre          String      @db.VarChar(35)
+  descripcion     String?     @db.Text
+  colorMarcador   String      @default("#cb273a") @db.VarChar(9) @map("color_marcador")
+  incidente       Incidente[]
+
+  @@map("tipo_incidente")
 }
 
 model ArchivoDigital {
@@ -188,12 +201,11 @@ model ArchivoDigital {
 }
 
 model IncidenteSereno {
-  idIncidente       Int           @map("id_incidente")
-  idSereno          String        @map("id_sereno") @db.VarChar(20)
-  fechaCreacion     DateTime      @default(now()) @map("fecha_creacion")
-  fechaModificacion DateTime      @updatedAt @map("fecha_modificacion")
-  incidente         Incidente     @relation(fields: [idIncidente], references: [idIncidente])
-  sereno            CuentaUsuario @relation(fields: [idSereno], references: [nroDocumento])
+  idIncidente     Int           @map("id_incidente")
+  idSereno        String        @map("id_sereno") @db.VarChar(20)
+  fechaAsignacion DateTime      @default(now()) @map("fecha_asignacion")
+  incidente       Incidente     @relation(fields: [idIncidente], references: [idIncidente])
+  sereno          CuentaUsuario @relation(fields: [idSereno], references: [nroDocumento])
 
   @@id([idIncidente, idSereno])
   @@map("incidente_sereno")
@@ -218,4 +230,6 @@ model CentroPoblado {
   ubicacion       String?     @db.VarChar(100)
   extension       String?     @db.VarChar(50)
   incidente       Incidente[]
+
+  @@map("centro_poblado")
 }
