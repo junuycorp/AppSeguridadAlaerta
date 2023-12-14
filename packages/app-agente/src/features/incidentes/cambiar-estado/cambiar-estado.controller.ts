@@ -16,6 +16,7 @@ export const cambiarEstado: Controller = (req, res, next) => {
       const io = req.app.get('socketio') as Server
       const mapIncidente = cambiarEstadoMapper(incidente)
 
+      // TODO: Notificar usando rooms
       io.emit('server:cambio-estado', mapIncidente)
       res.json({
         mensaje: 'Incidente actualizado correctamente',

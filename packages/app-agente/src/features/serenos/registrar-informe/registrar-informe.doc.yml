@@ -20,6 +20,9 @@ paths:
                 idIncidente:
                   type: integer
                   description: Id del incidente
+                idCentroPoblado:
+                  type: integer
+                  description: Id del centro poblado
                 descripcion:
                   type: string
                   description: Descripción del evento
@@ -31,6 +34,7 @@ paths:
                     format: binary
               required:
                 - idIncidente
+                - idCentroPoblado
       responses:
         200:
           description: Registros creados correctamente
