@@ -1,4 +1,9 @@
-import { prisma, type Incidente, type Prisma, type TipoIncidente } from '@agente/database'
+import {
+  prisma,
+  type Incidente,
+  type Prisma,
+  type TipoIncidente,
+} from '@agente/database'
 import type { Estado } from '@agente/shared/types'
 
 type CrearIncidente = Prisma.IncidenteUncheckedCreateInput
@@ -41,6 +46,14 @@ export class IncidenteRepository {
       orderBy: {
         fechaCreacion: 'desc',
       },
+      include: {
+        tipoIncidente: {
+          select: {
+            idTipoIncidente: true,
+            nombre: true,
+          },
+        },
+      },
     })
   }
 
@@ -55,6 +68,12 @@ export class IncidenteRepository {
             ruta: true,
             tipo: true,
             categoria: true,
+          },
+        },
+        tipoIncidente: {
+          select: {
+            idTipoIncidente: true,
+            nombre: true,
           },
         },
       },

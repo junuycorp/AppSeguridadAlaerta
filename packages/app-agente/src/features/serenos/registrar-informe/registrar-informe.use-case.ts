@@ -24,7 +24,7 @@ export const registrarInformeUseCase = async (
   idSereno: string,
   archivos: Archivos,
 ): Promise<[IInforme, Incidente]> => {
-  const { idIncidente, idCentroPoblado, descripcion } = dto
+  const { idIncidente, idCentroPoblado, descripcion, subestado } = dto
   const informe = await SerenoRepository.registrarInforme(
     idSereno,
     idIncidente,
@@ -37,6 +37,7 @@ export const registrarInformeUseCase = async (
     incidente = await IncidenteRepository.actualizar(idIncidente, {
       idCentroPoblado,
       estado: 'TERMINADO',
+      subestado,
       fechaFinalizacion: new Date(),
     })
   } catch (error) {

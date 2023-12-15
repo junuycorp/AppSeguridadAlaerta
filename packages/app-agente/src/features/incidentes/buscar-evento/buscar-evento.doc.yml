@@ -33,6 +33,14 @@ components:
           type: string
         latitud: 
           type: string
+        tipoIncidente: 
+          type: object
+          properties: 
+            idTipoIncidente: 
+              type: integer
+              format: int32
+            nombre: 
+              type: string
         fechaCreacion: 
           type: string
           format: date-time
@@ -59,6 +67,7 @@ components:
               miniatura: 
                 type: string
                 format: nullable
+
 
 paths:
   /procesos/incidentes/buscar/{idIncidente}:
