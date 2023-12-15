@@ -2,7 +2,11 @@ import { prisma, type CentroPoblado } from '@agente/database'
 
 export class CentroPobladoRepository {
   static listar = async (): Promise<CentroPoblado[]> => {
-    return await prisma.centroPoblado.findMany()
+    return await prisma.centroPoblado.findMany({
+      orderBy: {
+        nombre: 'asc',
+      },
+    })
   }
 
   static buscarPorId = async (

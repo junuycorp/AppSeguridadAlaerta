@@ -23,6 +23,15 @@ paths:
                 idCentroPoblado:
                   type: integer
                   description: Id del centro poblado
+                subestado:
+                  type: string
+                  description: |
+                    Tipo de estado terminado
+                    - ATENDIDO: Se solucionó el problema
+                    - ARCHIVADO: No requería ninguna intervención
+                    - DERIVADO: El caso fue designado a otro organismo de seguridad
+                    - DENUNCIADO: El caso fue reportado 
+                  enum: [ATENDIDO,ARCHIVADO,DERIVADO,DENUNCIADO]
                 descripcion:
                   type: string
                   description: Descripción del evento
@@ -35,6 +44,7 @@ paths:
               required:
                 - idIncidente
                 - idCentroPoblado
+                - subestado
       responses:
         200:
           description: Registros creados correctamente
