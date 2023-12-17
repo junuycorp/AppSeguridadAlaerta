@@ -25,6 +25,16 @@ export class IncidenteRepository {
       orderBy: {
         fechaCreacion: 'desc',
       },
+      include: {
+        tipoIncidente: {
+          select: {
+            idTipoIncidente: true,
+            nombre: true,
+            descripcion: true,
+            colorMarcador: true,
+          },
+        },
+      },
     })
   }
 
@@ -83,6 +93,14 @@ export class IncidenteRepository {
   static crear = async (datos: CrearIncidente): Promise<Incidente> => {
     return await prisma.incidente.create({
       data: datos,
+      include: {
+        tipoIncidente: {
+          select: {
+            idTipoIncidente: true,
+            nombre: true,
+          },
+        },
+      },
     })
   }
 

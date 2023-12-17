@@ -189,7 +189,7 @@ model TipoIncidente {
 model ArchivoDigital {
   idArchivo         Int       @id @default(autoincrement()) @map("id_archivo")
   idIncidente       Int       @map("id_incidente")
-  ruta              String    @db.VarChar(35)
+  ruta              String    @db.VarChar(40)
   tipo              String    @db.VarChar(12) // Valores: imagen, audio, video, doc-pdf...
   categoria         String    @db.VarChar(10) // Valores: DENUNCIA, INFORME
   fechaCreacion     DateTime  @default(now()) @map("fecha_creacion")

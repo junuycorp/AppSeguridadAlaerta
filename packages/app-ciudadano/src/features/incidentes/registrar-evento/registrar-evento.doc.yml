@@ -20,15 +20,19 @@ paths:
                 idTipoIncidente:
                   description: ID del tipo de incidente
                   type: number
+                  example: 1
                 descripcion:
                   type: string
                   description: Descripción del evento
+                  example: Incidente de prueba
                 longitud:
                   type: string
                   description: Coordenada longitud del lugar evento
+                  example: "-72.946554"
                 latitud:
                   type: string
                   description: Coordenada latitud del lugar del evento
+                  example: "-11.718343"
                 archivos:
                   description: Lista de archivos por subir
                   type: array
