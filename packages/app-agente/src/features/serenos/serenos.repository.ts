@@ -69,7 +69,22 @@ export class SerenoRepository {
         idIncidente,
         idSereno,
       },
-      include: { incidente: true },
+      include: {
+        incidente: true,
+        sereno: {
+          select: {
+            persona: {
+              select: {
+                nroDocumento: true,
+                razonSocial: true,
+                apellidoPaterno: true,
+                apellidoMaterno: true,
+                nombres: true,
+              },
+            },
+          },
+        },
+      },
     })
   }
 }
