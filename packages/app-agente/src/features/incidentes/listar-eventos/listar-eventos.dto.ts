@@ -2,8 +2,6 @@ import { ESTADOS_INCIDENTE } from '@agente/shared/constants'
 import { toNumberOrUndefined } from '@agente/shared/helpers'
 import type { Flexible } from '@agente/shared/types'
 
-const estados = ['PENDIENTE', 'ATENDIDO', 'ARCHIVADO', 'DERIVADO']
-
 export class ListarEventosDto {
   private constructor(
     public fechaInicio?: Date,
@@ -21,7 +19,8 @@ export class ListarEventosDto {
     const formatFechaFin =
       fechaFin != null ? new Date(fechaFin + 'T23:59:59-05:00') : undefined
 
-    if (estado != null && !estados.includes(estado)) return ['Estado no es válido']
+    if (estado != null && !ESTADOS_INCIDENTE.includes(estado))
+      return ['Estado no es válido']
 
     return [
       undefined,
