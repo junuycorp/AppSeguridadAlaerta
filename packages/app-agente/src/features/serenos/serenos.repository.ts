@@ -60,6 +60,56 @@ export class SerenoRepository {
     })
   }
 
+  static async asignarSerenos(idIncidente: number, listaSerenos: string[]) {
+    const datosAsignar = listaSerenos.map((idSereno) => ({
+      idIncidente,
+      idSereno,
+    }))
+
+    await prisma.$transaction([
+      prisma.incidenteSereno.createMany({
+        data: datosAsignar,
+      }),
+      prisma.incidente.update({
+        where: { idIncidente },
+        data: { estado: 'ASIGNADO' },
+      }),
+    ])
+
+    const incidenteSerenos = await prisma.incidenteSereno.findMany({
+      where: { idIncidente },
+      select: {
+        idIncidente: true,
+        sereno: {
+          select: {
+            persona: {
+              select: {
+                nroDocumento: true,
+                razonSocial: true,
+                apellidoPaterno: true,
+                apellidoMaterno: true,
+                nombres: true,
+              },
+            },
+          },
+        },
+        incidente: true,
+      },
+    })
+    return incidenteSerenos.map((incidenteSereno) => {
+      const { nroDocumento, ...rest } = incidenteSereno.sereno.persona
+      return {
+        idIncidente: incidenteSereno.idIncidente,
+        sereno: {
+          idSereno: nroDocumento,
+          ...rest,
+        },
+        incidente: incidenteSereno.incidente,
+      }
+    })
+  }
+
+  // TODO: Eliminar
   static async asignarIncidente(
     idSereno: string,
     idIncidente: number,

@@ -1,0 +1,46 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+components:
+  schemas:
+    AsignarIncidenteInput:
+      type: object
+      properties:
+        idValor:
+          type: integer
+        texto:
+          type: string
+        estado:
+          type: boolean
+paths:
+  /procesos/incidentes/asignar-serenos:
+    post:
+      tags:
+        - Procesos / Incidentes
+      summary: Asignar incidente a un conjunto de serenos
+      security: []
+      requestBody:
+        description: |
+          Atributos:
+          - idIncidente: ID del incidente
+          - listaSerenos: Lista con los IDs de los serenos a asignar
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                idIncidente:
+                  type: integer
+                  example: 60
+                listaSerenos:
+                  type: array
+                  example: ["76543210","87654321"]
+      responses:
+        200:
+          description: Asignado correctamente
+        409:
+          description: ID ya se encuentra registrado
