@@ -117,4 +117,27 @@ export class IncidenteRepository {
   static listarTipos = async (): Promise<TipoIncidente[]> => {
     return await prisma.tipoIncidente.findMany()
   }
+
+  static NroTipoIncidentesPorCentroPoblado = async (
+    idCentroPoblado: number,
+  ): Promise<unknown> => {
+    // const rawSQL = `CALL spu_conteo_incidentes(${idCentroPoblado})`
+    // return await prisma.$executeRaw(rawSQL)
+    // return await prisma.$queryRaw`CALL spu_conteo_incidentes(${idCentroPoblado})`
+    // TODO: Arreglar urgente!!
+    return await prisma.$queryRaw`
+    SELECT
+        i.id_tipo_incidente as idTipoIncidente,
+        ti.nombre AS nombreTipo,
+        CAST(COUNT(i.id_tipo_incidente) AS CHAR) AS cantidad
+    FROM
+        incidente i
+        INNER JOIN tipo_incidente ti ON ti.id_tipo_incidente = i.id_tipo_incidente
+    WHERE
+        (${idCentroPoblado} = 0 AND i.id_centro_poblado IS NULL)
+        OR (${idCentroPoblado} = -1 OR i.id_centro_poblado = ${idCentroPoblado})
+    GROUP BY
+        i.id_tipo_incidente;
+`
+  }
 }
