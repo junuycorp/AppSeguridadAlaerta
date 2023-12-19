@@ -42,6 +42,11 @@ export const buscarEventoUseCase = async (idIncidente: number) => {
       archivo.miniatura = rutaMiniatura
     }),
   )
+  const serenosAsignados =
+    await IncidenteRepository.listarSerenosAsignadosAIncidente(idIncidente)
 
-  return incidente
+  return {
+    ...incidente,
+    serenosAsignados,
+  }
 }

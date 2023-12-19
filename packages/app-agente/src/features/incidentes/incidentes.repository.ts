@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import {
   prisma,
   type Incidente,
@@ -118,13 +119,39 @@ export class IncidenteRepository {
     return await prisma.tipoIncidente.findMany()
   }
 
+  static listarSerenosAsignadosAIncidente = async (idIncidente: number) => {
+    const serenos = await prisma.incidenteSereno.findMany({
+      where: { idIncidente },
+      select: {
+        sereno: {
+          select: {
+            persona: {
+              select: {
+                nroDocumento: true,
+                razonSocial: true,
+                nombres: true,
+                apellidoMaterno: true,
+                apellidoPaterno: true,
+              },
+            },
+          },
+        },
+      },
+    })
+    const mapSerenos = serenos.map((sereno) => {
+      const { nroDocumento, ...rest } = sereno.sereno.persona
+      return {
+        idSereno: nroDocumento,
+        ...rest,
+      }
+    })
+    return mapSerenos
+  }
+
   static NroTipoIncidentesPorCentroPoblado = async (
     idCentroPoblado: number,
   ): Promise<unknown> => {
-    // const rawSQL = `CALL spu_conteo_incidentes(${idCentroPoblado})`
-    // return await prisma.$executeRaw(rawSQL)
-    // return await prisma.$queryRaw`CALL spu_conteo_incidentes(${idCentroPoblado})`
-    // TODO: Arreglar urgente!!
+    // TODO: Mejorar formato. Nota: QueryRaw previene el sql inyection
     return await prisma.$queryRaw`
     SELECT
         i.id_tipo_incidente as idTipoIncidente,

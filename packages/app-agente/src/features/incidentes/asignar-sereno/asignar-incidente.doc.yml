@@ -21,6 +21,7 @@ paths:
       tags:
         - Procesos / Incidentes
       summary: Asignar incidente a un sereno
+      deprecated: true
       security: []
       requestBody:
         required: true
