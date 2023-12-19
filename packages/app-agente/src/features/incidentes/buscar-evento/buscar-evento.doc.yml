@@ -41,6 +41,21 @@ components:
               format: int32
             nombre: 
               type: string
+        serenosAsignados: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              idSereno: 
+                type: string
+              razonSocial: 
+                type: string
+              nombres: 
+                type: string
+              apellidoMaterno: 
+                type: string
+              apellidoPaterno: 
+                type: string
         fechaCreacion: 
           type: string
           format: date-time
@@ -66,7 +81,7 @@ components:
                 type: string
               miniatura: 
                 type: string
-                format: nullable
+
 
 
 paths:
