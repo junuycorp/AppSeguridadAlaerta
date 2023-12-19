@@ -1,0 +1,43 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+components:
+  schemas:
+    ConteoIncidentesInput:
+      type: object
+      properties:
+        idValor:
+          type: integer
+        texto:
+          type: string
+        estado:
+          type: boolean
+paths:
+  /procesos/incidentes/cantidad-tipos-incidentes/{idCentroPoblado}:
+    get:
+      tags:
+        - Procesos / Incidentes
+      summary: Mostrar cantidad de tipos incidentes por centro poblado
+      parameters:
+        - in: path
+          name: idCentroPoblado
+          schema:
+            type: integer
+          required: true
+          description: |
+            ID de centro poblado. Posibles valores:
+            - "-1": Seleccionar todos los centros poblados
+            - "0": Seleccionar centros poblados sin asignar (NULLs)
+            - "1, 2, 3...": Seleccionar ID de centro poblado 
+      responses:
+        200:
+          description: ID encontrado
+          # content:
+          #   application/json:
+          #     schema:
+          #       $ref: '#/components/schemas/ConteoIncidentesOutput'
+        404:
+          description: ID no encontrado
