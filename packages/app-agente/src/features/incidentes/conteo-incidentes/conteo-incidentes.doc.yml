@@ -29,9 +29,9 @@ paths:
           required: true
           description: |
             ID de centro poblado. Posibles valores:
-            - "-1": Seleccionar todos los centros poblados
-            - "0": Seleccionar centros poblados sin asignar (NULLs)
-            - "1, 2, 3...": Seleccionar ID de centro poblado 
+            - -1: Seleccionar todos los centros poblados
+            - 0: Seleccionar centros poblados sin asignar (NULLs)
+            - 1, 2, 3...: Seleccionar ID de centro poblado 
       responses:
         200:
           description: ID encontrado
