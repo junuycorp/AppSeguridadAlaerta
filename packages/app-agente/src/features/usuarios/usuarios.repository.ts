@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { prisma } from '@agente/database'
 import type { CuentaUsuario, Persona, Prisma } from '@agente/database'
 import { CustomError } from '@agente/errors'
@@ -12,10 +13,18 @@ export class UsuarioRepository {
     return await prisma.cuentaUsuario.findMany()
   }
 
-  static buscarPorId = async (nroDocumento: string): Promise<Usuario | null> => {
+  static buscarPorId = async (nroDocumento: string) => {
     return await prisma.cuentaUsuario.findUnique({
       where: { nroDocumento },
-      include: { persona: true },
+      include: {
+        persona: true,
+        perfil: {
+          select: {
+            perfilCodigo: true,
+            perfilNombre: true,
+          },
+        },
+      },
     })
   }
 

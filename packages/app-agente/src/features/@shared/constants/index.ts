@@ -7,6 +7,7 @@ export const ID = {
 
 export const VALUES = {
   sistemaPide: 'sistema-pide',
+  idPerfilSereno: 2, // ID que corresponde al perfil de sereno
 } as const
 
 export const ESTADOS_INCIDENTE = ['PENDIENTE', 'RECIBIDO', 'ASIGNADO', 'TERMINADO']
