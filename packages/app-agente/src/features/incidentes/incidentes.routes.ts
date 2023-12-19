@@ -11,12 +11,14 @@ import { asignarIncidente as asignarSerenos } from './asignar-serenos/asignar-se
 import { listarTipos } from './crud-tipos/crud-tipos.controller'
 import { conteoIncidentes } from './conteo-incidentes/conteo-incidentes.controller'
 import { listarCentrosPoblados } from '../centros-poblados/crud-centros/crud-centros.controller'
+import { listarSerenos } from './listar-serenos/listar-serenos.controller'
 
 const router = Router()
 
 router.get('/listar', listar)
 router.get('/listar/:idDenunciante', listarPorDenunciante)
 router.get('/listar-tipos', listarTipos)
+router.get('/listar-serenos', listarSerenos)
 router.get('/buscar/:idIncidente', buscarEvento)
 router.post('/registro-evento', registroEvento)
 router.patch('/cambiar-estado/:idIncidente', cambiarEstado)

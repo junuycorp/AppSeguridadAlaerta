@@ -5,6 +5,7 @@ import {
   type Prisma,
   type TipoIncidente,
 } from '@agente/database'
+import { VALUES } from '@agente/shared/constants'
 import type { Estado } from '@agente/shared/types'
 
 type CrearIncidente = Prisma.IncidenteUncheckedCreateInput
@@ -146,6 +147,30 @@ export class IncidenteRepository {
       }
     })
     return mapSerenos
+  }
+
+  static listarSerenosActivos = async () => {
+    const serenos = await prisma.cuentaUsuario.findMany({
+      where: { perfilCodigo: VALUES.idPerfilSereno, estadoRegistro: true },
+      select: {
+        persona: {
+          select: {
+            nroDocumento: true,
+            razonSocial: true,
+            nombres: true,
+            apellidoPaterno: true,
+            apellidoMaterno: true,
+          },
+        },
+      },
+    })
+    return serenos.map((sereno) => {
+      const { nroDocumento, ...rest } = sereno.persona
+      return {
+        idSereno: nroDocumento,
+        ...rest,
+      }
+    })
   }
 
   static NroTipoIncidentesPorCentroPoblado = async (

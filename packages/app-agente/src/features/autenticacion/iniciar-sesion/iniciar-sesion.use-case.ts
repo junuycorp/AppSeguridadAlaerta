@@ -42,6 +42,7 @@ export const iniciarSesionUseCase = async (
     nombres: persona.nombres,
     apellidoPaterno: persona.apellidoPaterno,
     apellidoMaterno: persona.apellidoMaterno,
+    perfil: usuario.perfil,
   }
 
   // Token

@@ -1,0 +1,19 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3301
+paths:
+  /procesos/incidentes/listar-serenos:
+    get:
+      tags:
+        - Procesos / Incidentes
+      summary: Listar serenos activos
+      responses:
+        200:
+          description: Listado correctamente
+          # content:
+          #   application/json:
+          #     schema:
+          #       # $ref: '#/components/schemas/ListarSerenosOutput'
