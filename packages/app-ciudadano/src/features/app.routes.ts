@@ -4,6 +4,7 @@ import autenticacion from './autenticacion/autenticacion.routes'
 import servicios from './servicios/servicios.routes'
 import perfiles from './perfiles/perfiles.routes'
 import incidentes from './incidentes/incidentes.routes'
+import conexion from './conexion/conexion.routes'
 
 export const appRouter = Router()
 
@@ -15,3 +16,4 @@ appRouter.use('/servicios', servicios)
 appRouter.use(autenticarUsuario)
 appRouter.use('/perfiles', perfiles)
 appRouter.use('/incidentes', incidentes)
+appRouter.use('/conexion', conexion)

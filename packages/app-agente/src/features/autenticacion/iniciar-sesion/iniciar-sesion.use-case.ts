@@ -21,6 +21,8 @@ export const iniciarSesionUseCase = async (
   // Verificar si usuario ya existe
   const usuario = await UsuarioRepository.buscarPorId(numeroDocumento)
   if (!usuario) throw CustomError.badRequest('Usuario y/o contraseña no válidos')
+  if (!usuario.estadoRegistro)
+    throw CustomError.unauthorized('Usuario se encuentra deshabilidado')
 
   // Verificar contraseña
   const esValido = bcryptAdapter.compare(contrasenia, usuario.contrasena)
@@ -46,7 +48,7 @@ export const iniciarSesionUseCase = async (
   }
 
   // Token
-  const token = await jwtAdapter.generateToken(payload, '1h')
+  const token = await jwtAdapter.generateToken(payload, '10h')
   if (token == null) throw CustomError.internalServer('Error al generar token')
 
   return {

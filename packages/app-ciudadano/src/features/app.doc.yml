@@ -6,3 +6,5 @@ tags:
     description: Consultas de información a servicios externos
   - name: Incidentes
     description: Operaciones con incidentes
+  - name: Conexion
+    description: Conexión con otro servidor backend
