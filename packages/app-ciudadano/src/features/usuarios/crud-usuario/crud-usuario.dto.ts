@@ -10,7 +10,7 @@ export interface EstadoUsuarioDto {
 export class CrudUsuarioDto {
   private constructor(
     public nroDocumento: string,
-    public contrasena: string,
+    public contrasena: string | undefined,
     public nombres: string,
     public apellidoPaterno: string,
     public apellidoMaterno: string,
@@ -37,7 +37,7 @@ export class CrudUsuarioDto {
     if (!validators.dni.test(nroDocumento))
       return ['Número de documento no es válido']
 
-    if (contrasena == null) return ['Falta proporcionar contraseña']
+    // if (contrasena == null) return ['Falta proporcionar contraseña']
     // const [esValido, mensaje] = validarContrasenia(contrasena)
     // if (!esValido && mensaje != null) return [mensaje]
 

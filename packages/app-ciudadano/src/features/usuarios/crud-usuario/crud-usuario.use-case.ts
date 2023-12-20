@@ -33,6 +33,9 @@ export const crearUseCase = async (
 ): Promise<Usuario> => {
   const { nombres, apellidoPaterno, apellidoMaterno, sexo, ...usuarioDto } = crudDto
   const razonSocial = `${nombres} ${apellidoPaterno} ${apellidoMaterno}`
+
+  if (usuarioDto.contrasena == null)
+    throw CustomError.badRequest('Falta proporcionar contraseña')
   try {
     // Crear persona si no existe
     await PersonaRepository.obtenerOCrear({
@@ -56,7 +59,7 @@ export const crearUseCase = async (
     const hashContrasenia = bcryptAdapter.hash(contrasena)
     usuarioDto.contrasena = hashContrasenia
 
-    const usuario = await UsuarioRepository.crear(usuarioDto)
+    const usuario = await UsuarioRepository.crear(usuarioDto as Usuario)
     return usuario
   } catch (error) {
     await buscarErrorCrear(usuarioDto.nroDocumento)
@@ -70,8 +73,14 @@ export const actualizarUseCase = async (
 ): Promise<Usuario> => {
   const id = crudDto.nroDocumento
   try {
-    const { apellidoMaterno, apellidoPaterno, nombres, sexo, ...datosUsuario } =
-      crudDto
+    const {
+      apellidoMaterno,
+      apellidoPaterno,
+      nombres,
+      sexo,
+      contrasena,
+      ...datosUsuario
+    } = crudDto
     const datosPersona = {
       nroDocumento: crudDto.nroDocumento,
       razonSocial: `${nombres} ${apellidoPaterno} ${apellidoMaterno}`,
@@ -82,8 +91,14 @@ export const actualizarUseCase = async (
       usuarioModificador: codUsuarioModificador,
     }
 
-    const hashContrasenia = bcryptAdapter.hash(datosUsuario.contrasena)
-    datosUsuario.contrasena = hashContrasenia
+    if (contrasena != null) {
+      const hashContrasenia = bcryptAdapter.hash(contrasena)
+      const usuario = await UsuarioRepository.actualizarUsuarioPersona(
+        datosPersona,
+        { ...datosUsuario, contrasena: hashContrasenia },
+      )
+      return usuario
+    }
 
     const usuario = await UsuarioRepository.actualizarUsuarioPersona(
       datosPersona,

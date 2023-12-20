@@ -239,6 +239,14 @@ paths:
           required: true
           description: ID de usuario
       requestBody:
+        # description: "Nota: Si contrasena es null, no será actualizada"
+        description: |
+          Parametros a enviar
+          - idDenunciante: Número de documento del usuario que reportó
+          - idTipoIncidente: ID del Tipo de incidente
+          - descripcion: Descripcion del incidente
+          - latitud: Coordenada latitud
+          - longitud: Coordenada longitud
         $ref: '#/components/requestBodies/ActualizarUsuarioInput'
 
       responses:

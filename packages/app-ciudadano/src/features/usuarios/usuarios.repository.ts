@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { prisma } from '@ciudadano/database'
 import type { CuentaUsuario, Persona, Prisma } from '@ciudadano/database'
 import { CustomError } from '@ciudadano/errors'
@@ -12,26 +13,19 @@ export class UsuarioRepository {
     return await prisma.cuentaUsuario.findMany()
   }
 
-  static buscarPorId = async (nroDocumento: string): Promise<Usuario | null> => {
-    return await prisma.cuentaUsuario.findUnique({ where: { nroDocumento } })
-  }
-
-  static crear = async (datos: CrearUsuario): Promise<Usuario> => {
-    return await prisma.cuentaUsuario.create({ data: datos })
-  }
-
-  static actualizar = async (
-    nroDocumento: string,
-    datos: ActualizarUsuario,
-  ): Promise<Usuario> => {
-    return await prisma.cuentaUsuario.update({
+  static buscarPorId = async (nroDocumento: string) => {
+    return await prisma.cuentaUsuario.findUnique({
       where: { nroDocumento },
-      data: datos,
+      include: {
+        persona: true,
+        perfil: {
+          select: {
+            perfilCodigo: true,
+            perfilNombre: true,
+          },
+        },
+      },
     })
-  }
-
-  static eliminar = async (nroDocumento: string): Promise<Usuario> => {
-    return await prisma.cuentaUsuario.delete({ where: { nroDocumento } })
   }
 
   static buscarPorCorreo = async (correo: string): Promise<Usuario | null> => {
@@ -44,22 +38,28 @@ export class UsuarioRepository {
     return await prisma.cuentaUsuario.findUnique({ where: { numeroCelular } })
   }
 
-  static actualizarUsuarioPersona = async (
-    datosPersona: Partial<Persona>,
-    datosUsuario: Partial<Usuario>,
-  ): Promise<Usuario> => {
-    return await prisma.$transaction(async (tx) => {
-      await tx.persona.update({
-        where: { nroDocumento: datosPersona.nroDocumento },
-        data: datosPersona,
-      })
-      const usuario = await tx.cuentaUsuario.update({
-        where: { nroDocumento: datosUsuario.nroDocumento },
-        data: datosUsuario,
-        include: { persona: true },
-      })
+  static crear = async (datos: CrearUsuario): Promise<Usuario> => {
+    return await prisma.cuentaUsuario.create({
+      data: datos,
+      include: { persona: true },
+    })
+  }
 
-      return usuario
+  static actualizar = async (
+    nroDocumento: string,
+    datos: ActualizarUsuario,
+  ): Promise<Usuario> => {
+    return await prisma.cuentaUsuario.update({
+      where: { nroDocumento },
+      data: datos,
+      include: { persona: true },
+    })
+  }
+
+  static eliminar = async (nroDocumento: string): Promise<Usuario> => {
+    return await prisma.cuentaUsuario.delete({
+      where: { nroDocumento },
+      include: { persona: true },
     })
   }
 
@@ -88,6 +88,25 @@ export class UsuarioRepository {
       tamanioPagina: datos.length,
       datos,
     }
+  }
+
+  static actualizarUsuarioPersona = async (
+    datosPersona: Partial<Persona>,
+    datosUsuario: Partial<Usuario>,
+  ): Promise<Usuario> => {
+    return await prisma.$transaction(async (tx) => {
+      await tx.persona.update({
+        where: { nroDocumento: datosPersona.nroDocumento },
+        data: datosPersona,
+      })
+      const usuario = await tx.cuentaUsuario.update({
+        where: { nroDocumento: datosUsuario.nroDocumento },
+        data: datosUsuario,
+        include: { persona: true },
+      })
+
+      return usuario
+    })
   }
 }
 

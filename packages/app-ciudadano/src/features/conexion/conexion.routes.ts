@@ -12,7 +12,7 @@ const router = Router()
 router.get('/usuarios/listar', listar)
 router.get('/usuarios/buscar/:nroDocumento', buscar)
 router.post('/usuarios/crear', crear)
-router.put('/usuarios/actualizar', actualizar)
-router.patch('/usuarios/cambiar-estado', cambiarEstado)
+router.put('/usuarios/actualizar/:nroDocumento', actualizar)
+router.patch('/usuarios/cambiar-estado/:nroDocumento', cambiarEstado)
 
 export default router
