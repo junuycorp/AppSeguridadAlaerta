@@ -11,9 +11,13 @@ interface ArchivoDigital {
 }
 
 interface BuscarEventoMapper
-  extends Omit<Incidente, 'fechaRecepcion' | 'fechaCreacion' | 'fechaFinalizacion'> {
+  extends Omit<
+    Incidente,
+    'fechaRecepcion' | 'fechaCreacion' | 'fechaFinalizacion' | 'fechaAsignacion'
+  > {
   fechaCreacion: string
   fechaRecepcion: string | null
+  fechaAsignacion: string | null
   fechaFinalizacion: string | null
   archivoDigital: ArchivoDigital[]
 }
@@ -26,6 +30,7 @@ export const buscarEventoMapper = (incidente: IIncidente): BuscarEventoMapper =>
   const {
     archivoDigital,
     fechaCreacion,
+    fechaAsignacion,
     fechaFinalizacion,
     fechaRecepcion,
     ...rest
@@ -39,8 +44,9 @@ export const buscarEventoMapper = (incidente: IIncidente): BuscarEventoMapper =>
   return {
     ...rest,
     fechaCreacion: formatDate(fechaCreacion)!,
-    fechaRecepcion: fechaRecepcion ? formatDate(fechaRecepcion) : null,
-    fechaFinalizacion: fechaFinalizacion ? formatDate(fechaFinalizacion) : null,
+    fechaRecepcion: formatDate(fechaRecepcion),
+    fechaAsignacion: formatDate(fechaAsignacion),
+    fechaFinalizacion: formatDate(fechaFinalizacion),
     archivoDigital: archivos,
   }
 }

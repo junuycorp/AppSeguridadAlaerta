@@ -6,6 +6,7 @@ import {
   thumbnailFromVideoToDisk,
 } from '@agente/shared/helpers'
 import { uploadsPath } from '@agente/configs'
+import { buscarPorIdService } from '@agente/features/ciudadanos/crud-ciudadanos/crud-ciudadanos.service'
 
 interface Archivo {
   idArchivo: number
@@ -45,8 +46,21 @@ export const buscarEventoUseCase = async (idIncidente: number) => {
   const serenosAsignados =
     await IncidenteRepository.listarSerenosAsignadosAIncidente(idIncidente)
 
+  const { persona, nroDocumento, correo, numeroCelular } = await buscarPorIdService(
+    incidente.idDenunciante,
+  )
+
   return {
     ...incidente,
     serenosAsignados,
+    denunciante: {
+      nroDocumento,
+      razonSocial: persona.razonSocial,
+      nombres: persona.nombres,
+      apellidoPaterno: persona.apellidoPaterno,
+      apellidoMaterno: persona.apellidoMaterno,
+      telefono: numeroCelular,
+      correo,
+    },
   }
 }

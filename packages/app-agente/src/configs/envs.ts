@@ -12,4 +12,5 @@ export const envs = {
   JUNUY_TOKEN: get('JUNUY_TOKEN').required().asString(),
   SERVICES_TOKEN: get('SERVICES_TOKEN').required().asString(),
   UPLOADS_PATH: get('UPLOADS_PATH').required().asUrlString(),
+  CIUDADANO_API: get('CIUDADANO_API').required().asUrlString(),
 }
