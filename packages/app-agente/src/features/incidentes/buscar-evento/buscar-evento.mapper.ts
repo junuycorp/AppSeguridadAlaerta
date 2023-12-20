@@ -38,7 +38,7 @@ export const buscarEventoMapper = (incidente: IIncidente): BuscarEventoMapper =>
 
   return {
     ...rest,
-    fechaCreacion: formatDate(fechaCreacion),
+    fechaCreacion: formatDate(fechaCreacion)!,
     fechaRecepcion: fechaRecepcion ? formatDate(fechaRecepcion) : null,
     fechaFinalizacion: fechaFinalizacion ? formatDate(fechaFinalizacion) : null,
     archivoDigital: archivos,

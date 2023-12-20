@@ -25,7 +25,7 @@ export const listarIncidentesMapper = (
   const { activo, fechaCreacion, ...restIncidente } = incidente
   const nuevoIncidente = {
     ...restIncidente,
-    fechaCreacion: formatDate(fechaCreacion),
+    fechaCreacion: formatDate(fechaCreacion)!,
   }
   return {
     ...restIncidenteSereno,

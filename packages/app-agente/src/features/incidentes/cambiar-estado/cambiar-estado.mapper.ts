@@ -22,7 +22,7 @@ export const cambiarEstadoMapper = (incidente: Incidente): IncidenteMapper => {
     idIncidente,
     estado,
     subestado,
-    fechaCreacion: formatDate(fechaCreacion),
+    fechaCreacion: formatDate(fechaCreacion)!,
     fechaRecepcion: fechaRecepcion ? formatDate(fechaRecepcion) : null,
     fechaFinalizacion: fechaFinalizacion ? formatDate(fechaFinalizacion) : null,
   }
