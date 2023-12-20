@@ -135,6 +135,8 @@ export class IncidenteRepository {
                 apellidoPaterno: true,
               },
             },
+            numeroCelular: true,
+            correo: true,
           },
         },
       },
@@ -144,6 +146,8 @@ export class IncidenteRepository {
       return {
         idSereno: nroDocumento,
         ...rest,
+        nroCelular: sereno.sereno.numeroCelular,
+        correo: sereno.sereno.correo,
       }
     })
     return mapSerenos
