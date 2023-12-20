@@ -1,4 +1,4 @@
-INSERT INTO dbalerta_agente.centro_poblado
+INSERT INTO centro_poblado
 (id_centro_poblado, nombre, ubicacion, extension)
 VALUES 
 (1, 'Timpia', NULL, NULL),

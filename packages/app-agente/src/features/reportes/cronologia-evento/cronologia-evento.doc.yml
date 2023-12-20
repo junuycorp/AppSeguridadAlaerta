@@ -1,0 +1,31 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+paths:
+  /reportes/incidentes/cronologia-eventos:
+    get:
+      tags:
+        - Reportes / Incidentes
+      summary: Mostrar cronologia de los eventos
+      parameters:
+        - in: query
+          name: estado
+          description: "Estado del incidente. Por defecto: Listar todos"
+          schema:
+            type: string
+            enum: [PENDIENTE,RECIBIDO,ASIGNADO,TERMINADO]
+        - in: query
+          name: idTipoIncidente
+          schema:
+            type: number
+          description: "ID del tipo incidente. Por defecto: Listar todos"
+      responses:
+        200:
+          description: Listado correctamente
+          # content:
+          #   application/json:
+          #     schema:
+          #       $ref: '#/components/schemas/CronologiaEventoOutput'

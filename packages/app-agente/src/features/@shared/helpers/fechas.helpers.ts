@@ -15,8 +15,10 @@ export const UtcToGmt = (
 }
 
 // Formatear fecha
-export const formatDate = (fecha: string | Date): string =>
-  dayjs(fecha).format('YYYY-MM-DDTHH:mm:ssZ')
+export const formatDate = (fecha: string | Date | null): string | null => {
+  if (fecha == null) return null
+  return dayjs(fecha).format('YYYY-MM-DDTHH:mm:ssZ')
+}
 
 export const obtenerAnioMesActual = (): string => {
   const ahora = new Date()

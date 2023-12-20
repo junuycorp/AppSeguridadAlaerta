@@ -82,10 +82,15 @@ export const actualizarUseCase = async (
       sexo,
       usuarioModificador: codUsuarioModificador,
     }
+
+    const hashContrasenia = bcryptAdapter.hash(datosUsuario.contrasena)
+    datosUsuario.contrasena = hashContrasenia
+
     const usuario = await UsuarioRepository.actualizarUsuarioPersona(
       datosPersona,
       datosUsuario,
     )
+
     return usuario
   } catch (error) {
     await buscarErrorActualizar(crudDto, id)
