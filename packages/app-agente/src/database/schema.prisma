@@ -31,7 +31,7 @@ model CuentaUsuario {
   estadoRegistro     Boolean           @default(true) @map("estado_registro")
   fechaCreacion      DateTime          @default(now()) @map("fecha_creacion")
   fechaModificacion  DateTime          @updatedAt @map("fecha_modificacion")
-  persona            Persona          @relation(fields: [nroDocumento], references: [nroDocumento])
+  persona            Persona           @relation(fields: [nroDocumento], references: [nroDocumento])
   perfil             Perfil            @relation(fields: [perfilCodigo], references: [perfilCodigo])
   incidenteSereno    IncidenteSereno[]
   informe            Informe[]
@@ -166,6 +166,7 @@ model Incidente {
   latitud           String
   fechaCreacion     DateTime          @default(now()) @map("fecha_creacion")
   fechaRecepcion    DateTime?         @map("fecha_recepcion")
+  fechaAsignacion   DateTime?         @map("fecha_asignacion")
   fechaFinalizacion DateTime?         @map("fecha_finalizacion")
   archivoDigital    ArchivoDigital[]
   incidenteSereno   IncidenteSereno[]

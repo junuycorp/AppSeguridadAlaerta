@@ -21,6 +21,7 @@ export const asignarIncidenteUseCase = async (
     // Actualizar estado del incidente a "ASIGNADO"
     const incidente = await IncidenteRepository.actualizar(idIncidente, {
       estado: 'ASIGNADO',
+      fechaAsignacion: new Date(),
     })
 
     return [incidenteSereno, incidente]
