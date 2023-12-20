@@ -9,7 +9,7 @@ paths:
     get:
       tags:
         - Reportes / Incidentes
-      summary: Listar valores
+      summary: Mostrar cronologia de los eventos
       parameters:
         - in: query
           name: estado
