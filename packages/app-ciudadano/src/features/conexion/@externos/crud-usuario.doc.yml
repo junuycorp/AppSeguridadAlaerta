@@ -1,0 +1,320 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3301
+components:
+
+  requestBodies:
+    UsuarioInput:
+      required: true
+      content:
+        application/json:
+          schema: 
+            type: object
+            properties: 
+              nroDocumento: 
+                type: string
+                example: 76543210
+              contrasena: 
+                type: string
+                example: str0ngP4ssword
+              correo: 
+                type: string
+                example: test@test.com
+              numeroCelular: 
+                type: string
+                example: 987654321
+              perfilCodigo: 
+                type: integer
+                format: int32
+                example: 1
+  
+    RegistrarUsuarioInput:
+      required: true
+      content:
+        application/json:
+          schema: 
+            type: object
+            properties:
+              nroDocumento: 
+                type: string
+              contrasena: 
+                type: string
+              nombres: 
+                type: string
+              apellidoMaterno: 
+                type: string
+              apellidoPaterno: 
+                type: string
+              sexo: 
+                type: string
+              perfilCodigo: 
+                type: integer
+                format: int32
+              correo: 
+                type: string
+                format: nullable
+              numeroCelular: 
+                type: string
+                format: nullable    
+
+    ActualizarUsuarioInput:
+      required: true
+      content:
+        application/json:
+          schema: 
+            type: object
+            properties:
+              contrasena: 
+                type: string
+              nombres: 
+                type: string
+              apellidoMaterno: 
+                type: string
+              apellidoPaterno: 
+                type: string
+              sexo: 
+                type: string
+              perfilCodigo: 
+                type: integer
+                format: int32
+              correo: 
+                type: string
+                format: nullable
+              numeroCelular: 
+                type: string
+                format: nullable 
+
+  schemas:
+    UsuarioOutput:
+      type: object
+      properties: 
+        nroDocumento: 
+          type: string
+        correo: 
+          type: string
+        numeroCelular: 
+          type: string
+        perfilCodigo: 
+          type: integer
+          format: int32
+        estadoRegistro: 
+          type: boolean
+    
+    ListarUsuariosOutput:
+      type: object
+      properties:
+        totalElementos:
+          type: number
+        totalPaginas:
+          type: number
+        paginaActual:
+          type: number
+        tamanioPagina:
+          type: number
+        datos:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsuarioOutput'
+
+    RegistrarUsuarioOutput:
+      type: object
+      properties:
+        mensaje: 
+          type: string
+        datos: 
+          type: object
+          properties: 
+            nroDocumento: 
+              type: string
+            correo: 
+              type: string
+              format: nullable
+            numeroCelular: 
+              type: string
+              format: nullable
+            perfilCodigo: 
+              type: integer
+              format: int32
+            estadoRegistro: 
+              type: boolean
+
+    CambiosHechosPerfilOutput:
+      type: object
+      properties:
+        mensaje:
+          type: string
+        datos:
+          $ref: '#/components/schemas/UsuarioOutput'
+paths:
+  /conexion/usuarios/listar:
+    get:
+      tags:
+        - Conexion
+      summary: Listar usuarios
+      parameters:
+        - in: query
+          name: pagina
+          schema:
+            type: integer
+          required: false
+          example: 1
+          description: "Página inicial. Valor por defecto: 1"
+        - in: query
+          name: tamanio
+          schema:
+            type: integer
+          required: false
+          example: 10
+          description: "Nro de elementos por página. Valor por defecto: 10"
+      responses:
+        200:
+          description: Listado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListarUsuariosOutput'
+        400:
+          description: Página fuera de rango
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: 'Página fuera de rango'
+
+  /conexion/usuarios/buscar/{nroDocumento}:
+    get:
+      tags:
+        - Conexion
+      summary: Buscar usuario por ID
+      parameters:
+        - in: path
+          name: nroDocumento
+          schema:
+            type: integer
+          required: true
+          description: ID de usuario
+      responses:
+        200:
+          description: ID encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsuarioOutput'
+        404:
+          description: ID no encontrado
+  
+  /conexion/usuarios/crear:
+    post:
+      tags:
+        - Conexion
+      summary: Crear usuario
+      requestBody:
+        $ref: '#/components/requestBodies/RegistrarUsuarioInput'
+      responses:
+        200:
+          description: Creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrarUsuarioOutput'
+        409:
+          description: ID ya se encuentra registrado
+  
+  /conexion/usuarios/actualizar/{nroDocumento}:
+    put:
+      tags:
+        - Conexion
+      summary: Actualizar usuario por ID
+      parameters:
+        - in: path
+          name: nroDocumento
+          schema:
+            type: integer
+          required: true
+          description: ID de usuario
+      requestBody:
+        # description: "Nota: Si contrasena es null, no será actualizada"
+        description: |
+          Parametros a enviar
+          - idDenunciante: Número de documento del usuario que reportó
+          - idTipoIncidente: ID del Tipo de incidente
+          - descripcion: Descripcion del incidente
+          - latitud: Coordenada latitud
+          - longitud: Coordenada longitud
+        $ref: '#/components/requestBodies/ActualizarUsuarioInput'
+
+      responses:
+        200:
+          description: Actualizado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CambiosHechosPerfilOutput'
+        404:
+          description: ID no encontrado
+        409:
+          description: Atributo que debe ser único ya existe
+
+  # /conexion/usuarios/eliminar/{nroDocumento}:
+  #   delete:
+  #     tags:
+  #       - Mantenimientos / Usuarios
+  #     summary: Eliminar usuario por ID
+  #     parameters:
+  #       - in: path
+  #         name: nroDocumento
+  #         schema:
+  #           type: integer
+  #         required: true
+  #         description: ID de usuario
+  #     responses:
+  #       200:
+  #         description: Eliminado correctamente
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/CambiosHechosPerfilOutput'
+  #       404:
+  #         description: ID no encontrado
+  #       409:
+  #         description: Elemento a eliminar está siendo usado
+
+  /conexion/usuarios/cambiar-estado/{nroDocumento}:
+    patch:
+      tags:
+        - Conexion
+      summary: Actualizar estado usuario por ID
+      parameters:
+        - in: path
+          name: nroDocumento
+          schema:
+            type: integer
+          required: true
+          description: ID de usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              required:
+                - estadoRegistro
+              properties:
+                estadoRegistro:
+                  type: boolean
+                  example: false
+      responses:
+        200:
+          description: Estado actualizado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CambiosHechosPerfilOutput'
+        404:
+          description: ID no encontrado

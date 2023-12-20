@@ -32,4 +32,12 @@ export class PersonaRepository {
   static eliminar = async (nroDocumento: string): Promise<Persona> => {
     return await prisma.persona.delete({ where: { nroDocumento } })
   }
+
+  static obtenerOCrear = async (datos: CrearPersona): Promise<Persona> => {
+    return await prisma.persona.upsert({
+      where: { nroDocumento: datos.nroDocumento },
+      update: {},
+      create: { ...datos },
+    })
+  }
 }
