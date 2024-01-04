@@ -31,6 +31,9 @@ export class ReporteRepository {
           },
         },
       },
+      orderBy: {
+        fechaCreacion: 'desc',
+      },
     })
     return incidentes.map((incidente) => {
       const {
