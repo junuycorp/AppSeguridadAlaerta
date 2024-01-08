@@ -12,4 +12,5 @@ export const envs = {
   JUNUY_TOKEN: get('JUNUY_TOKEN').required().asString(),
   SERVICES_TOKEN: get('SERVICES_TOKEN').required().asString(),
   SEGURIDAD_API: get('SEGURIDAD_API').required().asUrlString(),
+  SOCKETS_SERVER_TOKEN: get('SOCKETS_SERVER_TOKEN').required().asString(),
 }

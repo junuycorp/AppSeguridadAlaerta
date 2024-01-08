@@ -1,5 +1,5 @@
-import { validators } from '@agente/configs'
-import type { Flexible } from '@agente/shared/types'
+import { validators } from '@ciudadano/configs'
+import type { Flexible } from '@ciudadano/shared/types'
 
 interface Destinatario {
   nroDocumento: string
