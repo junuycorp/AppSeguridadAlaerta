@@ -8,3 +8,7 @@ tags:
     description: Operaciones con incidentes
   - name: Conexion
     description: Conexión con otro servidor backend
+  - name: Sockets / General
+    description: Eventos de propósito general
+  - name: Sockets / Chat
+    description: Eventos dedicados al chat

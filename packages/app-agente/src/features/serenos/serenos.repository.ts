@@ -72,7 +72,7 @@ export class SerenoRepository {
       }),
       prisma.incidente.update({
         where: { idIncidente },
-        data: { estado: 'ASIGNADO' },
+        data: { estado: 'ASIGNADO', fechaAsignacion: new Date() },
       }),
     ])
 

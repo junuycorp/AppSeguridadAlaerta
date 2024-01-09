@@ -1,5 +1,5 @@
 import { jwtAdapter } from '@agente/adapters'
-import { logger } from '@agente/configs'
+import { envs, logger } from '@agente/configs'
 import { prisma } from '@agente/database'
 import type { NextFunction, Request, Response } from 'express'
 import type { Socket } from 'socket.io'
@@ -35,6 +35,8 @@ export const autenticarUsuario = async (
     res.status(400).json({ mensaje })
     return
   }
+
+  // Guardando informacion de usuario
   req.headers.idUser = nroDocumento
   req.body.idUser = nroDocumento
   next()
@@ -47,6 +49,13 @@ export const socketAuth = async (
 ): Promise<void> => {
   const { auth, headers } = socket.handshake
   const token = auth.token ?? headers.authorization
+
+  // Token comunicacion entre servidores agente, ciudadano
+  if (token === envs.SOCKETS_SERVER_TOKEN) {
+    socket.handshake.auth.userId = token
+    next()
+    return
+  }
 
   const [mensaje, nroDocumento] = await validarToken(token)
   if (mensaje != null || nroDocumento == null) {

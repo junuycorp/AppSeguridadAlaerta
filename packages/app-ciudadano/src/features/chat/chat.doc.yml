@@ -1,0 +1,88 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+components:
+  schemas:
+    SocketsInput:
+      type: object
+      properties:
+        idValor:
+          type: integer
+        texto:
+          type: string
+        estado:
+          type: boolean
+paths:
+
+  server:error:
+    options:
+      tags:
+        - Sockets / General
+      summary: Recibir mensaje de error producido por cualquier otro evento
+      description: "Modo de uso: `socket.on('server:error', data => {})`"
+      responses:
+        200:
+          description: Recibido correctamente
+
+  server:enviar-mensaje:
+    options:
+      tags:
+        - Sockets / Chat
+      summary: Recibir mensaje en el cliente
+      description: "Modo de uso: `socket.on('server:enviar-mensaje', data => {})`"
+      responses:
+        200:
+          description: Recibido correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Mensaje de prueba"
+                  remitente:
+                    type: string
+                    example: "78654321"
+                  tipoRemitente:
+                    type: string
+                    example: "sereno"
+                  
+
+  client:enviar-mensaje:
+    options:
+      tags:
+        - Sockets / Chat
+      summary: Enviar mensaje del cliente
+      description: "Modo de uso: `socket.emit('client:enviar-mensaje', data)`"
+      requestBody:
+        required: true
+        description: |
+          Valores válidos:
+          - **Tipos de destinatarios:** "sereno"
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                mensaje: 
+                  type: string
+                  example: "Mensade de prueba"
+                destinatarios: 
+                  type: array
+                  items: 
+                    type: object
+                    properties: 
+                      nroDocumento: 
+                        type: string
+                        example: "78654321"
+                      tipo: 
+                        type: string
+                        example: "sereno"
+
+      responses:
+        200:
+          description: Enviado correctamente

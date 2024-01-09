@@ -13,4 +13,5 @@ export const envs = {
   SERVICES_TOKEN: get('SERVICES_TOKEN').required().asString(),
   UPLOADS_PATH: get('UPLOADS_PATH').required().asUrlString(),
   CIUDADANO_API: get('CIUDADANO_API').required().asUrlString(),
+  SOCKETS_SERVER_TOKEN: get('SOCKETS_SERVER_TOKEN').required().asString(),
 }
