@@ -85,11 +85,12 @@ components:
 
 
 paths:
-  /procesos/incidentes/buscar/{idIncidente}:
+  /conexion/incidentes/buscar/{idIncidente}:
     get:
       tags:
-        - Procesos / Incidentes
+        - Conexión
       summary: Buscar incidente por ID
+      security: []
       parameters:
         - in: path
           name: idIncidente

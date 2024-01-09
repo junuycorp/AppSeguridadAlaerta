@@ -38,7 +38,6 @@ paths:
       tags:
         - Procesos / Incidentes
       summary: Actualizar estado de incidente por ID
-      security: []
       parameters:
         - in: path
           name: idIncidente

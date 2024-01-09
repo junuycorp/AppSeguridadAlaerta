@@ -4,10 +4,9 @@ import servicios from './servicios/servicios.routes'
 import autenticacion from './autenticacion/autenticacion.routes'
 import incidentes from './incidentes/incidentes.routes'
 import serenos from './serenos/serenos.routes'
-import archivos from './archivos/archivos.routes'
 import * as perfiles from './perfiles/perfiles.routes'
 import * as usuarios from './usuarios/usuarios.routes'
-import chat from './chat/chat.routes'
+import conexion from './conexion/conexion.routes'
 import reportes from './reportes/reportes.routes'
 
 export const appRouter = Router()
@@ -15,13 +14,12 @@ export const appRouter = Router()
 // Endpoints sin token
 appRouter.use('/autenticacion', autenticacion)
 appRouter.use('/servicios', servicios)
-appRouter.use('/procesos/incidentes', incidentes)
-appRouter.use('/conexion/archivos', archivos)
-appRouter.use('/conexion/mensajes', chat)
+appRouter.use('/conexion', conexion)
 
 // Endpoints que requiren token
 appRouter.use(autenticarUsuario)
 appRouter.use('/mantenimientos/perfiles', perfiles.mantenimientos)
 appRouter.use('/mantenimientos/usuarios', usuarios.mantenimientos)
+appRouter.use('/procesos/incidentes', incidentes)
 appRouter.use('/procesos/serenos', serenos)
 appRouter.use('/reportes/incidentes', reportes)

@@ -1,0 +1,38 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3301
+paths:
+  /conexion/incidentes/listar/{idDenunciante}:
+    get:
+      tags:
+        - Conexión
+      summary: Listar incidentes por idDenunciante
+      security: []
+      parameters:
+        - in: path
+          name: idDenunciante
+          schema:
+            type: string
+          required: true
+          description: ID del denunciante
+        - in: query
+          name: tamanio
+          schema:
+            type: number
+          required: false
+          description: "Número de elementos a mostrar. Por defecto: 5"
+        - in: query
+          name: estado
+          schema:
+            type: string
+            enum: [PENDIENTE,RECIBIDO,ASIGNADO,TERMINADO]
+          required: false
+          description: "Estados del incidente. Por defecto: Listar todos"
+      responses:
+        200:
+          description: OK
+        404:
+          description: ID no encontrado

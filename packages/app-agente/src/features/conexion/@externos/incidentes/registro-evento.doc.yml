@@ -33,10 +33,10 @@ components:
         datos:
           $ref: "#/components/schemas/Incidente"
 paths:
-  /procesos/incidentes/registro-evento:
+  /conexion/incidentes/registro-evento:
     post:
       tags:
-        - Procesos / Incidentes
+        - Conexión
       summary: Reportar incidente
       security: []
       requestBody:

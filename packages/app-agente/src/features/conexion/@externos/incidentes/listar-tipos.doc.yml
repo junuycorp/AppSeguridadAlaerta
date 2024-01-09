@@ -28,11 +28,12 @@ components:
                 type: string
 
 paths:
-  /procesos/incidentes/listar-tipos:
+  /conexion/incidentes/listar-tipos:
     get:
       tags:
-        - Procesos / Incidentes
+        - Conexión
       summary: Listar tipos de incidentes
+      security: []
       responses:
         200:
           description: Listado correctamente

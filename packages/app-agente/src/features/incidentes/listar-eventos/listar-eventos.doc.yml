@@ -4,24 +4,12 @@ info:
   version: 1.0.0
 servers:
   - url: http://localhost:3301
-# components:
-  # schemas:
-    # CrudIncidenteInput:
-    #   type: object
-    #   properties:
-    #     idValor:
-    #       type: integer
-    #     texto:
-    #       type: string
-    #     estado:
-    #       type: boolean
 paths:
   /procesos/incidentes/listar:
     get:
       tags:
         - Procesos / Incidentes
       summary: Listar incidentes
-      security: []
       parameters:
         - in: query
           name: fechaInicio
@@ -57,38 +45,3 @@ paths:
           #     schema:
           #       $ref: '#/components/schemas/CrudIncidenteOutput'
 
-  /procesos/incidentes/listar/{idDenunciante}:
-    get:
-      tags:
-        - Procesos / Incidentes
-      summary: Listar incidentes por idDenunciante
-      security: []
-      parameters:
-        - in: path
-          name: idDenunciante
-          schema:
-            type: string
-          required: true
-          description: ID del denunciante
-        - in: query
-          name: tamanio
-          schema:
-            type: number
-          required: false
-          description: "Número de elementos a mostrar. Por defecto: 5"
-        - in: query
-          name: estado
-          schema:
-            type: string
-            enum: [PENDIENTE,RECIBIDO,ASIGNADO,TERMINADO]
-          required: false
-          description: "Estados del incidente. Por defecto: Listar todos"
-      responses:
-        200:
-          description: OK
-          # content:
-          #   application/json:
-          #     schema:
-          #       $ref: '#/components/schemas/ListarEventosOutput'
-        404:
-          description: ID no encontrado

@@ -14,7 +14,7 @@ export const listarTiposService = async (): Promise<TipoIncidente[]> => {
   const respuesta = await axios({
     method: 'get',
     baseURL: apiUrl,
-    url: `/procesos/incidentes/listar-tipos`,
+    url: `/conexion/incidentes/listar-tipos`,
     timeout: 15000,
   })
 

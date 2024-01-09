@@ -21,6 +21,7 @@ paths:
       tags:
         - Conexión
       summary: Crear un mensaje
+      security: []
       requestBody:
         required: true
         content:

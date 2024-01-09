@@ -26,7 +26,7 @@ export const listarEventoPorDenuncianteService = async (
   const respuesta = await axios({
     method: 'get',
     baseURL: apiUrl,
-    url: `/procesos/incidentes/listar/${idDenunciante}`,
+    url: `/conexion/incidentes/listar/${idDenunciante}`,
     timeout: 15000,
     params: {
       tamanio,

@@ -21,7 +21,6 @@ paths:
       tags:
         - Procesos / Incidentes
       summary: Mostrar cantidad de tipos incidentes por centro poblado
-      security: []
       parameters:
         - in: path
           name: idCentroPoblado
