@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { prisma } from '@agente/database'
 import { formatDate } from '@agente/shared/helpers'
+import type { Estado } from '@agente/shared/types'
 
 export class ReporteRepository {
-  static obtenerCronologia = async (estado?: string, idTipoIncidente?: number) => {
+  static obtenerCronologia = async (estado?: Estado, idTipoIncidente?: number) => {
     const incidentes = await prisma.incidente.findMany({
       where: {
         estado: { equals: estado },
@@ -57,12 +58,3 @@ export class ReporteRepository {
     })
   }
 }
-
-// {
-//   tipoIncidente: {
-//     select: {
-//       idTipoIncidente: true,
-//       nombre: true,
-//     },
-//   },
-// },

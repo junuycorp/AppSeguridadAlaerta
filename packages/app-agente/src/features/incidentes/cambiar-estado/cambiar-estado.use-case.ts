@@ -2,11 +2,11 @@ import type { Incidente } from '@agente/database'
 import { IncidenteRepository } from '../incidentes.repository'
 import type { CambiarEstadoDto } from './cambiar-estado.dto'
 import { CustomError } from '@agente/errors'
-import type { Estado } from '@agente/shared/types'
+import type { Estado, Subestado } from '@agente/shared/types'
 
 interface EstadoDto {
   estado: Estado
-  subestado: string | null
+  subestado: Subestado | null
 }
 
 export const cambiarEstadoUseCase = async (

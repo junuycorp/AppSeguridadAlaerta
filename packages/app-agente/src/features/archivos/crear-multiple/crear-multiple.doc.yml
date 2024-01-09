@@ -6,10 +6,10 @@ servers:
   - url: http://localhost:3301
 
 paths:
-  /procesos/archivos/crear-multiple:
+  /conexion/archivos/crear-multiple:
     post:
       tags:
-        - Procesos / Archivos
+        - Conexión
       summary: Crear varios archivos
       security: []
       requestBody: 

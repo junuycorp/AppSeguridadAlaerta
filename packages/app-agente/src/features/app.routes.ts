@@ -7,6 +7,7 @@ import serenos from './serenos/serenos.routes'
 import archivos from './archivos/archivos.routes'
 import * as perfiles from './perfiles/perfiles.routes'
 import * as usuarios from './usuarios/usuarios.routes'
+import chat from './chat/chat.routes'
 import reportes from './reportes/reportes.routes'
 
 export const appRouter = Router()
@@ -15,7 +16,8 @@ export const appRouter = Router()
 appRouter.use('/autenticacion', autenticacion)
 appRouter.use('/servicios', servicios)
 appRouter.use('/procesos/incidentes', incidentes)
-appRouter.use('/procesos/archivos', archivos)
+appRouter.use('/conexion/archivos', archivos)
+appRouter.use('/conexion/mensajes', chat)
 
 // Endpoints que requiren token
 appRouter.use(autenticarUsuario)

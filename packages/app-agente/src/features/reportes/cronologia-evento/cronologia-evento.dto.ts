@@ -1,10 +1,10 @@
 import { ESTADOS_INCIDENTE } from '@agente/shared/constants'
 import { toNumberOrUndefined } from '@agente/shared/helpers'
-import type { Flexible } from '@agente/shared/types'
+import type { Estado, Flexible } from '@agente/shared/types'
 
 export class CronologiaEventoDto {
   private constructor(
-    public estado?: string,
+    public estado?: Estado,
     public idTipoIncidente?: number,
   ) {}
 

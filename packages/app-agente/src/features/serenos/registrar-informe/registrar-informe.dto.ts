@@ -1,12 +1,12 @@
 import { SUBESTADOS_INCIDENTE } from '@agente/shared/constants'
 import { toNumber } from '@agente/shared/helpers'
-import type { Flexible } from '@agente/shared/types'
+import type { Flexible, Subestado } from '@agente/shared/types'
 
 export class RegistrarInformeDto {
   private constructor(
     public idIncidente: number,
     public idCentroPoblado: number,
-    public subestado: string,
+    public subestado: Subestado,
     public descripcion?: string,
   ) {}
 
@@ -18,7 +18,7 @@ export class RegistrarInformeDto {
       return ['Falta proporcionar ID del incidente']
     if (idCentroPoblado == null || idCentroPoblado === '')
       return ['Falta proporcionar ID del centro poblado']
-    if (subestado == null || subestado === '')
+    if (subestado == null || (subestado as string) === '')
       return ['Falta proporcionar subestado']
 
     if (!SUBESTADOS_INCIDENTE.includes(subestado)) return ['Subestado no es válido']

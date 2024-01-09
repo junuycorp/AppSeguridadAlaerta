@@ -62,7 +62,7 @@ export const crearMultiplesArchivos = async (
   const respuesta = await axios({
     method: 'post',
     baseURL: apiUrl,
-    url: '/procesos/archivos/crear-multiple',
+    url: '/conexion/archivos/crear-multiple',
     timeout: 15000,
     data: {
       idIncidente: datos.idIncidente,

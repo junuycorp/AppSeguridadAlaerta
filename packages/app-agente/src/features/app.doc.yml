@@ -19,17 +19,14 @@ tags:
   - name: Procesos / Serenos
     description: Operaciones de serenos
 
-  - name: Procesos / Archivos
-    description: Operaciones con archivos
-
   - name: Reportes / Incidentes
     description: Reportes de incidentes
+
+  - name: Conexión
+    description: Endpoints para comunicación entre servidores
 
   - name: Sockets / General
     description: Eventos de propósito general
     
   - name: Sockets / Chat
     description: Eventos dedicados al chat
-
-  - name: Conexión
-    description: Endpoint para comunicación entre servidores

@@ -16,7 +16,7 @@ components:
         estado:
           type: boolean
 paths:
-  /conexion/crear-mensaje:
+  /conexion/mensajes/crear:
     post:
       tags:
         - Conexión

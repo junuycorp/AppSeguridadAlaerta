@@ -3,6 +3,6 @@ import { crearMensaje } from './crear-mensaje/crear-mensaje.controller'
 
 const router = Router()
 
-router.post('/conexion/crear-mensaje', crearMensaje)
+router.post('/crear', crearMensaje)
 
 export default router
