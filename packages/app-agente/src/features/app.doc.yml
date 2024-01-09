@@ -30,3 +30,6 @@ tags:
     
   - name: Sockets / Chat
     description: Eventos dedicados al chat
+
+  - name: Conexión
+    description: Endpoint para comunicación entre servidores

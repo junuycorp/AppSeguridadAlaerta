@@ -264,8 +264,9 @@ model Mensaje {
 }
 
 enum EstadoMensaje {
-  ENVIADO
-  PENDIENTE
+  ENVIADO // Mensaje fue enviado pero no llegó al destinatario
+  RECIBIDO // Mensaje fue recibido por el destinatario
+  LEIDO // Mensaje fue leido por el destinatario
 }
 
 enum TipoRemitente {
