@@ -21,3 +21,12 @@ tags:
 
   - name: Procesos / Archivos
     description: Operaciones con archivos
+
+  - name: Reportes / Incidentes
+    description: Reportes de incidentes
+
+  - name: Sockets / General
+    description: Eventos de propósito general
+    
+  - name: Sockets / Chat
+    description: Eventos dedicados al chat

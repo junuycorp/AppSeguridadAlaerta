@@ -37,13 +37,7 @@ export const socketController = (io: Server): void => {
       socketAgente.emit('client:enviar-mensaje', dtoWithRemitente)
     })
 
-    socketAgente.on('server-agente:enviar-mensaje', (data) => {
-      // const [error, dto] = enviarMensajeDto(data)
-      // if (error != null || dto == null) {
-      //   socket.emit('server:error', { mensaje: error })
-      //   return
-      // }
-
+    socketAgente.on('server-agente:enviar-mensaje', (data: DataServerAgente) => {
       socket.emit('server:enviar-mensaje', data)
     })
 
@@ -52,4 +46,10 @@ export const socketController = (io: Server): void => {
       cacheAdapter.del(socketKey)
     })
   })
+}
+
+interface DataServerAgente {
+  mensaje: string
+  remitente: string
+  tipoRemitente: string
 }

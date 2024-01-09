@@ -3,7 +3,7 @@ import type { Flexible } from '@ciudadano/shared/types'
 
 interface Destinatario {
   nroDocumento: string
-  tipo: 'sereno' | 'ciudadano'
+  tipo: 'sereno'
 }
 
 interface EnviarMensajeDto {
@@ -48,8 +48,8 @@ export const enviarMensajeDto = (
       mensajeError = `Nro documento '${item.nroDocumento}' no es válido`
       return [mensajeError, undefined]
     }
-    if (!['sereno', 'ciudadano'].includes(item.tipo)) {
-      mensajeError = 'Tipo no es válido. Valores permitidos: sereno, ciudadano'
+    if (!['sereno'].includes(item.tipo)) {
+      mensajeError = 'Tipo no es válido. Valores permitidos: sereno'
       return [mensajeError, undefined]
     }
   }
