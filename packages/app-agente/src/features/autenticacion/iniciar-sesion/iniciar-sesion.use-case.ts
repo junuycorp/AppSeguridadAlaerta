@@ -48,7 +48,7 @@ export const iniciarSesionUseCase = async (
   }
 
   // Token
-  const token = await jwtAdapter.generateToken(payload, '10h')
+  const token = await jwtAdapter.generateToken(payload, '5h')
   if (token == null) throw CustomError.internalServer('Error al generar token')
 
   return {

@@ -31,6 +31,8 @@ export const socketController = (io: Server): void => {
               remitente: dto.remitente ?? nroDocumento,
               tipoRemitente: dto.tipoRemitente ?? 'sereno',
             })
+
+            // Guardar en BD
           }
           // TODO: Mantener en cache mensajes pendientes a usuario desconectado
         }
