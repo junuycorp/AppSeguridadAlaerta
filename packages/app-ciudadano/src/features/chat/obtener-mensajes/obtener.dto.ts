@@ -1,5 +1,5 @@
-import { ESTADOS_MENSAJE, TIPO_REMITENTE } from '@agente/shared/constants'
-import type { EstadoMensaje, Flexible, TipoRemitente } from '@agente/shared/types'
+import { ESTADOS_MENSAJE, TIPO_REMITENTE } from '@ciudadano/shared/constants'
+import type { EstadoMensaje, Flexible, TipoRemitente } from '@ciudadano/shared/types'
 
 export class ObtenerMensajeDto {
   private constructor(

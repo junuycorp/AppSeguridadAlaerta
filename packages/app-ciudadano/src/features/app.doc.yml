@@ -6,6 +6,8 @@ tags:
     description: Consultas de información a servicios externos
   - name: Incidentes
     description: Operaciones con incidentes
+  - name: Mensajes
+    description: Operaciones con mensajes (chat)
   - name: Conexion
     description: Conexión con otro servidor backend
   - name: Sockets / General

@@ -31,4 +31,25 @@ export class ChatRepository {
 
     return formatMensajes
   }
+
+  static obtenerMensajesPorDestinatario = async (
+    idDestinatario: string,
+    filtros: { estado?: $Enums.EstadoMensaje },
+  ) => {
+    const mensajes = await prisma.mensaje.findMany({
+      where: {
+        idDestinatario,
+        estado: { equals: filtros.estado },
+      },
+      orderBy: {
+        fechaEnvio: 'desc',
+      },
+    })
+    const formatMensajes = mensajes.map((mensaje) => ({
+      ...mensaje,
+      fechaEnvio: formatDate(mensaje.fechaEnvio),
+    }))
+
+    return formatMensajes
+  }
 }
