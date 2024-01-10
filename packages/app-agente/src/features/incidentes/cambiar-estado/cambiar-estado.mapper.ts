@@ -2,7 +2,7 @@ import { formatDate } from '@agente/shared/helpers'
 import type { Incidente } from '@prisma-agente/client'
 
 interface IncidenteMapper
-  extends Pick<Incidente, 'idIncidente' | 'estado' | 'subestado'> {
+  extends Pick<Incidente, 'idIncidente' | 'idDenunciante' | 'estado' | 'subestado'> {
   fechaCreacion: string
   fechaAsignacion: string | null
   fechaRecepcion: string | null
@@ -12,6 +12,7 @@ interface IncidenteMapper
 export const cambiarEstadoMapper = (incidente: Incidente): IncidenteMapper => {
   const {
     idIncidente,
+    idDenunciante,
     estado,
     subestado,
     fechaCreacion,
@@ -22,6 +23,7 @@ export const cambiarEstadoMapper = (incidente: Incidente): IncidenteMapper => {
 
   return {
     idIncidente,
+    idDenunciante,
     estado,
     subestado,
     fechaCreacion: formatDate(fechaCreacion)!,

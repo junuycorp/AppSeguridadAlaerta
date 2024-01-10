@@ -91,6 +91,8 @@ paths:
                 properties:
                   idIncidente:
                     type: number
+                  idDenunciante:
+                    type: string
                   estado:
                     type: string
                   subestado:

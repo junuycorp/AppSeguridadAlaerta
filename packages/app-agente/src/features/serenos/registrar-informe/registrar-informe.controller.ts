@@ -4,6 +4,8 @@ import { RegistrarInformeDto } from './registrar-informe.dto'
 import { registrarInformeUseCase } from './registrar-informe.use-case'
 import { registrarInformeMapper } from './registrar-informe.mapper'
 import { cambiarEstadoMapper } from '@agente/features/incidentes/cambiar-estado/cambiar-estado.mapper'
+import { getSocketIdFromUserId } from '@agente/shared/helpers'
+import { envs } from '@agente/configs'
 
 type Archivos = Express.Multer.File[] | undefined
 export const registrarInforme: Controller = (req, res, next) => {
@@ -22,6 +24,15 @@ export const registrarInforme: Controller = (req, res, next) => {
       const io = req.app.get('socketio') as Server
       // TODO: Notificar usando rooms
       io.emit('server:cambio-estado', mapIncidente)
+
+      // Notificar a ciudadano
+      const socketServerCiudadano = getSocketIdFromUserId(envs.SOCKETS_SERVER_TOKEN)
+      if (socketServerCiudadano != null) {
+        io.to(socketServerCiudadano).emit(
+          'server-agente:cambio-estado',
+          mapIncidente,
+        )
+      }
 
       // Enviar respues de peticion
       res.json({
