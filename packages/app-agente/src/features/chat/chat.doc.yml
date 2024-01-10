@@ -41,7 +41,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  idDestinatario:
+                  idIncidente:
                     type: number
                   mensaje:
                     type: string
@@ -70,7 +70,7 @@ paths:
             schema: 
               type: object
               properties:
-                idDestinatario:
+                idIncidente:
                   type: number
                 mensaje: 
                   type: string

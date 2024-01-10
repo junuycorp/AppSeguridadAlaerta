@@ -52,6 +52,7 @@ CREATE TABLE `menu_acceso` (
     `icono` VARCHAR(60) NULL,
     `ambito_acceso` VARCHAR(15) NULL,
     `mostrar_en_menu` BOOLEAN NULL DEFAULT true,
+    `estado_registro` BOOLEAN NOT NULL DEFAULT true,
     `fecha_creacion` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `fecha_modificacion` DATETIME(3) NOT NULL,
 

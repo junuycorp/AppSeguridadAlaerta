@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE `incidente` ADD COLUMN `activo` BOOLEAN NOT NULL DEFAULT true,
-    MODIFY `estado` VARCHAR(191) NOT NULL DEFAULT 'PENDIENTE';
