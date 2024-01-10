@@ -1,4 +1,4 @@
-import type { Controller, Estado } from '@agente/shared/types'
+import type { Controller, EstadoIncidente } from '@agente/shared/types'
 import { ListarIncidentesDto } from './listar-incidentes.dto'
 import { listarIncidentesPorSerenoUseCase } from './listar-incidentes.use-case'
 import { listarIncidentesMapper } from './listar-incidentes.mapper'
@@ -10,7 +10,11 @@ export const listarIncidentePorSereno: Controller = (req, res, next) => {
     res.status(400).json({ mensaje: error })
     return
   }
-  listarIncidentesPorSerenoUseCase(idSereno, dto?.estado as Estado, dto?.tamanio)
+  listarIncidentesPorSerenoUseCase(
+    idSereno,
+    dto?.estado as EstadoIncidente,
+    dto?.tamanio,
+  )
     .then((incidentes) => {
       res.json({
         totalElementos: incidentes.length,

@@ -5,14 +5,14 @@ import {
   type Informe,
   type Incidente,
 } from '@agente/database'
-import type { Estado } from '@agente/shared/types'
+import type { EstadoIncidente } from '@agente/shared/types'
 
 // type CrearIncidenteSereno = Prisma.IncidenteSerenoUncheckedCreateInput
 
 export class SerenoRepository {
   static async listarIncidentesPorSereno(
     idSereno: string,
-    estado: Estado | undefined,
+    estado: EstadoIncidente | undefined,
     tamanio: number,
   ) {
     return await prisma.incidenteSereno.findMany({

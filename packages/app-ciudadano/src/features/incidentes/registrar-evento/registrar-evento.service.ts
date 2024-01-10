@@ -41,7 +41,7 @@ export const registrarEventoService = async (
   const respuesta = await axios({
     method: 'post',
     baseURL: apiUrl,
-    url: `/procesos/incidentes/registro-evento`,
+    url: `/conexion/incidentes/registro-evento`,
     timeout: 15000,
     data: {
       idDenunciante: datos.codUsuario,
@@ -62,7 +62,7 @@ export const crearMultiplesArchivos = async (
   const respuesta = await axios({
     method: 'post',
     baseURL: apiUrl,
-    url: '/procesos/archivos/crear-multiple',
+    url: '/conexion/archivos/crear-multiple',
     timeout: 15000,
     data: {
       idIncidente: datos.idIncidente,

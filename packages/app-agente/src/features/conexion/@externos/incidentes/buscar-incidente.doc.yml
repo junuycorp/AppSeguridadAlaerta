@@ -1,0 +1,109 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+components:
+  schemas:
+    BuscarEventoOutput:
+      type: object
+      properties: 
+        idIncidente: 
+          type: integer
+          format: int32
+        idDenunciante: 
+          type: string
+        idTipoIncidente: 
+          type: integer
+          format: int32
+        idCentroPoblado: 
+          type: string
+          format: nullable
+        descripcion: 
+          type: string
+        estado: 
+          type: string
+        subestado: 
+          type: string
+          format: nullable
+        activo: 
+          type: boolean
+        longitud: 
+          type: string
+        latitud: 
+          type: string
+        tipoIncidente: 
+          type: object
+          properties: 
+            idTipoIncidente: 
+              type: integer
+              format: int32
+            nombre: 
+              type: string
+        serenosAsignados: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              idSereno: 
+                type: string
+              razonSocial: 
+                type: string
+              nombres: 
+                type: string
+              apellidoMaterno: 
+                type: string
+              apellidoPaterno: 
+                type: string
+        fechaCreacion: 
+          type: string
+          format: date-time
+        fechaRecepcion: 
+          type: string
+          format: nullable
+        fechaFinalizacion: 
+          type: string
+          format: nullable
+        archivoDigital: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              idArchivo: 
+                type: integer
+                format: int32
+              ruta: 
+                type: string
+              tipo: 
+                type: string
+              categoria: 
+                type: string
+              miniatura: 
+                type: string
+
+
+
+paths:
+  /conexion/incidentes/buscar/{idIncidente}:
+    get:
+      tags:
+        - Conexión
+      summary: Buscar incidente por ID
+      security: []
+      parameters:
+        - in: path
+          name: idIncidente
+          schema:
+            type: integer
+          required: true
+          description: ID de incidente
+      responses:
+        200:
+          description: ID encontrado. La miniatura del archivo digital puede ser un enlace o null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuscarEventoOutput'
+        404:
+          description: ID no encontrado

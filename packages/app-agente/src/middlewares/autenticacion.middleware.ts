@@ -53,6 +53,7 @@ export const socketAuth = async (
   // Token comunicacion entre servidores agente, ciudadano
   if (token === envs.SOCKETS_SERVER_TOKEN) {
     socket.handshake.auth.userId = token
+    logger.info('Servidor Ciudadano conectado correctamente (sockets)')
     next()
     return
   }

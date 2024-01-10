@@ -34,7 +34,7 @@ export const buscarPorIdService = async (
   const respuesta = await axios({
     method: 'get',
     baseURL: apiUrl,
-    url: `/procesos/incidentes/buscar/${idIncidente}`,
+    url: `/conexion/incidentes/buscar/${idIncidente}`,
     timeout: 15000,
   })
 

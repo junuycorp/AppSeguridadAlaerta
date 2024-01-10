@@ -1,4 +1,5 @@
 import { validators } from '@ciudadano/configs'
+import { toNumber } from '@ciudadano/shared/helpers'
 import type { Flexible } from '@ciudadano/shared/types'
 
 interface Destinatario {
@@ -7,6 +8,7 @@ interface Destinatario {
 }
 
 interface EnviarMensajeDto {
+  idIncidente: number
   mensaje: string
   destinatarios: Destinatario[]
   remitente?: string
@@ -17,8 +19,10 @@ export const enviarMensajeDto = (
 ): [string?, EnviarMensajeDto?] => {
   let mensajeError: string
 
-  const { mensaje, destinatarios, remitente, tipoRemitente } =
+  const { idIncidente, mensaje, destinatarios, remitente, tipoRemitente } =
     data as Flexible<EnviarMensajeDto>
+
+  if (idIncidente == null) return ['Id de incidente no proporcionado']
 
   if (mensaje == null) {
     mensajeError = 'mensaje no proporcionado'
@@ -55,6 +59,7 @@ export const enviarMensajeDto = (
   }
 
   const correctData = {
+    idIncidente: toNumber(idIncidente, 'Id de incidente'),
     mensaje,
     destinatarios,
     remitente,

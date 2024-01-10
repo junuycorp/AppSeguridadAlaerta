@@ -1,0 +1,52 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+components:
+  schemas:
+    CrearMensajeInput:
+      type: object
+      properties:
+        idValor:
+          type: integer
+        texto:
+          type: string
+        estado:
+          type: boolean
+paths:
+  /conexion/mensajes/crear:
+    post:
+      tags:
+        - Conexión
+      summary: Crear un mensaje
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                idIncidente:
+                  type: number
+                idRemitente:
+                  type: string
+                idDestinatario:
+                  type: string
+                tipoRemitente:
+                  type: string
+                mensaje:
+                  type: string
+                estado:
+                  type: string
+      responses:
+        200:
+          description: Creado correctamente
+        409:
+          description: ID ya se encuentra registrado
+
+
+
+          

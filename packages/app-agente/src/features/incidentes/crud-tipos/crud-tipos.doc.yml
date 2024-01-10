@@ -33,7 +33,6 @@ paths:
       tags:
         - Procesos / Incidentes
       summary: Listar tipos de incidentes
-      security: []
       responses:
         200:
           description: Listado correctamente

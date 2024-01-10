@@ -90,7 +90,6 @@ paths:
       tags:
         - Procesos / Incidentes
       summary: Buscar incidente por ID
-      security: []
       parameters:
         - in: path
           name: idIncidente

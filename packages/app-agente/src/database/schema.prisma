@@ -154,27 +154,42 @@ model Ubigeo {
 }
 
 model Incidente {
-  idIncidente       Int               @id @default(autoincrement()) @map("id_incidente")
-  idDenunciante     String            @map("id_denunciante") @db.VarChar(20)
-  idTipoIncidente   Int               @map("id_tipo_incidente")
-  idCentroPoblado   Int?              @map("id_centro_poblado")
-  descripcion       String            @db.Text
-  estado            String            @default("PENDIENTE") // Valores: PENDIENTE, RECIBIDO, ASIGNADO, TERMIANDO
-  subestado         String?           @db.VarChar(10) // NULL, ARCHIVADO, DERIVADO, DENUNCIADO, ATENDIDO
-  activo            Boolean           @default(true)
+  idIncidente       Int                 @id @default(autoincrement()) @map("id_incidente")
+  idDenunciante     String              @map("id_denunciante") @db.VarChar(20)
+  idTipoIncidente   Int                 @map("id_tipo_incidente")
+  idCentroPoblado   Int?                @map("id_centro_poblado")
+  descripcion       String              @db.Text
+  estado            EstadoIncidente     @default(PENDIENTE)
+  subestado         SubestadoIncidente?
+  activo            Boolean             @default(true)
   longitud          String
   latitud           String
-  fechaCreacion     DateTime          @default(now()) @map("fecha_creacion")
-  fechaRecepcion    DateTime?         @map("fecha_recepcion")
-  fechaAsignacion   DateTime?         @map("fecha_asignacion")
-  fechaFinalizacion DateTime?         @map("fecha_finalizacion")
+  fechaCreacion     DateTime            @default(now()) @map("fecha_creacion")
+  fechaRecepcion    DateTime?           @map("fecha_recepcion")
+  fechaAsignacion   DateTime?           @map("fecha_asignacion")
+  fechaFinalizacion DateTime?           @map("fecha_finalizacion")
   archivoDigital    ArchivoDigital[]
   incidenteSereno   IncidenteSereno[]
   informe           Informe[]
-  centroPoblado     CentroPoblado?    @relation(fields: [idCentroPoblado], references: [idCentroPoblado])
-  tipoIncidente     TipoIncidente     @relation(fields: [idTipoIncidente], references: [idTipoIncidente])
+  centroPoblado     CentroPoblado?      @relation(fields: [idCentroPoblado], references: [idCentroPoblado])
+  tipoIncidente     TipoIncidente       @relation(fields: [idTipoIncidente], references: [idTipoIncidente])
+  mensaje           Mensaje[]
 
   @@map("incidente")
+}
+
+enum EstadoIncidente {
+  PENDIENTE
+  RECIBIDO
+  ASIGNADO
+  TERMINADO
+}
+
+enum SubestadoIncidente {
+  ARCHIVADO
+  DERIVADO
+  DENUNCIADO
+  ATENDIDO
 }
 
 model TipoIncidente {
@@ -232,4 +247,29 @@ model CentroPoblado {
   incidente       Incidente[]
 
   @@map("centro_poblado")
+}
+
+model Mensaje {
+  idMensaje      Int           @id @default(autoincrement()) @map("id_mensaje")
+  idIncidente    Int           @map("id_incidente")
+  idRemitente    String        @map("id_remitente") @db.VarChar(20)
+  idDestinatario String        @map("id_destinatario") @db.VarChar(20)
+  tipoRemitente  TipoRemitente
+  mensaje        String        @db.Text
+  estado         EstadoMensaje
+  fechaEnvio     DateTime      @default(now()) @map("fecha_envio")
+  incidente      Incidente     @relation(fields: [idIncidente], references: [idIncidente])
+
+  @@map("mensaje")
+}
+
+enum EstadoMensaje {
+  ENVIADO // Mensaje fue enviado pero no llegó al destinatario
+  RECIBIDO // Mensaje fue recibido por el destinatario
+  LEIDO // Mensaje fue leido por el destinatario
+}
+
+enum TipoRemitente {
+  ciudadano
+  sereno
 }

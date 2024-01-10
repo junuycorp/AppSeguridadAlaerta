@@ -1,4 +1,4 @@
-import type { Controller, Estado } from '@agente/shared/types'
+import type { Controller, EstadoIncidente } from '@agente/shared/types'
 import { ListarEventosDto } from './listar-eventos.dto'
 import { listarIncidenteMapper } from './listar-eventos.mapper'
 import {
@@ -12,7 +12,7 @@ export const listar: Controller = (req, res, next) => {
     res.status(400).json({ mensaje: error })
   }
   const { fechaInicio, fechaFin, idTipoIncidente, estado } = dtoQuery!
-  listarUseCase(fechaInicio, fechaFin, idTipoIncidente, estado as Estado)
+  listarUseCase(fechaInicio, fechaFin, idTipoIncidente, estado as EstadoIncidente)
     .then((incidentes) =>
       res.json({
         totalElementos: incidentes.length,
@@ -31,7 +31,11 @@ export const listarPorDenunciante: Controller = (req, res, next) => {
     res.status(400).json({ mensaje: error })
   }
 
-  listarPorDenuncianteUseCase(idDenunciante, dto?.tamanio, dto?.estado as Estado)
+  listarPorDenuncianteUseCase(
+    idDenunciante,
+    dto?.tamanio,
+    dto?.estado as EstadoIncidente,
+  )
     .then((incidentes) =>
       res.json({
         totalElementos: incidentes.length,

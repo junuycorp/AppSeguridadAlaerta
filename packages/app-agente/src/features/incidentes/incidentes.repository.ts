@@ -6,7 +6,7 @@ import {
   type TipoIncidente,
 } from '@agente/database'
 import { VALUES } from '@agente/shared/constants'
-import type { Estado } from '@agente/shared/types'
+import type { EstadoIncidente } from '@agente/shared/types'
 
 type CrearIncidente = Prisma.IncidenteUncheckedCreateInput
 type ActualizarIncidente = Prisma.IncidenteUncheckedUpdateInput
@@ -19,7 +19,7 @@ export class IncidenteRepository {
   static listarPorDenunciante = async (
     idDenunciante: string,
     nroDenuncias: number,
-    estado: Estado | undefined,
+    estado: EstadoIncidente | undefined,
   ): Promise<Incidente[]> => {
     return await prisma.incidente.findMany({
       where: { idDenunciante, estado: { equals: estado } },
@@ -44,7 +44,7 @@ export class IncidenteRepository {
     fechaInicio: Date,
     fechaFin: Date,
     idTipoIncidente: number | undefined,
-    estado: Estado | undefined,
+    estado: EstadoIncidente | undefined,
   ): Promise<Incidente[]> => {
     return await prisma.incidente.findMany({
       where: {

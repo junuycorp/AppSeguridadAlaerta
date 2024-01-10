@@ -4,28 +4,13 @@ info:
   version: 1.0.0
 servers:
   - url: http://localhost:3301
-# components:
-#   schemas:
-#     ListarCentrosInput:
-#       type: object
-#       properties:
-#         idValor:
-#           type: integer
-#         texto:
-#           type: string
-#         estado:
-#           type: boolean
 paths:
   /procesos/incidentes/centros-poblados:
     get:
       tags:
         - Procesos / Incidentes
       summary: Listar centros poblados por orden alfabetico
-      security: []
       responses:
         200:
           description: Listado correctamente
-          # content:
-            # application/json:
-              # schema:
-                # $ref: '#/components/schemas/ListarCentrosOutput'
+

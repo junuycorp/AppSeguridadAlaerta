@@ -5,11 +5,12 @@ const JWT_SEED = envs.JWT_SEED
 
 const generateToken = async (
   payload: Record<string, unknown>,
-  duration: string = '2h',
+  // duration: string = '2h',
 ): Promise<string | null> => {
   // Transformar de callback a promesa
   return await new Promise((resolve) => {
-    jwt.sign(payload, JWT_SEED, { expiresIn: duration }, (err, token) => {
+    // jwt.sign(payload, JWT_SEED, { expiresIn: duration }, (err, token) => {
+    jwt.sign(payload, JWT_SEED, (err, token) => {
       if (err) {
         resolve(null)
         return

@@ -1,5 +1,6 @@
 import { validators } from '@agente/configs'
 import type { Flexible } from '@agente/shared/types'
+import { toNumber } from '@agente/shared/helpers'
 
 interface Destinatario {
   nroDocumento: string
@@ -7,18 +8,22 @@ interface Destinatario {
 }
 
 interface EnviarMensajeDto {
+  idIncidente: number
   mensaje: string
   destinatarios: Destinatario[]
   remitente?: string
   tipoRemitente?: 'sereno' | 'ciudadano'
 }
+
 export const enviarMensajeDto = (
   data: Record<string, unknown>,
 ): [string?, EnviarMensajeDto?] => {
   let mensajeError: string
 
-  const { mensaje, destinatarios, remitente, tipoRemitente } =
+  const { idIncidente, mensaje, destinatarios, remitente, tipoRemitente } =
     data as Flexible<EnviarMensajeDto>
+
+  if (idIncidente == null) return ['IdIncidente no proporcionado']
 
   if (mensaje == null) {
     mensajeError = 'mensaje no proporcionado'
@@ -55,6 +60,7 @@ export const enviarMensajeDto = (
   }
 
   const correctData = {
+    idIncidente: toNumber(idIncidente, 'ID de incidente'),
     mensaje,
     destinatarios,
     remitente,
