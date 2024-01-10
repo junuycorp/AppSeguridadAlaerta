@@ -3,6 +3,7 @@ import { envs, logger } from '@agente/configs'
 import { enviarMensajeDto } from '@agente/features/chat'
 import { ChatRepository } from '@agente/features/chat/chat.repository'
 import { getSocketIdFromUserId } from '@agente/shared/helpers'
+import { Prisma } from '@prisma-agente/client'
 import type { Server } from 'socket.io'
 
 export const socketController = (io: Server): void => {
@@ -29,29 +30,48 @@ export const socketController = (io: Server): void => {
           if (socketId != null) {
             const idRemitente = dto.remitente ?? nroDocumento
             const tipoRemitente = dto.tipoRemitente ?? 'sereno'
-            io.to(socketId).emit('server:enviar-mensaje', {
-              mensaje: dto.mensaje,
-              remitente: idRemitente,
-              tipoRemitente,
-            })
+            try {
+              // Guardar en base de datos
+              await ChatRepository.crearMensaje({
+                idIncidente: dto.idIncidente,
+                idRemitente,
+                idDestinatario: destinatario.nroDocumento,
+                tipoRemitente,
+                mensaje: dto.mensaje,
+                estado: 'RECIBIDO',
+              })
 
-            await ChatRepository.crearMensaje({
-              idIncidente: 84,
-              idRemitente,
-              idDestinatario: destinatario.nroDocumento,
-              tipoRemitente,
-              mensaje: dto.mensaje,
-              estado: 'RECIBIDO',
-            })
+              // Mandar mensaje
+              io.to(socketId).emit('server:enviar-mensaje', {
+                idIncidente: dto.idIncidente,
+                mensaje: dto.mensaje,
+                remitente: idRemitente,
+                tipoRemitente,
+              })
+            } catch (error) {
+              if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                if (error.code === 'P2003') {
+                  socket.emit('server:error', {
+                    mensaje: 'Id de incidente no válido',
+                  })
+                }
+              }
+            }
           } else {
-            await ChatRepository.crearMensaje({
-              idIncidente: 84,
-              idRemitente: dto.remitente ?? nroDocumento,
-              idDestinatario: destinatario.nroDocumento,
-              tipoRemitente: dto.tipoRemitente ?? 'sereno',
-              mensaje: dto.mensaje,
-              estado: 'ENVIADO',
-            })
+            try {
+              await ChatRepository.crearMensaje({
+                idIncidente: dto.idIncidente,
+                idRemitente: dto.remitente ?? nroDocumento,
+                idDestinatario: destinatario.nroDocumento,
+                tipoRemitente: dto.tipoRemitente ?? 'sereno',
+                mensaje: dto.mensaje,
+                estado: 'ENVIADO',
+              })
+            } catch (error) {
+              socket.emit('server:error', {
+                mensaje: 'Id de incidente no válido',
+              })
+            }
           }
         }
         if (destinatario.tipo === 'ciudadano') {
@@ -60,13 +80,14 @@ export const socketController = (io: Server): void => {
 
           if (socketId != null) {
             io.to(socketId).emit('server-agente:enviar-mensaje', {
+              idIncidente: dto.idIncidente,
               destinatario: destinatario.nroDocumento,
               mensaje: dto.mensaje,
               remitente: dto.remitente ?? nroDocumento,
               tipoRemitente: 'sereno',
             })
           } else {
-            logger.warn('Servidor socket de ciudadano no conectado')
+            logger.error('Servidor socket de ciudadano no conectado')
           }
         }
       })

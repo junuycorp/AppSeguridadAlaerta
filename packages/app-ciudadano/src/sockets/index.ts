@@ -5,6 +5,7 @@ import { cacheAdapter } from '@ciudadano/adapters'
 import { envs } from '@ciudadano/configs'
 import { enviarMensajeDto } from '@ciudadano/features/chat/dto/enviar-mensaje.dto'
 import { getSocketIdFromUserId } from '@ciudadano/shared/helpers/cache.helpers'
+import { crearMensajeUseCase } from '@ciudadano/features/chat/crear-mensaje/crear-mensaje.use-case'
 
 // Conectar a servidor agente
 export const socketAgente = ioServer(envs.SEGURIDAD_API, {
@@ -38,33 +39,63 @@ export const socketController = (io: Server): void => {
       socketAgente.emit('client:enviar-mensaje', dtoWithRemitente)
     })
 
-    // TODO: Corregir, deberia enviar por id y no por socket
-    socketAgente.on('server-agente:enviar-mensaje', (data: DataServerAgente) => {
-      const { mensaje, destinatario, remitente, tipoRemitente } = data
-      const socketId = getSocketIdFromUserId(destinatario)
-
-      if (socketId != null) {
-        socket.to(socketId).emit('server:enviar-mensaje', {
-          mensaje,
-          remitente,
-          tipoRemitente,
-        })
-        // Guardar en BD, estado RECIBIDO
-      } else {
-        // Guardar en BD, estado ENVIADO
-      }
-    })
-
     socket.on('disconnect', () => {
       // Remover id de cache
       cacheAdapter.del(socketKey)
     })
   })
+
+  socketAgente.on('server-agente:enviar-mensaje', async (data: DataServerAgente) => {
+    const { idIncidente, mensaje, destinatario, remitente, tipoRemitente } = data
+    const socketId = getSocketIdFromUserId(destinatario)
+
+    if (socketId != null) {
+      try {
+        // Guardar en BD, estado RECIBIDO
+        await crearMensajeUseCase({
+          idIncidente,
+          idRemitente: remitente,
+          idDestinatario: destinatario,
+          tipoRemitente,
+          mensaje,
+          estado: 'RECIBIDO',
+        })
+
+        io.to(socketId).emit('server:enviar-mensaje', {
+          idIncidente,
+          mensaje,
+          remitente,
+          tipoRemitente,
+        })
+      } catch (error) {
+        io.to(socketId).emit('server:error', {
+          mensaje: 'Id de incidente proporcionado no válido',
+        })
+      }
+    } else {
+      // Guardar en BD, estado ENVIADO
+      try {
+        await crearMensajeUseCase({
+          idIncidente,
+          idRemitente: remitente,
+          idDestinatario: destinatario,
+          tipoRemitente,
+          mensaje,
+          estado: 'ENVIADO',
+        })
+      } catch (error) {
+        // io.to(socketId).emit('server:error', {
+        //   mensaje: 'Id de incidente proporcionado no válido',
+        // })
+      }
+    }
+  })
 }
 
 interface DataServerAgente {
+  idIncidente: number
   mensaje: string
   destinatario: string
   remitente: string
-  tipoRemitente: string
+  tipoRemitente: 'sereno' | 'ciudadano'
 }
