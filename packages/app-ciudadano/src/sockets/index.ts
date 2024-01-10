@@ -2,7 +2,7 @@ import { io as ioServer } from 'socket.io-client'
 import type { Server } from 'socket.io'
 
 import { cacheAdapter } from '@ciudadano/adapters'
-import { envs } from '@ciudadano/configs'
+import { envs, logger } from '@ciudadano/configs'
 import { enviarMensajeDto } from '@ciudadano/features/chat/dto/enviar-mensaje.dto'
 import { getSocketIdFromUserId } from '@ciudadano/shared/helpers/cache.helpers'
 import { crearMensajeUseCase } from '@ciudadano/features/chat/crear-mensaje/crear-mensaje.use-case'
@@ -71,6 +71,7 @@ export const socketController = (io: Server): void => {
         io.to(socketId).emit('server:error', {
           mensaje: 'Id de incidente proporcionado no válido',
         })
+        logger.error('SOCKETSERVER', error)
       }
     } else {
       // Guardar en BD, estado ENVIADO
@@ -84,6 +85,7 @@ export const socketController = (io: Server): void => {
           estado: 'ENVIADO',
         })
       } catch (error) {
+        logger.error('SOCKETSERVER', error)
         // io.to(socketId).emit('server:error', {
         //   mensaje: 'Id de incidente proporcionado no válido',
         // })

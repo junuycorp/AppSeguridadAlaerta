@@ -12,10 +12,10 @@ export const appRouter = Router()
 // Endpoints sin token
 appRouter.use('/autenticacion', autenticacion)
 appRouter.use('/servicios', servicios)
-appRouter.use('/mensajes', mensajes)
 appRouter.use('/conexion', conexion)
 
 // Endpoints que requiren token
 appRouter.use(autenticarUsuario)
 appRouter.use('/perfiles', perfiles)
 appRouter.use('/incidentes', incidentes)
+appRouter.use('/mensajes', mensajes)

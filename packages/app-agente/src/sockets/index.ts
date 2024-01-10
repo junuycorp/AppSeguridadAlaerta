@@ -56,6 +56,7 @@ export const socketController = (io: Server): void => {
                   })
                 }
               }
+              logger.error('SOCKETSERVER', error)
             }
           } else {
             try {
@@ -71,6 +72,7 @@ export const socketController = (io: Server): void => {
               socket.emit('server:error', {
                 mensaje: 'Id de incidente no válido',
               })
+              logger.error('SOCKETSERVER', error)
             }
           }
         }
@@ -87,7 +89,9 @@ export const socketController = (io: Server): void => {
               tipoRemitente: 'sereno',
             })
           } else {
-            logger.error('Servidor socket de ciudadano no conectado')
+            const mensajeError = 'Servidor socket de ciudadano no conectado'
+            console.error(mensajeError)
+            logger.error(mensajeError)
           }
         }
       })
