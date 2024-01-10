@@ -74,3 +74,32 @@ paths:
           description: ID no encontrado
         409:
           description: Atributo que debe ser único ya existe
+
+  server:cambio-estado:
+    options:
+      tags:
+        - Sockets / Incidentes
+      summary: Recibir evento de cambio de estado (Web Monitor)
+      description: "Modo de uso: `socket.on('server:cambio-estado', data => {})`"
+      responses:
+        200:
+          description: Recibido correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idIncidente:
+                    type: number
+                  estado:
+                    type: string
+                  subestado:
+                    type: string
+                  fechaCreacion:
+                    type: string
+                  fechaAsignacion:
+                    type: string
+                  fechaRecepcion:
+                    type: string
+                  fechaFinalizacion:
+                    type: string

@@ -25,6 +25,7 @@ export const asignarIncidente: Controller = (req, res, next) => {
             notificado: false,
             mensaje: 'Sereno no se encuentra conectado',
           }
+
           // Notificar a sereno
           if (socketId != null) {
             io.to(socketId).emit('server:incidente-asignado', {
