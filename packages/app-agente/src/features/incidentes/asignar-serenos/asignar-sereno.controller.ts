@@ -4,6 +4,7 @@ import { getSocketIdFromUserId } from '@agente/shared/helpers'
 import { AsignarIncidenteDto } from './asignar-incidente.dto'
 import { asignarIncidenteUseCase } from './asignar-incidente.use-case'
 import { cambiarEstadoMapper } from '../cambiar-estado/cambiar-estado.mapper'
+import { envs } from '@agente/configs'
 
 export const asignarIncidente: Controller = (req, res, next) => {
   const [error, dto] = AsignarIncidenteDto.crear(req.body)
@@ -25,6 +26,7 @@ export const asignarIncidente: Controller = (req, res, next) => {
             notificado: false,
             mensaje: 'Sereno no se encuentra conectado',
           }
+
           // Notificar a sereno
           if (socketId != null) {
             io.to(socketId).emit('server:incidente-asignado', {
@@ -50,6 +52,15 @@ export const asignarIncidente: Controller = (req, res, next) => {
       // Notificar a todos los administradores
       // TODO: Usar rooms para especificar
       io.emit('server:cambio-estado', mapIncidente)
+
+      // Notificar a ciudadano
+      const socketServerCiudadano = getSocketIdFromUserId(envs.SOCKETS_SERVER_TOKEN)
+      if (socketServerCiudadano != null) {
+        io.to(socketServerCiudadano).emit(
+          'server-agente:cambio-estado',
+          mapIncidente,
+        )
+      }
 
       // Enviar respuesta endpoint
       res.json({

@@ -31,5 +31,8 @@ tags:
   - name: Sockets / General
     description: Eventos de propósito general
     
+  - name: Sockets / Incidentes
+    description: Eventos dedicados a los incidentes
+    
   - name: Sockets / Chat
     description: Eventos dedicados al chat

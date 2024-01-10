@@ -21,7 +21,7 @@ paths:
     options:
       tags:
         - Sockets / General
-      summary: Recibir mensaje de error producido por cualquier otro evento
+      summary: Recibir mensaje de error producido por cualquier otro evento (Web y App Sereno)
       description: "Modo de uso: `socket.on('server:error', data => {})`"
       responses:
         200:
@@ -31,7 +31,7 @@ paths:
     options:
       tags:
         - Sockets / Chat
-      summary: Recibir mensaje en el cliente
+      summary: Recibir mensaje en el cliente (App sereno)
       description: "Modo de uso: `socket.on('server:enviar-mensaje', data => {})`"
       responses:
         200:
@@ -58,7 +58,7 @@ paths:
     options:
       tags:
         - Sockets / Chat
-      summary: Enviar mensaje del cliente
+      summary: Enviar mensaje del cliente (App Sereno)
       description: "Modo de uso: `socket.emit('client:enviar-mensaje', data)`"
       requestBody:
         required: true

@@ -43,3 +43,58 @@ paths:
           description: Asignado correctamente
         409:
           description: ID ya se encuentra registrado
+
+  server:incidente-asignado:
+    options:
+      tags:
+        - Sockets / Incidentes
+      summary: Recibir evento de incidente asignado a sereno (App Sereno)
+      description: "Modo de uso: `socket.on('server:incidente-asignado', data => {})`"
+      responses:
+        200:
+          description: Recibido correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                  datos:
+                    type: object
+                    properties:
+                      idIncidente:
+                        type: number
+                      idSereno:
+                        type: string
+                      incidente:
+                        type: object
+                        properties:
+                          idIncidente:
+                            type: number
+                          idDenunciante:
+                            type: string
+                          idTipoIncidente:
+                            type: number
+                          idCentroPoblado:
+                            type: number
+                          descripcion:
+                            type: string
+                          estado:
+                            type: string
+                          subestado:
+                            type: string
+                          activo:
+                            type: boolean
+                          longitud:
+                            type: string
+                          latitud:
+                            type: string
+                          fechaCreacion:
+                            type: string
+                          fechaRecepcion:
+                            type: string
+                          fechaAsignacion:
+                            type: string
+                          fechaFinalizacion:
+                            type: string

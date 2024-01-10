@@ -1,0 +1,48 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+components:
+  schemas:
+    NotificarEstadoInput:
+      type: object
+      properties:
+        idValor:
+          type: integer
+        texto:
+          type: string
+        estado:
+          type: boolean
+paths:
+  server:cambio-estado:
+    options:
+      tags:
+        - Sockets / Incidentes
+      summary: Recibir evento de cambio de estado
+      description: "Modo de uso: `socket.on('server:cambio-estado', data => {})`"
+      responses:
+        200:
+          description: Recibido correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idIncidente:
+                    type: number
+                  idDenunciante:
+                    type: string
+                  estado:
+                    type: string
+                  subestado:
+                    type: string
+                  fechaCreacion:
+                    type: string
+                  fechaAsignacion:
+                    type: string
+                  fechaRecepcion:
+                    type: string
+                  fechaFinalizacion:
+                    type: string
