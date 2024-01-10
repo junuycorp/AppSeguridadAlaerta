@@ -1,12 +1,12 @@
 import type { Incidente } from '@agente/database'
 import { IncidenteRepository } from '../incidentes.repository'
-import type { Estado } from '@agente/shared/types'
+import type { EstadoIncidente } from '@agente/shared/types'
 
 export const listarUseCase = async (
   fechaInicio: Date = new Date('2023-01-01'),
   fechaFin: Date = new Date('2100-01-01'),
   idTipoIncidente?: number,
-  estado?: Estado,
+  estado?: EstadoIncidente,
 ): Promise<Incidente[]> => {
   const incidentes = await IncidenteRepository.listarConFiltros(
     fechaInicio,
@@ -20,7 +20,7 @@ export const listarUseCase = async (
 export const listarPorDenuncianteUseCase = async (
   idDenunciante: string,
   nroDenuncias: number = 5,
-  estado: Estado | undefined = undefined,
+  estado: EstadoIncidente | undefined = undefined,
 ): Promise<Incidente[]> => {
   const incidentes = await IncidenteRepository.listarPorDenunciante(
     idDenunciante,

@@ -1,12 +1,12 @@
 import { SUBESTADOS_INCIDENTE } from '@agente/shared/constants'
 import { toNumber } from '@agente/shared/helpers'
-import type { Flexible, Subestado } from '@agente/shared/types'
+import type { Flexible, SubestadoIncidente } from '@agente/shared/types'
 
 export class RegistrarInformeDto {
   private constructor(
     public idIncidente: number,
     public idCentroPoblado: number,
-    public subestado: Subestado,
+    public subestado: SubestadoIncidente,
     public descripcion?: string,
   ) {}
 

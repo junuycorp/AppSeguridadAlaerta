@@ -1,8 +1,9 @@
 import { Router } from 'express'
-import { crearMensaje } from './crear-mensaje/crear-mensaje.controller'
+// import { obtenerMensajes } from './obtener-mensajes/obtener.controller'
 
 const router = Router()
 
-router.post('/crear', crearMensaje)
+// Endpoint usado en procesos/serenos
+// router.get('/:idIncidente', obtenerMensajes)
 
 export default router

@@ -1,0 +1,39 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+paths:
+  /procesos/serenos/mensajes/{idIncidente}:
+    get:
+      tags:
+        - Procesos / Serenos
+      summary: Obtener mensajes por id de incidente
+      parameters:
+        - in: path
+          name: idIncidente
+          schema:
+            type: integer
+          required: true
+          description: ID de valor
+        - in: query
+          name: estado
+          schema:
+            type: string
+            enum: [ENVIADO,RECIBIDO,LEIDO]
+          required: false
+          description: Estado del mensaje. Tipo LEIDO no usado todavía
+        - in: query
+          name: tipoRemitente
+          schema:
+            type: string
+            enum: [sereno,ciudadano]
+          required: false
+          description: Tipo de remitente
+
+      responses:
+        200:
+          description: ID encontrado
+        404:
+          description: ID no encontrado

@@ -7,6 +7,7 @@ import { listarCentrosPoblados } from '../centros-poblados/crud-centros/crud-cen
 
 import { listarIncidentePorSereno } from './listar-incidentes/listar-incidentes.controller'
 import { registrarInforme } from './registrar-informe/registrar-informe.controller'
+import { obtenerMensajes } from '../chat/obtener-mensajes/obtener.controller'
 
 const router = Router()
 
@@ -23,5 +24,6 @@ router.post(
 router.get('/buscar/:idIncidente', buscarEvento)
 router.get('/tipos-incidentes', listarTipos)
 router.get('/centros-poblados', listarCentrosPoblados)
+router.get('/mensajes/:idIncidente', obtenerMensajes)
 
 export default router

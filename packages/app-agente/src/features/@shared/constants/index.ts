@@ -17,3 +17,6 @@ export const SUBESTADOS_INCIDENTE = [
   'DENUNCIADO',
   'ATENDIDO',
 ]
+
+export const ESTADOS_MENSAJE = ['ENVIADO', 'RECIBIDO', 'LEIDO']
+export const TIPO_REMITENTE = ['sereno', 'ciudadano']

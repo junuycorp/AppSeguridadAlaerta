@@ -5,11 +5,13 @@ import { buscarEvento } from '../incidentes/buscar-evento/buscar-evento.controll
 import { listarPorDenunciante } from '../incidentes/listar-eventos/listar-eventos.controller'
 import { listarTipos } from '../incidentes/crud-tipos/crud-tipos.controller'
 import { registroEvento } from '../incidentes/registro-evento/registro-evento.controller'
+import { obtenerMensajes } from '../chat/obtener-mensajes/obtener.controller'
 
 const router = Router()
 
 router.post('/archivos/crear-multiple', crearMultiple)
 router.post('/mensajes/crear', crearMensaje)
+router.get('/mensajes/:idIncidente', obtenerMensajes)
 
 router.get('/incidentes/buscar/:idIncidente', buscarEvento)
 router.get('/incidentes/listar/:idDenunciante', listarPorDenunciante)

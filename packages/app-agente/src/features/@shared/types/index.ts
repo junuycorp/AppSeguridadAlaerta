@@ -13,5 +13,8 @@ export type Optional<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>
 // Funcion controlador de express
 export type Controller = (req: Request, res: Response, next: NextFunction) => void
 
-export type Estado = 'PENDIENTE' | 'RECIBIDO' | 'ASIGNADO' | 'TERMINADO'
-export type Subestado = 'ARCHIVADO' | 'DERIVADO' | 'DENUNCIADO' | 'ATENDIDO'
+export type EstadoIncidente = 'PENDIENTE' | 'RECIBIDO' | 'ASIGNADO' | 'TERMINADO'
+export type SubestadoIncidente = 'ARCHIVADO' | 'DERIVADO' | 'DENUNCIADO' | 'ATENDIDO'
+
+export type EstadoMensaje = 'ENVIADO' | 'RECIBIDO' | 'LEIDO'
+export type TipoRemitente = 'sereno' | 'ciudadano'
