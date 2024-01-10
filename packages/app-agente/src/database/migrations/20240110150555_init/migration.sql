@@ -12,8 +12,8 @@ CREATE TABLE `configuracion` (
 CREATE TABLE `cuenta_usuario` (
     `nro_documento` VARCHAR(20) NOT NULL,
     `contrasena` VARCHAR(128) NOT NULL,
-    `correo` VARCHAR(35) NOT NULL,
-    `numero_celular` VARCHAR(11) NOT NULL,
+    `correo` VARCHAR(35) NULL,
+    `numero_celular` VARCHAR(11) NULL,
     `correo_verificado` BOOLEAN NOT NULL DEFAULT false,
     `celular_verificado` BOOLEAN NOT NULL DEFAULT false,
     `pregunta_secreta` VARCHAR(60) NULL,
@@ -52,6 +52,7 @@ CREATE TABLE `menu_acceso` (
     `icono` VARCHAR(60) NULL,
     `ambito_acceso` VARCHAR(15) NULL,
     `mostrar_en_menu` BOOLEAN NULL DEFAULT true,
+    `estado_registro` BOOLEAN NOT NULL DEFAULT true,
     `fecha_creacion` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `fecha_modificacion` DATETIME(3) NOT NULL,
 
@@ -74,6 +75,7 @@ CREATE TABLE `perfil` (
     `perfil_nombre` VARCHAR(100) NULL,
     `descripcion` VARCHAR(200) NULL,
     `icono` VARCHAR(20) NULL,
+    `notificar_evento` BOOLEAN NULL DEFAULT true,
     `estado_registro` BOOLEAN NOT NULL DEFAULT true,
     `fecha_creacion` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `fecha_modificacion` DATETIME(3) NOT NULL,
@@ -133,6 +135,94 @@ CREATE TABLE `ubigeo` (
     PRIMARY KEY (`codigo_ubigeo`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `incidente` (
+    `id_incidente` INTEGER NOT NULL AUTO_INCREMENT,
+    `id_denunciante` VARCHAR(20) NOT NULL,
+    `id_tipo_incidente` INTEGER NOT NULL,
+    `id_centro_poblado` INTEGER NULL,
+    `descripcion` TEXT NOT NULL,
+    `estado` ENUM('PENDIENTE', 'RECIBIDO', 'ASIGNADO', 'TERMINADO') NOT NULL DEFAULT 'PENDIENTE',
+    `subestado` ENUM('ARCHIVADO', 'DERIVADO', 'DENUNCIADO', 'ATENDIDO') NULL,
+    `activo` BOOLEAN NOT NULL DEFAULT true,
+    `longitud` VARCHAR(191) NOT NULL,
+    `latitud` VARCHAR(191) NOT NULL,
+    `fecha_creacion` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `fecha_recepcion` DATETIME(3) NULL,
+    `fecha_asignacion` DATETIME(3) NULL,
+    `fecha_finalizacion` DATETIME(3) NULL,
+
+    PRIMARY KEY (`id_incidente`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `tipo_incidente` (
+    `id_tipo_incidente` INTEGER NOT NULL AUTO_INCREMENT,
+    `nombre` VARCHAR(35) NOT NULL,
+    `descripcion` TEXT NULL,
+    `color_marcador` VARCHAR(9) NOT NULL DEFAULT '#cb273a',
+
+    PRIMARY KEY (`id_tipo_incidente`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `archivo_digital` (
+    `id_archivo` INTEGER NOT NULL AUTO_INCREMENT,
+    `id_incidente` INTEGER NOT NULL,
+    `ruta` VARCHAR(40) NOT NULL,
+    `tipo` VARCHAR(12) NOT NULL,
+    `categoria` VARCHAR(10) NOT NULL,
+    `fecha_creacion` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `fecha_modificacion` DATETIME(3) NOT NULL,
+
+    PRIMARY KEY (`id_archivo`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `incidente_sereno` (
+    `id_incidente` INTEGER NOT NULL,
+    `id_sereno` VARCHAR(20) NOT NULL,
+    `fecha_asignacion` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id_incidente`, `id_sereno`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `informe` (
+    `id_informe` INTEGER NOT NULL AUTO_INCREMENT,
+    `id_incidente` INTEGER NOT NULL,
+    `id_sereno` VARCHAR(20) NOT NULL,
+    `descripcion` TEXT NULL,
+    `fecha_creacion` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `fecha_modificacion` DATETIME(3) NOT NULL,
+
+    PRIMARY KEY (`id_informe`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `centro_poblado` (
+    `id_centro_poblado` INTEGER NOT NULL AUTO_INCREMENT,
+    `nombre` VARCHAR(40) NOT NULL,
+    `ubicacion` VARCHAR(100) NULL,
+    `extension` VARCHAR(50) NULL,
+
+    PRIMARY KEY (`id_centro_poblado`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `mensaje` (
+    `id_mensaje` INTEGER NOT NULL AUTO_INCREMENT,
+    `id_incidente` INTEGER NOT NULL,
+    `id_remitente` VARCHAR(20) NOT NULL,
+    `id_destinatario` VARCHAR(20) NOT NULL,
+    `tipoRemitente` ENUM('ciudadano', 'sereno') NOT NULL,
+    `mensaje` TEXT NOT NULL,
+    `estado` ENUM('ENVIADO', 'RECIBIDO', 'LEIDO') NOT NULL,
+    `fecha_envio` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id_mensaje`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `cuenta_usuario` ADD CONSTRAINT `cuenta_usuario_nro_documento_fkey` FOREIGN KEY (`nro_documento`) REFERENCES `persona`(`nro_documento`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -159,3 +249,27 @@ ALTER TABLE `persona` ADD CONSTRAINT `persona_id_tipo_persona_fkey` FOREIGN KEY 
 
 -- AddForeignKey
 ALTER TABLE `tipo_documento` ADD CONSTRAINT `tipo_documento_id_tipo_persona_fkey` FOREIGN KEY (`id_tipo_persona`) REFERENCES `tipo_persona`(`id_tipo_persona`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `incidente` ADD CONSTRAINT `incidente_id_centro_poblado_fkey` FOREIGN KEY (`id_centro_poblado`) REFERENCES `centro_poblado`(`id_centro_poblado`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `incidente` ADD CONSTRAINT `incidente_id_tipo_incidente_fkey` FOREIGN KEY (`id_tipo_incidente`) REFERENCES `tipo_incidente`(`id_tipo_incidente`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `archivo_digital` ADD CONSTRAINT `archivo_digital_id_incidente_fkey` FOREIGN KEY (`id_incidente`) REFERENCES `incidente`(`id_incidente`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `incidente_sereno` ADD CONSTRAINT `incidente_sereno_id_incidente_fkey` FOREIGN KEY (`id_incidente`) REFERENCES `incidente`(`id_incidente`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `incidente_sereno` ADD CONSTRAINT `incidente_sereno_id_sereno_fkey` FOREIGN KEY (`id_sereno`) REFERENCES `cuenta_usuario`(`nro_documento`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `informe` ADD CONSTRAINT `informe_id_incidente_fkey` FOREIGN KEY (`id_incidente`) REFERENCES `incidente`(`id_incidente`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `informe` ADD CONSTRAINT `informe_id_sereno_fkey` FOREIGN KEY (`id_sereno`) REFERENCES `cuenta_usuario`(`nro_documento`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `mensaje` ADD CONSTRAINT `mensaje_id_incidente_fkey` FOREIGN KEY (`id_incidente`) REFERENCES `incidente`(`id_incidente`) ON DELETE RESTRICT ON UPDATE CASCADE;
