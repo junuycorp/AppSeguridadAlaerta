@@ -2,11 +2,10 @@ version: "3.8"
 
 services:
   database:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
+    image: mysql:8.2
+    container_name: mysql-database
     restart: unless-stopped
     ports:
-      - "1433:1433"
+      - "3310:3306"
     environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=Admin2023
+      MYSQL_ROOT_PASSWORD: Admin2024
