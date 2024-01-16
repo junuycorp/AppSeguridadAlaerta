@@ -74,6 +74,13 @@ export class IncidenteRepository {
     return await prisma.incidente.findUnique({
       where: { idIncidente },
       include: {
+        informe: {
+          select: {
+            idInforme: true,
+            idSereno: true,
+            descripcion: true,
+          },
+        },
         archivoDigital: {
           select: {
             idArchivo: true,

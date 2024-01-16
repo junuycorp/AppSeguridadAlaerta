@@ -1,0 +1,26 @@
+{
+  "folders": [
+    {
+      "name": "Root",
+      "path": "../"
+    },
+    {
+      "name": "App-Agente",
+      "path": "../packages/app-agente"
+    },
+    {
+      "name": "App-Ciudadano",
+      "path": "../packages/app-ciudadano"
+    }
+  ],
+  "settings": {
+    "[typescript][json][jsonc]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[prisma]": {
+      "editor.defaultFormatter": "Prisma.prisma",
+      "editor.formatOnSave": true
+    }
+  }
+}
