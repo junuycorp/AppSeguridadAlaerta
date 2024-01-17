@@ -6,6 +6,7 @@ import { envs, logger } from '@ciudadano/configs'
 import { enviarMensajeDto } from '@ciudadano/features/chat/dto/enviar-mensaje.dto'
 import { getSocketIdFromUserId } from '@ciudadano/shared/helpers/cache.helpers'
 import { crearMensajeUseCase } from '@ciudadano/features/chat/crear-mensaje/crear-mensaje.use-case'
+import { type Comunicado } from '@ciudadano/features/comunicados/comunicado.interface'
 
 // Conectar a servidor agente
 export const socketAgente = ioServer(envs.SEGURIDAD_API, {
@@ -43,6 +44,10 @@ export const socketController = (io: Server): void => {
       // Remover id de cache
       cacheAdapter.del(socketKey)
     })
+  })
+
+  socketAgente.on('server-agente:notificar-ciudadanos', (data: Comunicado) => {
+    io.emit('server:enviar-comunicado', data)
   })
 
   socketAgente.on(

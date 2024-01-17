@@ -1,0 +1,34 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+components:
+  schemas:
+    NotificarInput:
+      type: object
+      properties:
+        mensaje:
+          type: integer
+        tipo:
+          type: string
+paths:
+  /procesos/comunicados/notificar-ciudadanos:
+    post:
+      tags:
+        - Procesos / Comunicados
+      summary: Notificar un comunicado a todos los ciudadanos
+      requestBody:
+        required: true
+        description: |
+          Parametros:
+          - **mensaje:** Mensaje a comunicar
+          - **tipo:** Tipo de comunicado. Valores disponibles: alerta, noticia, recomendacion
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/NotificarInput'
+      responses:
+        200:
+          description: Notificado correctamente correctamente

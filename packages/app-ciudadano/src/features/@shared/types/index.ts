@@ -17,3 +17,4 @@ export type EstadoIncidente = 'PENDIENTE' | 'RECIBIDO' | 'ASIGNADO' | 'TERMINADO
 
 export type EstadoMensaje = 'ENVIADO' | 'RECIBIDO' | 'LEIDO'
 export type TipoRemitente = 'sereno' | 'ciudadano'
+export type TipoComunicado = 'alerta' | 'noticia' | 'recomendacion'
