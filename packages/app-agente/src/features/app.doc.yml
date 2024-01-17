@@ -19,8 +19,8 @@ tags:
   - name: Procesos / Serenos
     description: Endpoints para la APP de Serenos
 
-  # - name: Procesos / Mensajes
-  #   description: Operaciones de mensajes (chat)
+  - name: Procesos / Comunicados
+    description: Operaciones con comunicados
 
   - name: Reportes / Incidentes
     description: Reportes de incidentes

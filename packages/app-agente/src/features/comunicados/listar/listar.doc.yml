@@ -1,0 +1,17 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+
+paths:
+  /procesos/comunicados/listar:
+    get:
+      tags:
+        - Procesos / Comunicados
+      summary: Listar comunicados
+      responses:
+        200:
+          description: Listado correctamente
+

@@ -35,6 +35,7 @@ model CuentaUsuario {
   perfil             Perfil            @relation(fields: [perfilCodigo], references: [perfilCodigo])
   incidenteSereno    IncidenteSereno[]
   informe            Informe[]
+  comunicado         Comunicado[]
 
   @@map("cuenta_usuario")
 }
@@ -272,4 +273,22 @@ enum EstadoMensaje {
 enum TipoRemitente {
   ciudadano
   sereno
+}
+
+model Comunicado {
+  idComunicado  Int            @id @default(autoincrement()) @map("id_comunicado")
+  tipo          TipoComunicado
+  mensaje       String         @db.Text
+  idRemitente   String         @map("id_remitente") @db.VarChar(8)
+  fechaCreacion DateTime       @default(now()) @map("fecha_creacion")
+
+  cuentaUsuario CuentaUsuario @relation(fields: [idRemitente], references: [nroDocumento])
+
+  @@map("comunicado")
+}
+
+enum TipoComunicado {
+  alerta
+  noticia
+  recomendacion
 }

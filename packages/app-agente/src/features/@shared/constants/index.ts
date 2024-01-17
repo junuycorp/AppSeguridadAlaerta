@@ -20,3 +20,4 @@ export const SUBESTADOS_INCIDENTE = [
 
 export const ESTADOS_MENSAJE = ['ENVIADO', 'RECIBIDO', 'LEIDO']
 export const TIPO_REMITENTE = ['sereno', 'ciudadano']
+export const TIPO_COMUNICADO = ['alerta', 'noticia', 'recomendacion']

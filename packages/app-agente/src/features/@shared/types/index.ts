@@ -18,3 +18,4 @@ export type SubestadoIncidente = 'ARCHIVADO' | 'DERIVADO' | 'DENUNCIADO' | 'ATEN
 
 export type EstadoMensaje = 'ENVIADO' | 'RECIBIDO' | 'LEIDO'
 export type TipoRemitente = 'sereno' | 'ciudadano'
+export type TipoComunicado = 'alerta' | 'noticia' | 'recomendacion'

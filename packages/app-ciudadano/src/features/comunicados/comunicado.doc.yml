@@ -1,0 +1,42 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+components:
+  schemas:
+    ComunicadoInput:
+      type: object
+      properties:
+        idValor:
+          type: integer
+        texto:
+          type: string
+        estado:
+          type: boolean
+paths:
+  server:enviar-comunicado:
+    options:
+      tags:
+        - Sockets / Comunicados
+      summary: Recibir comunicado en el cliente
+      description: "Modo de uso: `socket.on('server:enviar-comunicado', data => {})`"
+      responses:
+        200:
+          description: Recibido correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idComunicado:
+                    type: number
+                  idRemitente:
+                    type: string
+                  tipo:
+                    type: string
+                  mensaje:
+                    type: string
+                  fechaCreacion:
+                    type: string
