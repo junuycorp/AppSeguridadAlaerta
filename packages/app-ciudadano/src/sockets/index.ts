@@ -50,7 +50,8 @@ export const socketController = (io: Server): void => {
   socketAgente.on(
     'server-agente:notificar-ciudadanos',
     async (data: Comunicado): Promise<void> => {
-      await comunicadoUseCase(data)
+      await comunicadoUseCase(data) // Enviar notificacion
+      io.emit('server:enviar-comunicado', data) // Enviar evento
     },
   )
 

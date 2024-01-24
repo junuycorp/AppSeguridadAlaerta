@@ -19,7 +19,7 @@ paths:
   /usuarios/actualizar/push-token:
     patch:
       tags:
-        - Usuario
+        - Usuarios
       summary: Actualizar pushToken del usuario
       requestBody:
         required: true
