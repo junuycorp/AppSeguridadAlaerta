@@ -7,6 +7,7 @@ import { enviarMensajeDto } from '@ciudadano/features/chat/dto/enviar-mensaje.dt
 import { getSocketIdFromUserId } from '@ciudadano/shared/helpers/cache.helpers'
 import { crearMensajeUseCase } from '@ciudadano/features/chat/crear-mensaje/crear-mensaje.use-case'
 import { type Comunicado } from '@ciudadano/features/comunicados/comunicado.interface'
+import { comunicadoUseCase } from '@ciudadano/features/comunicados/comunicado.use-case'
 
 // Conectar a servidor agente
 export const socketAgente = ioServer(envs.SEGURIDAD_API, {
@@ -46,9 +47,12 @@ export const socketController = (io: Server): void => {
     })
   })
 
-  socketAgente.on('server-agente:notificar-ciudadanos', (data: Comunicado) => {
-    io.emit('server:enviar-comunicado', data)
-  })
+  socketAgente.on(
+    'server-agente:notificar-ciudadanos',
+    async (data: Comunicado): Promise<void> => {
+      await comunicadoUseCase(data)
+    },
+  )
 
   socketAgente.on(
     'server-agente:enviar-mensaje',

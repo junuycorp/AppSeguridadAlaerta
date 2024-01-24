@@ -13,4 +13,5 @@ export const envs = {
   SERVICES_TOKEN: get('SERVICES_TOKEN').required().asString(),
   SEGURIDAD_API: get('SEGURIDAD_API').required().asUrlString(),
   SOCKETS_SERVER_TOKEN: get('SOCKETS_SERVER_TOKEN').required().asString(),
+  EXPO_ACCESS_TOKEN: get('EXPO_ACCESS_TOKEN').required().asString(),
 }
