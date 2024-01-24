@@ -28,10 +28,11 @@ model CuentaUsuario {
   respuesta          String?  @db.VarChar(60)
   contrasenaAnterior String?  @map("contrasena_old") @db.VarChar(128)
   perfilCodigo       Int      @map("perfil_codigo")
+  pushToken          String?  @map("push_token") @db.VarChar(45)
   estadoRegistro     Boolean  @default(true) @map("estado_registro")
   fechaCreacion      DateTime @default(now()) @map("fecha_creacion")
   fechaModificacion  DateTime @updatedAt @map("fecha_modificacion")
-  persona            Persona @relation(fields: [nroDocumento], references: [nroDocumento])
+  persona            Persona  @relation(fields: [nroDocumento], references: [nroDocumento])
   perfil             Perfil   @relation(fields: [perfilCodigo], references: [perfilCodigo])
 
   @@map("cuenta_usuario")

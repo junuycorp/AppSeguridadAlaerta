@@ -108,6 +108,18 @@ export class UsuarioRepository {
       return usuario
     })
   }
+
+  static obtenerPushTokens = async () => {
+    const users = await prisma.cuentaUsuario.findMany({
+      select: { pushToken: true },
+    })
+
+    const pushTokens = users
+      .map((user) => user.pushToken)
+      .filter((pushToken) => pushToken != null)
+
+    return pushTokens
+  }
 }
 
 export interface ListarPaginacion {
