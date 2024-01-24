@@ -1,0 +1,40 @@
+openapi: 3.0.2
+info:
+  title: API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3100
+components:
+  schemas:
+    PushTokenInput:
+      type: object
+      properties:
+        idValor:
+          type: integer
+        texto:
+          type: string
+        estado:
+          type: boolean
+paths:
+  /usuarios/actualizar/push-token:
+    patch:
+      tags:
+        - Usuarios
+      summary: Actualizar pushToken del usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              required:
+                - pushToken
+              properties:
+                pushToken:
+                  type: string
+                  example: ExponentPushToken[xxxxxxxxxxxxxxxxxxxxxx]
+      responses:
+        200:
+          description: Actualizado correctamente
+        404:
+          description: ID no encontrado

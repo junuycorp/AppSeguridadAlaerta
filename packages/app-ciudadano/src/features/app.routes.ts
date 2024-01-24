@@ -6,6 +6,7 @@ import perfiles from './perfiles/perfiles.routes'
 import incidentes from './incidentes/incidentes.routes'
 import conexion from './conexion/conexion.routes'
 import mensajes from './chat/chat.routes'
+import usuarios from './usuarios/usuarios.routes'
 
 export const appRouter = Router()
 
@@ -19,3 +20,4 @@ appRouter.use(autenticarUsuario)
 appRouter.use('/perfiles', perfiles)
 appRouter.use('/incidentes', incidentes)
 appRouter.use('/mensajes', mensajes)
+appRouter.use('/usuarios', usuarios)
