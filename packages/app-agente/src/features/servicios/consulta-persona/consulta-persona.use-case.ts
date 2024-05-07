@@ -19,7 +19,7 @@ export const consultaPersonaUseCase = async (
     if (!data) throw CustomError.notFound('No se encontró a la persona')
     // Guardar en BD
     persona = await PersonaRepository.crear({
-      nroDocumento: data.numeroDocumento,
+      nroDocumento: data.nroDocumento,
       razonSocial: data.razonSocial,
       nombres: data.nombres,
       apellidoPaterno: data.apellidoPaterno,
