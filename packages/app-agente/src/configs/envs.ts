@@ -7,6 +7,8 @@ export const envs = {
   JWT_SEED: get('JWT_SEED').required().asString(),
   MAILER_EMAIL: get('MAILER_EMAIL').required().asString(),
   MAILER_PASS: get('MAILER_PASS').required().asString(),
+  MAILER_HOST: get('MAILER_HOST').required().asString(),
+  MAILER_PORT: get('MAILER_PORT').required().asPortNumber(),
   SMS_API: get('SMS_API').required().asString(),
   JUNUY_API: get('JUNUY_API').required().asString(),
   JUNUY_TOKEN: get('JUNUY_TOKEN').required().asString(),
