@@ -5,16 +5,17 @@ const MAILER_EMAIL = envs.MAILER_EMAIL
 const MAILER_PASS = envs.MAILER_PASS
 
 const transporter = createTransport({
-  service: 'gmail',
+  // service: 'gmail',
+  host: 'mail.megaseguroapp.junuy.pe',
   port: 465,
   secure: true,
   auth: {
     user: MAILER_EMAIL,
     pass: MAILER_PASS,
   },
-  tls: {
-    rejectUnauthorized: true,
-  },
+  // tls: {
+  //   rejectUnauthorized: true,
+  // },
 })
 
 const sendEmail = async (
